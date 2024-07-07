@@ -18,10 +18,16 @@ class LoginController
         if (Auth::attempt($request->only(['email', 'password']))) {
             return new JsonResponse([
                 "success" => true,
-                "user" => $request->user()
+                "user" => Auth::user(),
             ], Response::HTTP_OK);
         } else {
-            return new JsonResponse(["success" => false], Response::HTTP_FORBIDDEN);
+            return new JsonResponse(
+                [
+                    "success" => false,
+                    "message" => "Invalid email or password. Please check your credentials and try again.",
+                ],
+                Response::HTTP_FORBIDDEN
+            );
         }
     }
 }
