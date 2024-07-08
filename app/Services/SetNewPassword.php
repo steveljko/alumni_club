@@ -15,7 +15,7 @@ class SetNewPassword
      * @param \App\Http\Requests\ChangePasswordRequest
      * @return bool
      */
-    public function __invoke(User $user, ChangePasswordRequest $request): boolean
+    public function __invoke(User $user, ChangePasswordRequest $request): bool
     {
         if ($user->initial_password_changed == false) {
             $user->password = $request->password;

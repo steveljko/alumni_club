@@ -10,8 +10,35 @@ use Illuminate\Support\Facades\Auth;
 class LoginController
 {
     /**
-     * @param \App\Http\Requests\LoginRequest
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *  path="/login",
+     *  summary="User login",
+     *  description="Authenticate user and return user data",
+     *  tags={"Auth"},
+     *  @OA\RequestBody(
+     *    required=true,
+     *    @OA\JsonContent(
+     *      required={"email","password"},
+     *      @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+     *      @OA\Property(property="password", type="string", format="password", example="password123")
+     *    ),
+     *  ),
+     *  @OA\Response(
+     *    response=200,
+     *    description="User is successfully logged in.",
+     *    @OA\JsonContent(
+     *      @OA\Property(property="success", type="boolean", example=true),
+     *    )
+     *  ),
+     *  @OA\Response(
+     *    response=403,
+     *    description="Invalid email or password",
+     *    @OA\JsonContent(
+     *      @OA\Property(property="success", type="boolean", example=false),
+     *      @OA\Property(property="message", type="string", example="Invalid email or password. Please check your credentials and try again.")
+     *    )
+     *  )
+     * )
      */
     public function __invoke(LoginRequest $request): JsonResponse
     {
