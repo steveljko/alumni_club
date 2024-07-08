@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChangePasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -11,3 +12,4 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/login', LoginController::class)->name('login');
 Route::post('/register', RegisterController::class)->name('register');
+Route::post('/change-initial-password', ChangePasswordController::class)->name('change_password');
