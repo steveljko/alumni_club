@@ -13,7 +13,7 @@ class LoginController
      * @OA\Post(
      *  path="/login",
      *  summary="User login",
-     *  description="Authenticate user and return user data",
+     *  description="Authenticate user",
      *  tags={"Auth"},
      *  @OA\RequestBody(
      *    required=true,
@@ -37,8 +37,16 @@ class LoginController
      *      @OA\Property(property="success", type="boolean", example=false),
      *      @OA\Property(property="message", type="string", example="Invalid email or password. Please check your credentials and try again.")
      *    )
-     *  )
-     * )
+     *  ),
+     *  @OA\Response(
+     *   response=422,
+     *   description="Laravel validation",
+     *   @OA\JsonContent(
+     *      @OA\Property(property="message", type="string"),
+     *      @OA\Property(property="errors", type="object")
+     *   )
+     *  ),
+     * ),
      */
     public function __invoke(LoginRequest $request): JsonResponse
     {

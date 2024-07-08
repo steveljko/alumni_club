@@ -20,7 +20,7 @@
                     "Auth"
                 ],
                 "summary": "User login",
-                "description": "Authenticate user and return user data",
+                "description": "Authenticate user",
                 "operationId": "59bf7e87d4b174f5f2a41986e2db28ae",
                 "requestBody": {
                     "required": true,
@@ -78,6 +78,24 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Invalid email or password. Please check your credentials and try again."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Laravel validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
