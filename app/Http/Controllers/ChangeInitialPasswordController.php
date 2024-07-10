@@ -17,7 +17,7 @@ class ChangeInitialPasswordController extends Controller implements HasMiddlewar
     }
 
     /**
-     * @OA\PUT(
+     * @OA\Put(
      *  path="/change-initial-password",
      *  summary="Change initial user password",
      *  description="Change password on first login after using initially generated password",
@@ -25,8 +25,9 @@ class ChangeInitialPasswordController extends Controller implements HasMiddlewar
      *  @OA\RequestBody(
      *    required=true,
      *    @OA\JsonContent(
-     *      required={"password"},
-     *      @OA\Property(property="password", type="string", format="password", example="password123")
+     *      required={"password", "password_confirmation"},
+     *      @OA\Property(property="password", type="string", format="password", example="password123"),
+     *      @OA\Property(property="password_confirmation", type="string", format="password", example="password123")
      *    ),
      *  ),
      *  @OA\Response(
@@ -42,7 +43,7 @@ class ChangeInitialPasswordController extends Controller implements HasMiddlewar
      *   description="Laravel validation",
      *   @OA\JsonContent(
      *      @OA\Property(property="message", type="string"),
-     *      @OA\Property(property="errors", type="object")
+     *      @OA\Property(property="errors", type="object"),
      *   )
      *  ),
      * ),

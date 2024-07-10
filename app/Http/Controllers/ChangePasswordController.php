@@ -15,10 +15,8 @@ class ChangePasswordController extends Controller implements HasMiddleware
         return ['auth'];
     }
 
-    // TODO: Finish this
-
     /**
-     * @OA\PUT(
+     * @OA\Put(
      *  path="/change-password",
      *  summary="Change user password",
      *  description="Change password...",
@@ -26,8 +24,9 @@ class ChangePasswordController extends Controller implements HasMiddleware
      *  @OA\RequestBody(
      *    required=true,
      *    @OA\JsonContent(
-     *      required={"password"},
-     *      @OA\Property(property="password", type="string", format="password", example="password123")
+     *      required={"password", "password_confirmation"},
+     *      @OA\Property(property="password", type="string", format="password", example="password123"),
+     *      @OA\Property(property="password_confirmation", type="string", format="password", example="password123")
      *    ),
      *  ),
      *  @OA\Response(

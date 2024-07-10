@@ -22,7 +22,7 @@ class ChangeInitialPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'password' => ['required', 'string', 'min:8', 'max:256', 'confirmed'],
         ];
     }
 }
