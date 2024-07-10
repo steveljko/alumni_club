@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\InitialPasswordAlreadyChanged;
+use App\Http\Requests\ChangeInitialPasswordRequest;
 use App\Services\SetNewPassword;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Support\Facades\Auth;
 
-class ChangePasswordController extends Controller implements HasMiddleware
+class ChangeInitialPasswordController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
     {
         return ['auth'];
     }
 
-    // TODO: Finish this
-
     /**
      * @OA\PUT(
-     *  path="/change-password",
-     *  summary="Change user password",
-     *  description="Change password...",
+     *  path="/change-initial-password",
+     *  summary="Change initial user password",
+     *  description="Change password on first login after using initially generated password",
      *  tags={"Auth"},
      *  @OA\RequestBody(
      *    required=true,
@@ -35,6 +34,7 @@ class ChangePasswordController extends Controller implements HasMiddleware
      *    description="User password is changed succesfully.",
      *    @OA\JsonContent(
      *      @OA\Property(property="success", type="boolean", example=true),
+     *      @OA\Property(property="message", type="string"),
      *    )
      *  ),
      *  @OA\Response(
@@ -47,12 +47,14 @@ class ChangePasswordController extends Controller implements HasMiddleware
      *  ),
      * ),
      */
-    public function __invoke(ChangePasswordRequest $request, SetNewPassword $service): JsonResponse
+    public function __invoke(ChangeInitialPasswordRequest $request, SetNewPassword $service): JsonResponse
     {
-        if ($service(Auth::user(), $request)) {
-            return new JsonResponse(['success' => true, 'message' => 'Password changed succesfully.']);
-        } else {
-            return new JsonResponse(['success' => false, 'message' => "Something wan't wrong"]);
+        try {
+            if ($service(Auth::user(), $request)) {
+                return new JsonResponse(['success' => true, 'message' => 'Password changed succesfully.']);
+            }
+        } catch (InitialPasswordAlreadyChanged $ex) {
+            return new JsonResponse(['success' => false, 'message' => 'Initial password for this account is already changed!']);
         }
     }
 }
