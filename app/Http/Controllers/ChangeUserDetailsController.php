@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserDetails;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -75,7 +74,7 @@ class ChangeUserDetailsController extends Controller implements HasMiddleware
     public function __invoke(ChangeUserDetailsRequest $request): JsonResponse
     {
         $details = Auth::user()
-            ->details()
+            ->details
             ->update($request->validated());
 
         return new JsonResponse($details, Response::HTTP_OK);
