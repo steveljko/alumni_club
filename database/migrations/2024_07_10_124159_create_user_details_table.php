@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('uni_finish_year');
             $table->text('bio');
             $table->foreignId('user_id')->constrained();
+            $table->integer('changed')->default(false);
             $table->timestamps();
         });
     }

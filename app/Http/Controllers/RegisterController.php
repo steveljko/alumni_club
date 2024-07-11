@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserDetails;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\RegisterRequest;
@@ -53,17 +54,17 @@ class RegisterController extends Controller implements HasMiddleware
      */
     public function __invoke(RegisterRequest $request, GenerateInitialPassword $service): JsonResponse
     {
-        // TODO: Allow admin to print pdf with login credentials
-
         $data = $request->validated();
 
         [$password, $hashedPassword] = $service();
 
-        User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $hashedPassword,
         ]);
+
+        UserDetails::create(['user_id' => $user->id]);
 
         return new JsonResponse(
             [

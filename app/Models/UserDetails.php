@@ -10,7 +10,7 @@ class UserDetails extends Model
 {
     use HasFactory;
 
-    /** @var array */
+    /** @var array<int, string> */
     public $fillable = [
         'date_of_birth',
         'gender',
