@@ -64,7 +64,14 @@ class RegisterController extends Controller implements HasMiddleware
             'password' => $hashedPassword,
         ]);
 
-        UserDetails::create(['user_id' => $user->id]);
+        $user->details()->create([
+            'date_of_birth' => null,
+            'gender' => null,
+            'phone_number' => null,
+            'uni_start_year' => null,
+            'uni_finish_year' => null,
+            'bio' => null,
+        ]);
 
         return new JsonResponse(
             [
