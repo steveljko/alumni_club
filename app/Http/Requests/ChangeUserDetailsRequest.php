@@ -22,15 +22,14 @@ class ChangeUserDetailsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date_of_birth' => ['required'],
+            'date_of_birth' => ['required', 'date_format:d-m-Y'],
             'gender' => ['required'],
-            'email' => ['required'],
-            'email_visible' => ['boolean'],
-            'phone_number' => ['required'],
-            'phone_number_visible' => ['boolean'],
-            'uni_start_year' => ['boolean'],
-            'uni_finish_year' => ['boolean'],
-            'bio' => ['string', 'min:8', 'max:512'],
+            'email_visible' => ['required', 'boolean'],
+            'phone_number' => ['required', 'regex:/^\+381[0-9]{8,9}$/'],
+            'phone_number_visible' => ['required', 'boolean'],
+            'uni_start_year' => ['required', 'digits:4', 'integer'],
+            'uni_finish_year' => ['required', 'digits:4', 'integer'],
+            'bio' => ['nullable', 'string', 'min:8', 'max:512'],
         ];
     }
 }

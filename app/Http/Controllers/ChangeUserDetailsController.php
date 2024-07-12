@@ -27,7 +27,6 @@ class ChangeUserDetailsController extends Controller implements HasMiddleware
      *     required={
      *       "date_of_birth",
      *       "gender",
-     *       "email",
      *       "email_visible",
      *       "phone_number",
      *       "phone_number_visible",

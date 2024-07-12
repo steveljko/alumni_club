@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('date_of_birth');
             $table->string('gender');
-            $table->string('email');
-            $table->boolean('email_visible')->default(false);
+            $table->string('email_visible')->default(false);
             $table->string('phone_number');
             $table->boolean('phone_number_visible')->default(false);
             $table->string('uni_start_year');

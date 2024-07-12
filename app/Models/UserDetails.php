@@ -14,7 +14,6 @@ class UserDetails extends Model
     public $fillable = [
         'date_of_birth',
         'gender',
-        'email',
         'email_visible',
         'phone_number',
         'phone_number_visible',
