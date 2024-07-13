@@ -337,26 +337,6 @@
                             }
                         }
                     },
-                    "403": {
-                        "description": "Invalid email or password",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Invalid email or password. Please check your credentials and try again."
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
                     "422": {
                         "description": "Laravel validation",
                         "content": {

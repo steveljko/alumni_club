@@ -21,9 +21,9 @@ class EnsureInitialPasswordIsChanged
       return new JsonResponse([
         'success' => false,
         'message' => 'You must change initial password before working on app',
-            ], Response::HTTP_FORBIDDEN);
-        }
-
-        return $next($request);
+      ], Response::HTTP_FORBIDDEN);
     }
+
+    return $next($request);
+  }
 }
