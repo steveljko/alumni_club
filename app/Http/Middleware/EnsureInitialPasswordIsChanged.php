@@ -9,18 +9,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EnsureInitialPasswordIsChanged
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     * @param Closure(): void $next
-     */
-    public function handle(Request $request, Closure $next): JsonResponse|Response
-    {
-        if ($request->user()->initial_password_changed === false) {
-            return new JsonResponse([
-                'success' => false,
-                'message' => 'You must change initial password before working on app'
+  /**
+   * Handle an incoming request.
+   *
+   * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+   * @param  Closure(): void  $next
+   */
+  public function handle(Request $request, Closure $next): JsonResponse|Response
+  {
+    if ($request->user()->initial_password_changed === false) {
+      return new JsonResponse([
+        'success' => false,
+        'message' => 'You must change initial password before working on app',
             ], Response::HTTP_FORBIDDEN);
         }
 

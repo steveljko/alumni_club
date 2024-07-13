@@ -2,18 +2,18 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use App\Models\User;
-use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use App\Http\Requests\LoginRequest;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
+use App\Http\Requests\LoginRequest;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
 {
     /**
-     * @param array<int,mixed> $data
+     * @param  array<int,mixed>  $data
      */
     private static function makeUser(array $data = []): User
     {
@@ -27,11 +27,12 @@ class LoginControllerTest extends TestCase
     {
         return [
             'email' => $user->email,
-            'password' => 'password'
+            'password' => 'password',
         ];
     }
+
     /**
-     * @param array<int,mixed> $data
+     * @param  array<int,mixed>  $data
      */
     private static function createRequest(array $data): LoginRequest
     {
@@ -65,8 +66,8 @@ class LoginControllerTest extends TestCase
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
         $this->assertEquals([
-            "success" => true,
-            "user" => $user->toArray()
+            'success' => true,
+            'user' => $user->toArray(),
         ], $response->getData(true));
     }
 
@@ -87,8 +88,8 @@ class LoginControllerTest extends TestCase
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
         $this->assertEquals([
-            "success" => false,
-            "message" => "Invalid email or password. Please check your credentials and try again."
+            'success' => false,
+            'message' => 'Invalid email or password. Please check your credentials and try again.',
         ], $response->getData(true));
     }
 }
