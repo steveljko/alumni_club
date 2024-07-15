@@ -3,6 +3,84 @@ description: ''
 endpoints:
   -
     httpMethods:
+      - GET
+    uri: api/healthcheck
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"status":"up","services":{"database":"up","redis":"up"}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/user
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
       - POST
     uri: api/login
     metadata:
@@ -26,7 +104,7 @@ endpoints:
         name: email
         description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
         required: true
-        example: broderick33@example.com
+        example: boyle.alexys@example.net
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -35,14 +113,14 @@ endpoints:
         name: password
         description: 'Must be at least 6 characters. Must not be greater than 256 characters.'
         required: true
-        example: 'x~tEBhJU\['
+        example: '+m([km'
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      email: broderick33@example.com
-      password: 'x~tEBhJU\['
+      email: boyle.alexys@example.net
+      password: '+m([km'
     fileParameters: []
     responses: []
     responseFields: []
@@ -76,7 +154,7 @@ endpoints:
         name: name
         description: 'Must be at least 3 characters. Must not be greater than 256 characters.'
         required: true
-        example: yjksloueofiitrhhncdmyne
+        example: zmlcqplfbcitw
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -85,14 +163,14 @@ endpoints:
         name: email
         description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
         required: true
-        example: brown.clifton@example.net
+        example: tomasa28@example.net
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      name: yjksloueofiitrhhncdmyne
-      email: brown.clifton@example.net
+      name: zmlcqplfbcitw
+      email: tomasa28@example.net
     fileParameters: []
     responses: []
     responseFields: []
@@ -126,13 +204,13 @@ endpoints:
         name: password
         description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
         required: true
-        example: '=xcaoy2`eKRluW'
+        example: ~m9@3@jz9-d7y
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      password: '=xcaoy2`eKRluW'
+      password: ~m9@3@jz9-d7y
     fileParameters: []
     responses: []
     responseFields: []
@@ -205,7 +283,7 @@ endpoints:
         name: gender
         description: ''
         required: true
-        example: corrupti
+        example: ut
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -223,7 +301,7 @@ endpoints:
         name: phone_number
         description: 'Must match the regex /^\+381[0-9]{8,9}$/.'
         required: true
-        example: '+381137738726'
+        example: '+38109989198'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -232,7 +310,7 @@ endpoints:
         name: phone_number_visible
         description: ''
         required: true
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -241,7 +319,7 @@ endpoints:
         name: uni_start_year
         description: 'Must be 4 digits.'
         required: true
-        example: 19
+        example: 18
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -250,7 +328,7 @@ endpoints:
         name: uni_finish_year
         description: 'Must be 4 digits.'
         required: true
-        example: 17
+        example: 2
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -259,20 +337,20 @@ endpoints:
         name: bio
         description: 'Must be at least 8 characters. Must not be greater than 512 characters.'
         required: false
-        example: mqkhwqpzokjvhgqoqdlsptif
+        example: zcjbqrpgwdcprgwuitykq
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
       date_of_birth: 15-07-2024
-      gender: corrupti
+      gender: ut
       email_visible: false
-      phone_number: '+381137738726'
-      phone_number_visible: false
-      uni_start_year: 19
-      uni_finish_year: 17
-      bio: mqkhwqpzokjvhgqoqdlsptif
+      phone_number: '+38109989198'
+      phone_number_visible: true
+      uni_start_year: 18
+      uni_finish_year: 2
+      bio: zcjbqrpgwdcprgwuitykq
     fileParameters: []
     responses: []
     responseFields: []
@@ -306,7 +384,7 @@ endpoints:
         name: comapny_name
         description: 'Must be at least 3 characters. Must not be greater than 16 characters.'
         required: true
-        example: rlfgvftwlcbok
+        example: dhpsfpdtvelnb
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -315,7 +393,7 @@ endpoints:
         name: position
         description: 'Must be at least 3 characters. Must not be greater than 24 characters.'
         required: true
-        example: fuprpnmftqq
+        example: rqoqnvp
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -324,7 +402,7 @@ endpoints:
         name: start_date
         description: 'Must be a valid date. Must be a date before <code>end_date</code>.'
         required: true
-        example: '2003-12-21'
+        example: '2019-10-09'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -333,7 +411,7 @@ endpoints:
         name: end_date
         description: 'Must be a valid date. Must be a date after <code>start_date</code>.'
         required: true
-        example: '2084-03-04'
+        example: '2040-01-17'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -342,17 +420,17 @@ endpoints:
         name: desc
         description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
         required: false
-        example: oitgb
+        example: jiygzwxjgslpaxneetfhwyl
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      comapny_name: rlfgvftwlcbok
-      position: fuprpnmftqq
-      start_date: '2003-12-21'
-      end_date: '2084-03-04'
-      desc: oitgb
+      comapny_name: dhpsfpdtvelnb
+      position: rqoqnvp
+      start_date: '2019-10-09'
+      end_date: '2040-01-17'
+      desc: jiygzwxjgslpaxneetfhwyl
     fileParameters: []
     responses: []
     responseFields: []

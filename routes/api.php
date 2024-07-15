@@ -9,6 +9,16 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/healthcheck', function () {
+  return [
+    'status' => 'up',
+    'services' => [
+      'database' => 'up',
+      'redis' => 'up',
+    ],
+  ];
+});
+
 Route::get('/user', GetAuthenticatedUserData::class)->name('user');
 Route::post('/login', LoginController::class)->name('login');
 Route::post('/register', RegisterController::class)->name('register');

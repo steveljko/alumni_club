@@ -5,12 +5,12 @@
             "key": "baseUrl",
             "type": "string",
             "name": "string",
-            "value": "http:\/\/localhost"
+            "value": "http:\/\/localhost:8000"
         }
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "346ab027-2814-4db1-bf84-ccdc5626fbc0",
+        "_postman_id": "d4a37f69-e6cd-4d37-9d5f-00385818a84a",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -19,6 +19,102 @@
             "name": "Endpoints",
             "description": "",
             "item": [
+                {
+                    "name": "GET api\/healthcheck",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/healthcheck",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/healthcheck"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "vary",
+                                    "value": "Origin"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\"status\":\"up\",\"services\":{\"database\":\"up\",\"redis\":\"up\"}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "GET api\/user",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "vary",
+                                    "value": "Origin"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
                 {
                     "name": "POST api\/login",
                     "request": {
@@ -41,7 +137,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"broderick33@example.com\",\"password\":\"x~tEBhJU\\\\[\"}"
+                            "raw": "{\"email\":\"boyle.alexys@example.net\",\"password\":\"+m([km\"}"
                         },
                         "description": "",
                         "auth": {
@@ -72,7 +168,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"yjksloueofiitrhhncdmyne\",\"email\":\"brown.clifton@example.net\"}"
+                            "raw": "{\"name\":\"zmlcqplfbcitw\",\"email\":\"tomasa28@example.net\"}"
                         },
                         "description": "",
                         "auth": {
@@ -103,7 +199,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"password\":\"=xcaoy2`eKRluW\"}"
+                            "raw": "{\"password\":\"~m9@3@jz9-d7y\"}"
                         },
                         "description": "",
                         "auth": {
@@ -162,7 +258,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"date_of_birth\":\"15-07-2024\",\"gender\":\"corrupti\",\"email_visible\":false,\"phone_number\":\"+381137738726\",\"phone_number_visible\":false,\"uni_start_year\":19,\"uni_finish_year\":17,\"bio\":\"mqkhwqpzokjvhgqoqdlsptif\"}"
+                            "raw": "{\"date_of_birth\":\"15-07-2024\",\"gender\":\"ut\",\"email_visible\":false,\"phone_number\":\"+38109989198\",\"phone_number_visible\":true,\"uni_start_year\":18,\"uni_finish_year\":2,\"bio\":\"zcjbqrpgwdcprgwuitykq\"}"
                         },
                         "description": "",
                         "auth": {
@@ -193,7 +289,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"comapny_name\":\"rlfgvftwlcbok\",\"position\":\"fuprpnmftqq\",\"start_date\":\"2003-12-21\",\"end_date\":\"2084-03-04\",\"desc\":\"oitgb\"}"
+                            "raw": "{\"comapny_name\":\"dhpsfpdtvelnb\",\"position\":\"rqoqnvp\",\"start_date\":\"2019-10-09\",\"end_date\":\"2040-01-17\",\"desc\":\"jiygzwxjgslpaxneetfhwyl\"}"
                         },
                         "description": "",
                         "auth": {

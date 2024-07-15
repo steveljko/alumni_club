@@ -5,8 +5,64 @@ info:
   version: 1.0.0
 servers:
   -
-    url: 'http://localhost'
+    url: 'http://localhost:8000'
 paths:
+  /api/healthcheck:
+    get:
+      summary: ''
+      operationId: getApiHealthcheck
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: up
+                  services:
+                    database: up
+                    redis: up
+                properties:
+                  status:
+                    type: string
+                    example: up
+                  services:
+                    type: object
+                    properties:
+                      database:
+                        type: string
+                        example: up
+                      redis:
+                        type: string
+                        example: up
+      tags:
+        - Endpoints
+      security: []
+  /api/user:
+    get:
+      summary: ''
+      operationId: getApiUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
   /api/login:
     post:
       summary: ''
@@ -26,11 +82,11 @@ paths:
                 email:
                   type: string
                   description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: broderick33@example.com
+                  example: boyle.alexys@example.net
                 password:
                   type: string
                   description: 'Must be at least 6 characters. Must not be greater than 256 characters.'
-                  example: 'x~tEBhJU\['
+                  example: '+m([km'
               required:
                 - email
                 - password
@@ -54,11 +110,11 @@ paths:
                 name:
                   type: string
                   description: 'Must be at least 3 characters. Must not be greater than 256 characters.'
-                  example: yjksloueofiitrhhncdmyne
+                  example: zmlcqplfbcitw
                 email:
                   type: string
                   description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: brown.clifton@example.net
+                  example: tomasa28@example.net
               required:
                 - name
                 - email
@@ -82,7 +138,7 @@ paths:
                 password:
                   type: string
                   description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: '=xcaoy2`eKRluW'
+                  example: ~m9@3@jz9-d7y
               required:
                 - password
       security: []
@@ -119,7 +175,7 @@ paths:
                 gender:
                   type: string
                   description: ''
-                  example: corrupti
+                  example: ut
                 email_visible:
                   type: boolean
                   description: ''
@@ -127,23 +183,23 @@ paths:
                 phone_number:
                   type: string
                   description: 'Must match the regex /^\+381[0-9]{8,9}$/.'
-                  example: '+381137738726'
+                  example: '+38109989198'
                 phone_number_visible:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
                 uni_start_year:
                   type: integer
                   description: 'Must be 4 digits.'
-                  example: 19
+                  example: 18
                 uni_finish_year:
                   type: integer
                   description: 'Must be 4 digits.'
-                  example: 17
+                  example: 2
                 bio:
                   type: string
                   description: 'Must be at least 8 characters. Must not be greater than 512 characters.'
-                  example: mqkhwqpzokjvhgqoqdlsptif
+                  example: zcjbqrpgwdcprgwuitykq
               required:
                 - date_of_birth
                 - gender
@@ -172,23 +228,23 @@ paths:
                 comapny_name:
                   type: string
                   description: 'Must be at least 3 characters. Must not be greater than 16 characters.'
-                  example: rlfgvftwlcbok
+                  example: dhpsfpdtvelnb
                 position:
                   type: string
                   description: 'Must be at least 3 characters. Must not be greater than 24 characters.'
-                  example: fuprpnmftqq
+                  example: rqoqnvp
                 start_date:
                   type: string
                   description: 'Must be a valid date. Must be a date before <code>end_date</code>.'
-                  example: '2003-12-21'
+                  example: '2019-10-09'
                 end_date:
                   type: string
                   description: 'Must be a valid date. Must be a date after <code>start_date</code>.'
-                  example: '2084-03-04'
+                  example: '2040-01-17'
                 desc:
                   type: string
                   description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: oitgb
+                  example: jiygzwxjgslpaxneetfhwyl
               required:
                 - comapny_name
                 - position
