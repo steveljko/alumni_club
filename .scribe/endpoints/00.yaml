@@ -1,0 +1,363 @@
+name: Endpoints
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/login
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
+        required: true
+        example: broderick33@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      password:
+        name: password
+        description: 'Must be at least 6 characters. Must not be greater than 256 characters.'
+        required: true
+        example: 'x~tEBhJU\['
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      email: broderick33@example.com
+      password: 'x~tEBhJU\['
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/register
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Must be at least 3 characters. Must not be greater than 256 characters.'
+        required: true
+        example: yjksloueofiitrhhncdmyne
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      email:
+        name: email
+        description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
+        required: true
+        example: brown.clifton@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      name: yjksloueofiitrhhncdmyne
+      email: brown.clifton@example.net
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: api/change-initial-password
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      password:
+        name: password
+        description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
+        required: true
+        example: '=xcaoy2`eKRluW'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      password: '=xcaoy2`eKRluW'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: api/change-password
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PATCH
+    uri: api/change-details
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      date_of_birth:
+        name: date_of_birth
+        description: 'Must be a valid date in the format <code>d-m-Y</code>.'
+        required: true
+        example: 15-07-2024
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      gender:
+        name: gender
+        description: ''
+        required: true
+        example: corrupti
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      email_visible:
+        name: email_visible
+        description: ''
+        required: true
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      phone_number:
+        name: phone_number
+        description: 'Must match the regex /^\+381[0-9]{8,9}$/.'
+        required: true
+        example: '+381137738726'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      phone_number_visible:
+        name: phone_number_visible
+        description: ''
+        required: true
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      uni_start_year:
+        name: uni_start_year
+        description: 'Must be 4 digits.'
+        required: true
+        example: 19
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      uni_finish_year:
+        name: uni_finish_year
+        description: 'Must be 4 digits.'
+        required: true
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      bio:
+        name: bio
+        description: 'Must be at least 8 characters. Must not be greater than 512 characters.'
+        required: false
+        example: mqkhwqpzokjvhgqoqdlsptif
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      date_of_birth: 15-07-2024
+      gender: corrupti
+      email_visible: false
+      phone_number: '+381137738726'
+      phone_number_visible: false
+      uni_start_year: 19
+      uni_finish_year: 17
+      bio: mqkhwqpzokjvhgqoqdlsptif
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/job/create
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      comapny_name:
+        name: comapny_name
+        description: 'Must be at least 3 characters. Must not be greater than 16 characters.'
+        required: true
+        example: rlfgvftwlcbok
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      position:
+        name: position
+        description: 'Must be at least 3 characters. Must not be greater than 24 characters.'
+        required: true
+        example: fuprpnmftqq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      start_date:
+        name: start_date
+        description: 'Must be a valid date. Must be a date before <code>end_date</code>.'
+        required: true
+        example: '2003-12-21'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      end_date:
+        name: end_date
+        description: 'Must be a valid date. Must be a date after <code>start_date</code>.'
+        required: true
+        example: '2084-03-04'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      desc:
+        name: desc
+        description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
+        required: false
+        example: oitgb
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      comapny_name: rlfgvftwlcbok
+      position: fuprpnmftqq
+      start_date: '2003-12-21'
+      end_date: '2084-03-04'
+      desc: oitgb
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

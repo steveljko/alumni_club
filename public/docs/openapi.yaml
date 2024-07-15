@@ -1,0 +1,201 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/login:
+    post:
+      summary: ''
+      operationId: postApiLogin
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
+                  example: broderick33@example.com
+                password:
+                  type: string
+                  description: 'Must be at least 6 characters. Must not be greater than 256 characters.'
+                  example: 'x~tEBhJU\['
+              required:
+                - email
+                - password
+      security: []
+  /api/register:
+    post:
+      summary: ''
+      operationId: postApiRegister
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must be at least 3 characters. Must not be greater than 256 characters.'
+                  example: yjksloueofiitrhhncdmyne
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
+                  example: brown.clifton@example.net
+              required:
+                - name
+                - email
+      security: []
+  /api/change-initial-password:
+    put:
+      summary: ''
+      operationId: putApiChangeInitialPassword
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
+                  example: '=xcaoy2`eKRluW'
+              required:
+                - password
+      security: []
+  /api/change-password:
+    put:
+      summary: ''
+      operationId: putApiChangePassword
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/change-details:
+    patch:
+      summary: ''
+      operationId: patchApiChangeDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date_of_birth:
+                  type: string
+                  description: 'Must be a valid date in the format <code>d-m-Y</code>.'
+                  example: 15-07-2024
+                gender:
+                  type: string
+                  description: ''
+                  example: corrupti
+                email_visible:
+                  type: boolean
+                  description: ''
+                  example: false
+                phone_number:
+                  type: string
+                  description: 'Must match the regex /^\+381[0-9]{8,9}$/.'
+                  example: '+381137738726'
+                phone_number_visible:
+                  type: boolean
+                  description: ''
+                  example: false
+                uni_start_year:
+                  type: integer
+                  description: 'Must be 4 digits.'
+                  example: 19
+                uni_finish_year:
+                  type: integer
+                  description: 'Must be 4 digits.'
+                  example: 17
+                bio:
+                  type: string
+                  description: 'Must be at least 8 characters. Must not be greater than 512 characters.'
+                  example: mqkhwqpzokjvhgqoqdlsptif
+              required:
+                - date_of_birth
+                - gender
+                - email_visible
+                - phone_number
+                - phone_number_visible
+                - uni_start_year
+                - uni_finish_year
+      security: []
+  /api/job/create:
+    post:
+      summary: ''
+      operationId: postApiJobCreate
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comapny_name:
+                  type: string
+                  description: 'Must be at least 3 characters. Must not be greater than 16 characters.'
+                  example: rlfgvftwlcbok
+                position:
+                  type: string
+                  description: 'Must be at least 3 characters. Must not be greater than 24 characters.'
+                  example: fuprpnmftqq
+                start_date:
+                  type: string
+                  description: 'Must be a valid date. Must be a date before <code>end_date</code>.'
+                  example: '2003-12-21'
+                end_date:
+                  type: string
+                  description: 'Must be a valid date. Must be a date after <code>start_date</code>.'
+                  example: '2084-03-04'
+                desc:
+                  type: string
+                  description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
+                  example: oitgb
+              required:
+                - comapny_name
+                - position
+                - start_date
+                - end_date
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''
