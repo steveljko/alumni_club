@@ -1,16 +1,16 @@
 openapi: 3.0.3
 info:
-  title: Laravel
-  description: ''
+  title: 'Alumni Club API'
+  description: 'Simple yet powerful api for alumni club app'
   version: 1.0.0
 servers:
   -
     url: 'http://localhost:8000'
 paths:
-  /api/healthcheck:
+  /api/user:
     get:
       summary: ''
-      operationId: getApiHealthcheck
+      operationId: getApiUser
       description: ''
       parameters: []
       responses:
@@ -21,45 +21,39 @@ paths:
               schema:
                 type: object
                 example:
-                  status: up
-                  services:
-                    database: up
-                    redis: up
+                  id: 1
+                  name: 'Mr. Lorenzo Gislason'
+                  email: admin@admin.com
+                  email_verified_at: '2024-07-12T13:23:13.000000Z'
+                  initial_password_changed: 0
+                  created_at: '2024-07-12T13:23:14.000000Z'
+                  updated_at: '2024-07-12T21:07:19.000000Z'
+                  details: null
                 properties:
-                  status:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
                     type: string
-                    example: up
-                  services:
-                    type: object
-                    properties:
-                      database:
-                        type: string
-                        example: up
-                      redis:
-                        type: string
-                        example: up
-      tags:
-        - Endpoints
-      security: []
-  /api/user:
-    get:
-      summary: ''
-      operationId: getApiUser
-      description: ''
-      parameters: []
-      responses:
-        401:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: Unauthenticated.
-                properties:
-                  message:
+                    example: 'Mr. Lorenzo Gislason'
+                  email:
                     type: string
-                    example: Unauthenticated.
+                    example: admin@admin.com
+                  email_verified_at:
+                    type: string
+                    example: '2024-07-12T13:23:13.000000Z'
+                  initial_password_changed:
+                    type: integer
+                    example: 0
+                  created_at:
+                    type: string
+                    example: '2024-07-12T13:23:14.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-07-12T21:07:19.000000Z'
+                  details:
+                    type: string
+                    example: null
       tags:
         - Endpoints
       security: []
@@ -82,11 +76,11 @@ paths:
                 email:
                   type: string
                   description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: boyle.alexys@example.net
+                  example: haleigh.frami@example.com
                 password:
                   type: string
                   description: 'Must be at least 6 characters. Must not be greater than 256 characters.'
-                  example: '+m([km'
+                  example: '&fW`%VmeG#SaqN@_m9('
               required:
                 - email
                 - password
@@ -110,11 +104,11 @@ paths:
                 name:
                   type: string
                   description: 'Must be at least 3 characters. Must not be greater than 256 characters.'
-                  example: zmlcqplfbcitw
+                  example: imwpqepoavmgnubbrozjiqwey
                 email:
                   type: string
                   description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: tomasa28@example.net
+                  example: amanda.koepp@example.com
               required:
                 - name
                 - email
@@ -138,7 +132,7 @@ paths:
                 password:
                   type: string
                   description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: ~m9@3@jz9-d7y
+                  example: '3W8Q*hZ)GETN'
               required:
                 - password
       security: []
@@ -175,7 +169,7 @@ paths:
                 gender:
                   type: string
                   description: ''
-                  example: ut
+                  example: nam
                 email_visible:
                   type: boolean
                   description: ''
@@ -183,23 +177,23 @@ paths:
                 phone_number:
                   type: string
                   description: 'Must match the regex /^\+381[0-9]{8,9}$/.'
-                  example: '+38109989198'
+                  example: '+381497839114'
                 phone_number_visible:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
                 uni_start_year:
                   type: integer
                   description: 'Must be 4 digits.'
-                  example: 18
+                  example: 8
                 uni_finish_year:
                   type: integer
                   description: 'Must be 4 digits.'
-                  example: 2
+                  example: 20
                 bio:
                   type: string
                   description: 'Must be at least 8 characters. Must not be greater than 512 characters.'
-                  example: zcjbqrpgwdcprgwuitykq
+                  example: nti
               required:
                 - date_of_birth
                 - gender
@@ -228,23 +222,23 @@ paths:
                 comapny_name:
                   type: string
                   description: 'Must be at least 3 characters. Must not be greater than 16 characters.'
-                  example: dhpsfpdtvelnb
+                  example: cgci
                 position:
                   type: string
                   description: 'Must be at least 3 characters. Must not be greater than 24 characters.'
-                  example: rqoqnvp
+                  example: qayopz
                 start_date:
                   type: string
                   description: 'Must be a valid date. Must be a date before <code>end_date</code>.'
-                  example: '2019-10-09'
+                  example: '2011-05-31'
                 end_date:
                   type: string
                   description: 'Must be a valid date. Must be a date after <code>start_date</code>.'
-                  example: '2040-01-17'
+                  example: '2117-01-31'
                 desc:
                   type: string
                   description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: jiygzwxjgslpaxneetfhwyl
+                  example: yjjmzgejnqfbypklehmmeejfc
               required:
                 - comapny_name
                 - position

@@ -1,6 +1,6 @@
 # Introduction
 
-
+Simple yet powerful api for alumni club app
 
 <aside>
     <strong>Base URL</strong>: <code>http://localhost:8000</code>
