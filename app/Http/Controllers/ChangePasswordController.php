@@ -7,7 +7,9 @@ use App\Services\SetNewPassword;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
+use Knuckles\Scribe\Attributes\Group;
 
+#[Group('Auth')]
 class ChangePasswordController extends Controller implements HasMiddleware
 {
     public static function middleware(): array

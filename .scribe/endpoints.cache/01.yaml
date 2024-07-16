@@ -28,13 +28,13 @@ endpoints:
         name: password
         description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
         required: true
-        example: 'VZ>W{@g='
+        example: '}B?pJn$_2~h/d}?|4W-('
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      password: 'VZ>W{@g='
+      password: '}B?pJn$_2~h/d}?|4W-('
     fileParameters: []
     responses: []
     responseFields: []

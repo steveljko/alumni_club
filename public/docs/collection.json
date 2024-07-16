@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Alumni Club API",
-        "_postman_id": "23bce28d-365a-4c16-bb6d-1f88bb65da02",
+        "_postman_id": "5e7314fa-40ca-4ffa-a805-c447d369af89",
         "description": "Simple yet powerful api for alumni club app",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -179,7 +179,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"password\":\"VZ>W{@g=\"}"
+                            "raw": "{\"password\":\"}B?pJn$_2~h\\\/d}?|4W-(\"}"
                         },
                         "description": "This endpoint is used only for changing user's initial password."
                     },

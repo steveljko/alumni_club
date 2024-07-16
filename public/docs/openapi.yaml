@@ -158,7 +158,7 @@ paths:
                 password:
                   type: string
                   description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: 'VZ>W{@g='
+                  example: '}B?pJn$_2~h/d}?|4W-('
               required:
                 - password
   /api/change-password:
