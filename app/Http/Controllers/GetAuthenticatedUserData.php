@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use App\Models\User;
+use Knuckles\Scribe\Attributes\Group;
 
+#[Group('Auth')]
 class GetAuthenticatedUserData extends Controller implements HasMiddleware
 {
   public static function middleware(): array
@@ -15,12 +17,9 @@ class GetAuthenticatedUserData extends Controller implements HasMiddleware
     return ['auth:sanctum'];
   }
 
-  /*
-   * @group Auth
-   *
-   * Get authenticated user
-   *
-   * @authenticated
+  /**
+   * User endpoint
+   * This endpoint returns the authenticated user's data.
    */
   public function __invoke(): JsonResponse
   {

@@ -9,8 +9,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', GetAuthenticatedUserData::class)->name('user');
 Route::post('/login', LoginController::class)->name('login');
+Route::get('/user', GetAuthenticatedUserData::class)->name('user');
 Route::post('/register', RegisterController::class)->name('register');
 Route::put('/change-initial-password', ChangeInitialPasswordController::class)->name('change_initial_password');
 

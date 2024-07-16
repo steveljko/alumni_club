@@ -5,45 +5,6 @@ description: ''
 endpoints:
   -
     httpMethods:
-      - GET
-    uri: api/user
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: '{"id":1,"name":"Mr. Lorenzo Gislason","email":"admin@admin.com","email_verified_at":"2024-07-12T13:23:13.000000Z","initial_password_changed":0,"created_at":"2024-07-12T13:23:14.000000Z","updated_at":"2024-07-12T21:07:19.000000Z","details":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          vary: Origin
-        description: null
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
       - POST
     uri: api/login
     metadata:
@@ -67,7 +28,7 @@ endpoints:
         name: email
         description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
         required: true
-        example: haleigh.frami@example.com
+        example: dreinger@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -76,14 +37,14 @@ endpoints:
         name: password
         description: 'Must be at least 6 characters. Must not be greater than 256 characters.'
         required: true
-        example: '&fW`%VmeG#SaqN@_m9('
+        example: 'K][z60uW$=MG'
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      email: haleigh.frami@example.com
-      password: '&fW`%VmeG#SaqN@_m9('
+      email: dreinger@example.com
+      password: 'K][z60uW$=MG'
     fileParameters: []
     responses: []
     responseFields: []
@@ -117,7 +78,7 @@ endpoints:
         name: name
         description: 'Must be at least 3 characters. Must not be greater than 256 characters.'
         required: true
-        example: imwpqepoavmgnubbrozjiqwey
+        example: uthcfuxzurjlltingnjtxttk
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -126,14 +87,14 @@ endpoints:
         name: email
         description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
         required: true
-        example: amanda.koepp@example.com
+        example: zemlak.estel@example.org
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      name: imwpqepoavmgnubbrozjiqwey
-      email: amanda.koepp@example.com
+      name: uthcfuxzurjlltingnjtxttk
+      email: zemlak.estel@example.org
     fileParameters: []
     responses: []
     responseFields: []
@@ -167,13 +128,13 @@ endpoints:
         name: password
         description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
         required: true
-        example: '3W8Q*hZ)GETN'
+        example: 'rpGtx}G'
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      password: '3W8Q*hZ)GETN'
+      password: 'rpGtx}G'
     fileParameters: []
     responses: []
     responseFields: []
@@ -246,7 +207,7 @@ endpoints:
         name: gender
         description: ''
         required: true
-        example: nam
+        example: quidem
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -255,7 +216,7 @@ endpoints:
         name: email_visible
         description: ''
         required: true
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -264,7 +225,7 @@ endpoints:
         name: phone_number
         description: 'Must match the regex /^\+381[0-9]{8,9}$/.'
         required: true
-        example: '+381497839114'
+        example: '+38163122737'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -282,7 +243,7 @@ endpoints:
         name: uni_start_year
         description: 'Must be 4 digits.'
         required: true
-        example: 8
+        example: 12
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -291,7 +252,7 @@ endpoints:
         name: uni_finish_year
         description: 'Must be 4 digits.'
         required: true
-        example: 20
+        example: 13
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -300,20 +261,20 @@ endpoints:
         name: bio
         description: 'Must be at least 8 characters. Must not be greater than 512 characters.'
         required: false
-        example: nti
+        example: gblvrbqxqfwifxnhomstrjy
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
       date_of_birth: 15-07-2024
-      gender: nam
-      email_visible: false
-      phone_number: '+381497839114'
+      gender: quidem
+      email_visible: true
+      phone_number: '+38163122737'
       phone_number_visible: false
-      uni_start_year: 8
-      uni_finish_year: 20
-      bio: nti
+      uni_start_year: 12
+      uni_finish_year: 13
+      bio: gblvrbqxqfwifxnhomstrjy
     fileParameters: []
     responses: []
     responseFields: []
@@ -347,7 +308,7 @@ endpoints:
         name: comapny_name
         description: 'Must be at least 3 characters. Must not be greater than 16 characters.'
         required: true
-        example: cgci
+        example: fqbmrecegytybu
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -356,7 +317,7 @@ endpoints:
         name: position
         description: 'Must be at least 3 characters. Must not be greater than 24 characters.'
         required: true
-        example: qayopz
+        example: qwuzbljhmpsz
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -365,7 +326,7 @@ endpoints:
         name: start_date
         description: 'Must be a valid date. Must be a date before <code>end_date</code>.'
         required: true
-        example: '2011-05-31'
+        example: '2021-06-04'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -374,7 +335,7 @@ endpoints:
         name: end_date
         description: 'Must be a valid date. Must be a date after <code>start_date</code>.'
         required: true
-        example: '2117-01-31'
+        example: '2104-11-14'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -383,17 +344,17 @@ endpoints:
         name: desc
         description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
         required: false
-        example: yjjmzgejnqfbypklehmmeejfc
+        example: ncgikbhpnftdaw
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      comapny_name: cgci
-      position: qayopz
-      start_date: '2011-05-31'
-      end_date: '2117-01-31'
-      desc: yjjmzgejnqfbypklehmmeejfc
+      comapny_name: fqbmrecegytybu
+      position: qwuzbljhmpsz
+      start_date: '2021-06-04'
+      end_date: '2104-11-14'
+      desc: ncgikbhpnftdaw
     fileParameters: []
     responses: []
     responseFields: []

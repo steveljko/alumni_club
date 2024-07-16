@@ -9,53 +9,25 @@ servers:
 paths:
   /api/user:
     get:
-      summary: ''
-      operationId: getApiUser
+      summary: "User endpoint\nThis endpoint returns the authenticated user's data."
+      operationId: userEndpointThisEndpointReturnsTheAuthenticatedUsersData
       description: ''
       parameters: []
       responses:
-        200:
+        401:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  id: 1
-                  name: 'Mr. Lorenzo Gislason'
-                  email: admin@admin.com
-                  email_verified_at: '2024-07-12T13:23:13.000000Z'
-                  initial_password_changed: 0
-                  created_at: '2024-07-12T13:23:14.000000Z'
-                  updated_at: '2024-07-12T21:07:19.000000Z'
-                  details: null
+                  message: Unauthenticated.
                 properties:
-                  id:
-                    type: integer
-                    example: 1
-                  name:
+                  message:
                     type: string
-                    example: 'Mr. Lorenzo Gislason'
-                  email:
-                    type: string
-                    example: admin@admin.com
-                  email_verified_at:
-                    type: string
-                    example: '2024-07-12T13:23:13.000000Z'
-                  initial_password_changed:
-                    type: integer
-                    example: 0
-                  created_at:
-                    type: string
-                    example: '2024-07-12T13:23:14.000000Z'
-                  updated_at:
-                    type: string
-                    example: '2024-07-12T21:07:19.000000Z'
-                  details:
-                    type: string
-                    example: null
+                    example: Unauthenticated.
       tags:
-        - Endpoints
+        - Auth
       security: []
   /api/login:
     post:
@@ -76,11 +48,11 @@ paths:
                 email:
                   type: string
                   description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: haleigh.frami@example.com
+                  example: dreinger@example.com
                 password:
                   type: string
                   description: 'Must be at least 6 characters. Must not be greater than 256 characters.'
-                  example: '&fW`%VmeG#SaqN@_m9('
+                  example: 'K][z60uW$=MG'
               required:
                 - email
                 - password
@@ -104,11 +76,11 @@ paths:
                 name:
                   type: string
                   description: 'Must be at least 3 characters. Must not be greater than 256 characters.'
-                  example: imwpqepoavmgnubbrozjiqwey
+                  example: uthcfuxzurjlltingnjtxttk
                 email:
                   type: string
                   description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: amanda.koepp@example.com
+                  example: zemlak.estel@example.org
               required:
                 - name
                 - email
@@ -132,7 +104,7 @@ paths:
                 password:
                   type: string
                   description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: '3W8Q*hZ)GETN'
+                  example: 'rpGtx}G'
               required:
                 - password
       security: []
@@ -169,15 +141,15 @@ paths:
                 gender:
                   type: string
                   description: ''
-                  example: nam
+                  example: quidem
                 email_visible:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
                 phone_number:
                   type: string
                   description: 'Must match the regex /^\+381[0-9]{8,9}$/.'
-                  example: '+381497839114'
+                  example: '+38163122737'
                 phone_number_visible:
                   type: boolean
                   description: ''
@@ -185,15 +157,15 @@ paths:
                 uni_start_year:
                   type: integer
                   description: 'Must be 4 digits.'
-                  example: 8
+                  example: 12
                 uni_finish_year:
                   type: integer
                   description: 'Must be 4 digits.'
-                  example: 20
+                  example: 13
                 bio:
                   type: string
                   description: 'Must be at least 8 characters. Must not be greater than 512 characters.'
-                  example: nti
+                  example: gblvrbqxqfwifxnhomstrjy
               required:
                 - date_of_birth
                 - gender
@@ -222,23 +194,23 @@ paths:
                 comapny_name:
                   type: string
                   description: 'Must be at least 3 characters. Must not be greater than 16 characters.'
-                  example: cgci
+                  example: fqbmrecegytybu
                 position:
                   type: string
                   description: 'Must be at least 3 characters. Must not be greater than 24 characters.'
-                  example: qayopz
+                  example: qwuzbljhmpsz
                 start_date:
                   type: string
                   description: 'Must be a valid date. Must be a date before <code>end_date</code>.'
-                  example: '2011-05-31'
+                  example: '2021-06-04'
                 end_date:
                   type: string
                   description: 'Must be a valid date. Must be a date after <code>start_date</code>.'
-                  example: '2117-01-31'
+                  example: '2104-11-14'
                 desc:
                   type: string
                   description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: yjjmzgejnqfbypklehmmeejfc
+                  example: ncgikbhpnftdaw
               required:
                 - comapny_name
                 - position
@@ -246,6 +218,9 @@ paths:
                 - end_date
       security: []
 tags:
+  -
+    name: Auth
+    description: ''
   -
     name: Endpoints
     description: ''

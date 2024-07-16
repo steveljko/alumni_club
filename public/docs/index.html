@@ -66,15 +66,23 @@
                     <a href="#authenticating-requests">Authenticating requests</a>
                 </li>
                             </ul>
+                    <ul id="tocify-header-auth" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="auth">
+                    <a href="#auth">Auth</a>
+                </li>
+                                    <ul id="tocify-subheader-auth" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="auth-GETapi-user">
+                                <a href="#auth-GETapi-user">User endpoint
+This endpoint returns the authenticated user's data.</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-endpoints" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="endpoints">
                     <a href="#endpoints">Endpoints</a>
                 </li>
                                     <ul id="tocify-subheader-endpoints" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-user">
-                                <a href="#endpoints-GETapi-user">GET api/user</a>
-                            </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-login">
+                                                    <li class="tocify-item level-2" data-unique="endpoints-POSTapi-login">
                                 <a href="#endpoints-POSTapi-login">POST api/login</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-POSTapi-register">
@@ -122,11 +130,12 @@ You can switch the language used with the tabs at the top right (or from the nav
         <h1 id="authenticating-requests">Authenticating requests</h1>
 <p>This API is not authenticated.</p>
 
-        <h1 id="endpoints">Endpoints</h1>
+        <h1 id="auth">Auth</h1>
 
     
 
-                                <h2 id="endpoints-GETapi-user">GET api/user</h2>
+                                <h2 id="auth-GETapi-user">User endpoint
+This endpoint returns the authenticated user&#039;s data.</h2>
 
 <p>
 </p>
@@ -163,7 +172,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-user">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -175,14 +184,7 @@ vary: Origin
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Mr. Lorenzo Gislason&quot;,
-    &quot;email&quot;: &quot;admin@admin.com&quot;,
-    &quot;email_verified_at&quot;: &quot;2024-07-12T13:23:13.000000Z&quot;,
-    &quot;initial_password_changed&quot;: 0,
-    &quot;created_at&quot;: &quot;2024-07-12T13:23:14.000000Z&quot;,
-    &quot;updated_at&quot;: &quot;2024-07-12T21:07:19.000000Z&quot;,
-    &quot;details&quot;: null
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -257,7 +259,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="endpoints-POSTapi-login">POST api/login</h2>
+                <h1 id="endpoints">Endpoints</h1>
+
+    
+
+                                <h2 id="endpoints-POSTapi-login">POST api/login</h2>
 
 <p>
 </p>
@@ -274,8 +280,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"haleigh.frami@example.com\",
-    \"password\": \"&amp;fW`%VmeG#SaqN@_m9(\"
+    \"email\": \"dreinger@example.com\",
+    \"password\": \"K][z60uW$=MG\"
 }"
 </code></pre></div>
 
@@ -291,8 +297,8 @@ const headers = {
 };
 
 let body = {
-    "email": "haleigh.frami@example.com",
-    "password": "&amp;fW`%VmeG#SaqN@_m9("
+    "email": "dreinger@example.com",
+    "password": "K][z60uW$=MG"
 };
 
 fetch(url, {
@@ -381,10 +387,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-login"
-               value="haleigh.frami@example.com"
+               value="dreinger@example.com"
                data-component="body">
     <br>
-<p>Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters. Example: <code>haleigh.frami@example.com</code></p>
+<p>Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters. Example: <code>dreinger@example.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -392,10 +398,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-login"
-               value="&fW`%VmeG#SaqN@_m9("
+               value="K][z60uW$=MG"
                data-component="body">
     <br>
-<p>Must be at least 6 characters. Must not be greater than 256 characters. Example: <code>&amp;fW</code>%VmeG#SaqN@_m9(`</p>
+<p>Must be at least 6 characters. Must not be greater than 256 characters. Example: <code>K][z60uW$=MG</code></p>
         </div>
         </form>
 
@@ -416,8 +422,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"imwpqepoavmgnubbrozjiqwey\",
-    \"email\": \"amanda.koepp@example.com\"
+    \"name\": \"uthcfuxzurjlltingnjtxttk\",
+    \"email\": \"zemlak.estel@example.org\"
 }"
 </code></pre></div>
 
@@ -433,8 +439,8 @@ const headers = {
 };
 
 let body = {
-    "name": "imwpqepoavmgnubbrozjiqwey",
-    "email": "amanda.koepp@example.com"
+    "name": "uthcfuxzurjlltingnjtxttk",
+    "email": "zemlak.estel@example.org"
 };
 
 fetch(url, {
@@ -523,10 +529,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="POSTapi-register"
-               value="imwpqepoavmgnubbrozjiqwey"
+               value="uthcfuxzurjlltingnjtxttk"
                data-component="body">
     <br>
-<p>Must be at least 3 characters. Must not be greater than 256 characters. Example: <code>imwpqepoavmgnubbrozjiqwey</code></p>
+<p>Must be at least 3 characters. Must not be greater than 256 characters. Example: <code>uthcfuxzurjlltingnjtxttk</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -534,10 +540,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-register"
-               value="amanda.koepp@example.com"
+               value="zemlak.estel@example.org"
                data-component="body">
     <br>
-<p>Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters. Example: <code>amanda.koepp@example.com</code></p>
+<p>Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters. Example: <code>zemlak.estel@example.org</code></p>
         </div>
         </form>
 
@@ -558,7 +564,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"password\": \"3W8Q*hZ)GETN\"
+    \"password\": \"rpGtx}G\"
 }"
 </code></pre></div>
 
@@ -574,7 +580,7 @@ const headers = {
 };
 
 let body = {
-    "password": "3W8Q*hZ)GETN"
+    "password": "rpGtx}G"
 };
 
 fetch(url, {
@@ -663,10 +669,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="PUTapi-change-initial-password"
-               value="3W8Q*hZ)GETN"
+               value="rpGtx}G"
                data-component="body">
     <br>
-<p>Must be at least 8 characters. Must not be greater than 256 characters. Example: <code>3W8Q*hZ)GETN</code></p>
+<p>Must be at least 8 characters. Must not be greater than 256 characters. Example: <code>rpGtx}G</code></p>
         </div>
         </form>
 
@@ -796,13 +802,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"date_of_birth\": \"15-07-2024\",
-    \"gender\": \"nam\",
-    \"email_visible\": false,
-    \"phone_number\": \"+381497839114\",
+    \"gender\": \"quidem\",
+    \"email_visible\": true,
+    \"phone_number\": \"+38163122737\",
     \"phone_number_visible\": false,
-    \"uni_start_year\": 8,
-    \"uni_finish_year\": 20,
-    \"bio\": \"nti\"
+    \"uni_start_year\": 12,
+    \"uni_finish_year\": 13,
+    \"bio\": \"gblvrbqxqfwifxnhomstrjy\"
 }"
 </code></pre></div>
 
@@ -819,13 +825,13 @@ const headers = {
 
 let body = {
     "date_of_birth": "15-07-2024",
-    "gender": "nam",
-    "email_visible": false,
-    "phone_number": "+381497839114",
+    "gender": "quidem",
+    "email_visible": true,
+    "phone_number": "+38163122737",
     "phone_number_visible": false,
-    "uni_start_year": 8,
-    "uni_finish_year": 20,
-    "bio": "nti"
+    "uni_start_year": 12,
+    "uni_finish_year": 13,
+    "bio": "gblvrbqxqfwifxnhomstrjy"
 };
 
 fetch(url, {
@@ -925,10 +931,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="gender"                data-endpoint="PATCHapi-change-details"
-               value="nam"
+               value="quidem"
                data-component="body">
     <br>
-<p>Example: <code>nam</code></p>
+<p>Example: <code>quidem</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email_visible</code></b>&nbsp;&nbsp;
@@ -949,7 +955,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone_number</code></b>&nbsp;&nbsp;
@@ -957,10 +963,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="phone_number"                data-endpoint="PATCHapi-change-details"
-               value="+381497839114"
+               value="+38163122737"
                data-component="body">
     <br>
-<p>Must match the regex /^+381[0-9]{8,9}$/. Example: <code>+381497839114</code></p>
+<p>Must match the regex /^+381[0-9]{8,9}$/. Example: <code>+38163122737</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone_number_visible</code></b>&nbsp;&nbsp;
@@ -989,10 +995,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="uni_start_year"                data-endpoint="PATCHapi-change-details"
-               value="8"
+               value="12"
                data-component="body">
     <br>
-<p>Must be 4 digits. Example: <code>8</code></p>
+<p>Must be 4 digits. Example: <code>12</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>uni_finish_year</code></b>&nbsp;&nbsp;
@@ -1000,10 +1006,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="uni_finish_year"                data-endpoint="PATCHapi-change-details"
-               value="20"
+               value="13"
                data-component="body">
     <br>
-<p>Must be 4 digits. Example: <code>20</code></p>
+<p>Must be 4 digits. Example: <code>13</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>bio</code></b>&nbsp;&nbsp;
@@ -1011,10 +1017,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="bio"                data-endpoint="PATCHapi-change-details"
-               value="nti"
+               value="gblvrbqxqfwifxnhomstrjy"
                data-component="body">
     <br>
-<p>Must be at least 8 characters. Must not be greater than 512 characters. Example: <code>nti</code></p>
+<p>Must be at least 8 characters. Must not be greater than 512 characters. Example: <code>gblvrbqxqfwifxnhomstrjy</code></p>
         </div>
         </form>
 
@@ -1035,11 +1041,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"comapny_name\": \"cgci\",
-    \"position\": \"qayopz\",
-    \"start_date\": \"2011-05-31\",
-    \"end_date\": \"2117-01-31\",
-    \"desc\": \"yjjmzgejnqfbypklehmmeejfc\"
+    \"comapny_name\": \"fqbmrecegytybu\",
+    \"position\": \"qwuzbljhmpsz\",
+    \"start_date\": \"2021-06-04\",
+    \"end_date\": \"2104-11-14\",
+    \"desc\": \"ncgikbhpnftdaw\"
 }"
 </code></pre></div>
 
@@ -1055,11 +1061,11 @@ const headers = {
 };
 
 let body = {
-    "comapny_name": "cgci",
-    "position": "qayopz",
-    "start_date": "2011-05-31",
-    "end_date": "2117-01-31",
-    "desc": "yjjmzgejnqfbypklehmmeejfc"
+    "comapny_name": "fqbmrecegytybu",
+    "position": "qwuzbljhmpsz",
+    "start_date": "2021-06-04",
+    "end_date": "2104-11-14",
+    "desc": "ncgikbhpnftdaw"
 };
 
 fetch(url, {
@@ -1148,10 +1154,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="comapny_name"                data-endpoint="POSTapi-job-create"
-               value="cgci"
+               value="fqbmrecegytybu"
                data-component="body">
     <br>
-<p>Must be at least 3 characters. Must not be greater than 16 characters. Example: <code>cgci</code></p>
+<p>Must be at least 3 characters. Must not be greater than 16 characters. Example: <code>fqbmrecegytybu</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>position</code></b>&nbsp;&nbsp;
@@ -1159,10 +1165,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="position"                data-endpoint="POSTapi-job-create"
-               value="qayopz"
+               value="qwuzbljhmpsz"
                data-component="body">
     <br>
-<p>Must be at least 3 characters. Must not be greater than 24 characters. Example: <code>qayopz</code></p>
+<p>Must be at least 3 characters. Must not be greater than 24 characters. Example: <code>qwuzbljhmpsz</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>start_date</code></b>&nbsp;&nbsp;
@@ -1170,10 +1176,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="start_date"                data-endpoint="POSTapi-job-create"
-               value="2011-05-31"
+               value="2021-06-04"
                data-component="body">
     <br>
-<p>Must be a valid date. Must be a date before <code>end_date</code>. Example: <code>2011-05-31</code></p>
+<p>Must be a valid date. Must be a date before <code>end_date</code>. Example: <code>2021-06-04</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>end_date</code></b>&nbsp;&nbsp;
@@ -1181,10 +1187,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="end_date"                data-endpoint="POSTapi-job-create"
-               value="2117-01-31"
+               value="2104-11-14"
                data-component="body">
     <br>
-<p>Must be a valid date. Must be a date after <code>start_date</code>. Example: <code>2117-01-31</code></p>
+<p>Must be a valid date. Must be a date after <code>start_date</code>. Example: <code>2104-11-14</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>desc</code></b>&nbsp;&nbsp;
@@ -1192,10 +1198,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="desc"                data-endpoint="POSTapi-job-create"
-               value="yjjmzgejnqfbypklehmmeejfc"
+               value="ncgikbhpnftdaw"
                data-component="body">
     <br>
-<p>Must be at least 8 characters. Must not be greater than 256 characters. Example: <code>yjjmzgejnqfbypklehmmeejfc</code></p>
+<p>Must be at least 8 characters. Must not be greater than 256 characters. Example: <code>ncgikbhpnftdaw</code></p>
         </div>
         </form>
 

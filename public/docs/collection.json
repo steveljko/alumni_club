@@ -10,17 +10,17 @@
     ],
     "info": {
         "name": "Alumni Club API",
-        "_postman_id": "70d358c6-739e-4d50-a381-30f8d08b11ed",
+        "_postman_id": "b27bb548-2358-4d4d-bf78-6385fc9ac9bd",
         "description": "Simple yet powerful api for alumni club app",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
         {
-            "name": "Endpoints",
+            "name": "Auth",
             "description": "",
             "item": [
                 {
-                    "name": "GET api\/user",
+                    "name": "User endpoint\nThis endpoint returns the authenticated user's data.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -61,12 +61,18 @@
                                     "value": "Origin"
                                 }
                             ],
-                            "code": 200,
-                            "body": "{\"id\":1,\"name\":\"Mr. Lorenzo Gislason\",\"email\":\"admin@admin.com\",\"email_verified_at\":\"2024-07-12T13:23:13.000000Z\",\"initial_password_changed\":0,\"created_at\":\"2024-07-12T13:23:14.000000Z\",\"updated_at\":\"2024-07-12T21:07:19.000000Z\",\"details\":null}",
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
                             "name": ""
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
                 {
                     "name": "POST api\/login",
                     "request": {
@@ -89,7 +95,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"haleigh.frami@example.com\",\"password\":\"&fW`%VmeG#SaqN@_m9(\"}"
+                            "raw": "{\"email\":\"dreinger@example.com\",\"password\":\"K][z60uW$=MG\"}"
                         },
                         "description": "",
                         "auth": {
@@ -120,7 +126,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"imwpqepoavmgnubbrozjiqwey\",\"email\":\"amanda.koepp@example.com\"}"
+                            "raw": "{\"name\":\"uthcfuxzurjlltingnjtxttk\",\"email\":\"zemlak.estel@example.org\"}"
                         },
                         "description": "",
                         "auth": {
@@ -151,7 +157,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"password\":\"3W8Q*hZ)GETN\"}"
+                            "raw": "{\"password\":\"rpGtx}G\"}"
                         },
                         "description": "",
                         "auth": {
@@ -210,7 +216,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"date_of_birth\":\"15-07-2024\",\"gender\":\"nam\",\"email_visible\":false,\"phone_number\":\"+381497839114\",\"phone_number_visible\":false,\"uni_start_year\":8,\"uni_finish_year\":20,\"bio\":\"nti\"}"
+                            "raw": "{\"date_of_birth\":\"15-07-2024\",\"gender\":\"quidem\",\"email_visible\":true,\"phone_number\":\"+38163122737\",\"phone_number_visible\":false,\"uni_start_year\":12,\"uni_finish_year\":13,\"bio\":\"gblvrbqxqfwifxnhomstrjy\"}"
                         },
                         "description": "",
                         "auth": {
@@ -241,7 +247,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"comapny_name\":\"cgci\",\"position\":\"qayopz\",\"start_date\":\"2011-05-31\",\"end_date\":\"2117-01-31\",\"desc\":\"yjjmzgejnqfbypklehmmeejfc\"}"
+                            "raw": "{\"comapny_name\":\"fqbmrecegytybu\",\"position\":\"qwuzbljhmpsz\",\"start_date\":\"2021-06-04\",\"end_date\":\"2104-11-14\",\"desc\":\"ncgikbhpnftdaw\"}"
                         },
                         "description": "",
                         "auth": {
