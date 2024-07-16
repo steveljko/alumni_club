@@ -19,7 +19,10 @@ class GetAuthenticatedUserData extends Controller implements HasMiddleware
 
   /**
    * User endpoint
+   *
    * This endpoint returns the authenticated user's data.
+   *
+   * @authenticated
    */
   public function __invoke(): JsonResponse
   {

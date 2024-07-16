@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Alumni Club API",
-        "_postman_id": "b27bb548-2358-4d4d-bf78-6385fc9ac9bd",
+        "_postman_id": "b572f562-0ebd-4c81-8126-9b30f544854c",
         "description": "Simple yet powerful api for alumni club app",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -20,7 +20,38 @@
             "description": "",
             "item": [
                 {
-                    "name": "User endpoint\nThis endpoint returns the authenticated user's data.",
+                    "name": "Login endpoint",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"john@doe.com\",\"password\":\"password\"}"
+                        },
+                        "description": "This endpoint is used for user logging in.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "User endpoint",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -40,10 +71,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "This endpoint returns the authenticated user's data."
                     },
                     "response": [
                         {
@@ -74,37 +102,6 @@
             "description": "",
             "item": [
                 {
-                    "name": "POST api\/login",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/login",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/login"
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"email\":\"dreinger@example.com\",\"password\":\"K][z60uW$=MG\"}"
-                        },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": []
-                },
-                {
                     "name": "POST api\/register",
                     "request": {
                         "url": {
@@ -126,7 +123,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"uthcfuxzurjlltingnjtxttk\",\"email\":\"zemlak.estel@example.org\"}"
+                            "raw": "{\"name\":\"John Doe\",\"email\":\"john@doe.com\"}"
                         },
                         "description": "",
                         "auth": {
@@ -157,7 +154,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"password\":\"rpGtx}G\"}"
+                            "raw": "{\"password\":\"f(|[-)'\"}"
                         },
                         "description": "",
                         "auth": {
@@ -186,7 +183,10 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"password\":\"password\",\"password_confirmation\":\"password\"}"
+                        },
                         "description": "",
                         "auth": {
                             "type": "noauth"
@@ -216,7 +216,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"date_of_birth\":\"15-07-2024\",\"gender\":\"quidem\",\"email_visible\":true,\"phone_number\":\"+38163122737\",\"phone_number_visible\":false,\"uni_start_year\":12,\"uni_finish_year\":13,\"bio\":\"gblvrbqxqfwifxnhomstrjy\"}"
+                            "raw": "{\"date_of_birth\":\"10-04-1997\",\"gender\":\"male\",\"email_visible\":false,\"phone_number\":\"+3816060606\",\"phone_number_visible\":false,\"uni_start_year\":2020,\"uni_finish_year\":2023,\"bio\":\"\"}"
                         },
                         "description": "",
                         "auth": {
@@ -247,7 +247,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"comapny_name\":\"fqbmrecegytybu\",\"position\":\"qwuzbljhmpsz\",\"start_date\":\"2021-06-04\",\"end_date\":\"2104-11-14\",\"desc\":\"ncgikbhpnftdaw\"}"
+                            "raw": "{\"company_name\":\"Moto IT\",\"position\":\"Front-end Develper\",\"start_date\":\"10-04-1997\",\"end_date\":\"15-05-1997\",\"desc\":\"\"}"
                         },
                         "description": "",
                         "auth": {

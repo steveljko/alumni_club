@@ -7,11 +7,39 @@ servers:
   -
     url: 'http://localhost:8000'
 paths:
+  /api/login:
+    post:
+      summary: 'Login endpoint'
+      operationId: loginEndpoint
+      description: 'This endpoint is used for user logging in.'
+      parameters: []
+      responses: {  }
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: "User's email address"
+                  example: john@doe.com
+                password:
+                  type: string
+                  description: "User's password"
+                  example: password
+              required:
+                - email
+                - password
+      security: []
   /api/user:
     get:
-      summary: "User endpoint\nThis endpoint returns the authenticated user's data."
-      operationId: userEndpointThisEndpointReturnsTheAuthenticatedUsersData
-      description: ''
+      summary: 'User endpoint'
+      operationId: userEndpoint
+      description: "This endpoint returns the authenticated user's data."
       parameters: []
       responses:
         401:
@@ -28,35 +56,6 @@ paths:
                     example: Unauthenticated.
       tags:
         - Auth
-      security: []
-  /api/login:
-    post:
-      summary: ''
-      operationId: postApiLogin
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Endpoints
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: dreinger@example.com
-                password:
-                  type: string
-                  description: 'Must be at least 6 characters. Must not be greater than 256 characters.'
-                  example: 'K][z60uW$=MG'
-              required:
-                - email
-                - password
-      security: []
   /api/register:
     post:
       summary: ''
@@ -75,12 +74,12 @@ paths:
               properties:
                 name:
                   type: string
-                  description: 'Must be at least 3 characters. Must not be greater than 256 characters.'
-                  example: uthcfuxzurjlltingnjtxttk
+                  description: "User's name"
+                  example: 'John Doe'
                 email:
                   type: string
-                  description: 'Must be a valid email address. Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: zemlak.estel@example.org
+                  description: "User's email address"
+                  example: john@doe.com
               required:
                 - name
                 - email
@@ -104,7 +103,7 @@ paths:
                 password:
                   type: string
                   description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: 'rpGtx}G'
+                  example: "f(|[-)'"
               required:
                 - password
       security: []
@@ -117,6 +116,24 @@ paths:
       responses: {  }
       tags:
         - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: 'New password'
+                  example: password
+                password_confirmation:
+                  type: string
+                  description: 'New password confirmed'
+                  example: password
+              required:
+                - password
+                - password_confirmation
       security: []
   /api/change-details:
     patch:
@@ -136,36 +153,36 @@ paths:
               properties:
                 date_of_birth:
                   type: string
-                  description: 'Must be a valid date in the format <code>d-m-Y</code>.'
-                  example: 15-07-2024
+                  description: 'Must be a valid date in the format d-m-Y'
+                  example: 10-04-1997
                 gender:
                   type: string
-                  description: ''
-                  example: quidem
+                  description: "Must be either 'male' or 'female'"
+                  example: male
                 email_visible:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
                 phone_number:
                   type: string
-                  description: 'Must match the regex /^\+381[0-9]{8,9}$/.'
-                  example: '+38163122737'
+                  description: 'Must be a phone number that starts with +381'
+                  example: '+3816060606'
                 phone_number_visible:
                   type: boolean
                   description: ''
                   example: false
                 uni_start_year:
                   type: integer
-                  description: 'Must be 4 digits.'
-                  example: 12
+                  description: ''
+                  example: 2020
                 uni_finish_year:
                   type: integer
-                  description: 'Must be 4 digits.'
-                  example: 13
+                  description: ''
+                  example: 2023
                 bio:
                   type: string
-                  description: 'Must be at least 8 characters. Must not be greater than 512 characters.'
-                  example: gblvrbqxqfwifxnhomstrjy
+                  description: "User's biography"
+                  example: ''
               required:
                 - date_of_birth
                 - gender
@@ -191,31 +208,32 @@ paths:
             schema:
               type: object
               properties:
-                comapny_name:
+                company_name:
                   type: string
-                  description: 'Must be at least 3 characters. Must not be greater than 16 characters.'
-                  example: fqbmrecegytybu
+                  description: 'Company name'
+                  example: 'Moto IT'
                 position:
                   type: string
-                  description: 'Must be at least 3 characters. Must not be greater than 24 characters.'
-                  example: qwuzbljhmpsz
+                  description: ''
+                  example: 'Front-end Develper'
                 start_date:
                   type: string
-                  description: 'Must be a valid date. Must be a date before <code>end_date</code>.'
-                  example: '2021-06-04'
+                  description: 'Must be a valid date in the format d-m-Y'
+                  example: 10-04-1997
                 end_date:
                   type: string
-                  description: 'Must be a valid date. Must be a date after <code>start_date</code>.'
-                  example: '2104-11-14'
+                  description: 'Must be a valid date in the format d-m-Y'
+                  example: 15-05-1997
                 desc:
                   type: string
-                  description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: ncgikbhpnftdaw
+                  description: 'Describe what you do...'
+                  example: ''
               required:
-                - comapny_name
+                - company_name
                 - position
                 - start_date
                 - end_date
+                - desc
       security: []
 tags:
   -

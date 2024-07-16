@@ -3,7 +3,13 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Knuckles\Scribe\Attributes\BodyParam;
 
+#[BodyParam("company_name", "string", "Company name", required: true, example: "Moto IT")]
+#[BodyParam("position", "string", required: true, example: "Front-end Develper")]
+#[BodyParam("start_date", "string", "Must be a valid date in the format d-m-Y", required: true, example: "10-04-1997")]
+#[BodyParam("end_date", "string", "Must be a valid date in the format d-m-Y", required: true, example: "15-05-1997")]
+#[BodyParam("desc", "string", "Describe what you do...", example: "")]
 class CreateJobRequest extends FormRequest
 {
   /**
@@ -22,7 +28,7 @@ class CreateJobRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'comapny_name' => ['required', 'string', 'min:3', 'max:16'],
+      'company_name' => ['required', 'string', 'min:3', 'max:16'],
       'position' => ['required', 'string', 'min:3', 'max:24'],
       'start_date' => ['required', 'date', 'before:end_date'],
       'end_date' => ['required', 'date', 'after:start_date'],
