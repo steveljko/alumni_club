@@ -13,7 +13,7 @@ use Knuckles\Scribe\Attributes\Group;
 class LoginController
 {
   /**
-   * Login endpoint
+   * Login
    *
    * This endpoint is used for user logging in.
    */

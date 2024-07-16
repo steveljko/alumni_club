@@ -18,5 +18,5 @@ Route::middleware(['verify_password_change'])->group(function () {
     Route::put('/change-password', ChangePasswordController::class)->name('change_password');
     Route::patch('/change-details', ChangeUserDetailsController::class)->name('change_details');
 
-    Route::post('/job/create', CreateJobController::class)->name('job.create');
+    Route::post('/jobs', CreateJobController::class)->name('job.create');
 });

@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Alumni Club API",
-        "_postman_id": "b572f562-0ebd-4c81-8126-9b30f544854c",
+        "_postman_id": "23bce28d-365a-4c16-bb6d-1f88bb65da02",
         "description": "Simple yet powerful api for alumni club app",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -20,7 +20,7 @@
             "description": "",
             "item": [
                 {
-                    "name": "Login endpoint",
+                    "name": "Login",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -94,15 +94,9 @@
                             "name": ""
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "name": "Endpoints",
-            "description": "",
-            "item": [
+                },
                 {
-                    "name": "POST api\/register",
+                    "name": "Register",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -125,77 +119,12 @@
                             "mode": "raw",
                             "raw": "{\"name\":\"John Doe\",\"email\":\"john@doe.com\"}"
                         },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "This endpoint is used for registering new user's into app."
                     },
                     "response": []
                 },
                 {
-                    "name": "PUT api\/change-initial-password",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/change-initial-password",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/change-initial-password"
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"password\":\"f(|[-)'\"}"
-                        },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "PUT api\/change-password",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/change-password",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/change-password"
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"password\":\"password\",\"password_confirmation\":\"password\"}"
-                        },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "PATCH api\/change-details",
+                    "name": "Change user details",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -218,21 +147,86 @@
                             "mode": "raw",
                             "raw": "{\"date_of_birth\":\"10-04-1997\",\"gender\":\"male\",\"email_visible\":false,\"phone_number\":\"+3816060606\",\"phone_number_visible\":false,\"uni_start_year\":2020,\"uni_finish_year\":2023,\"bio\":\"\"}"
                         },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "This endpoint is used for changing user details"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "Change initial password",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/change-initial-password",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/change-initial-password"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"password\":\"VZ>W{@g=\"}"
+                        },
+                        "description": "This endpoint is used only for changing user's initial password."
                     },
                     "response": []
                 },
                 {
-                    "name": "POST api\/job\/create",
+                    "name": "Change password",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/job\/create",
+                            "path": "api\/change-password",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/job\/create"
+                            "raw": "{{baseUrl}}\/api\/change-password"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"password\":\"password\",\"password_confirmation\":\"password\"}"
+                        },
+                        "description": "This endpoint is used for changing user passowrd."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Jobs",
+            "description": "",
+            "item": [
+                {
+                    "name": "Create job endpoint",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/jobs",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/jobs"
                         },
                         "method": "POST",
                         "header": [
@@ -249,10 +243,7 @@
                             "mode": "raw",
                             "raw": "{\"company_name\":\"Moto IT\",\"position\":\"Front-end Develper\",\"start_date\":\"10-04-1997\",\"end_date\":\"15-05-1997\",\"desc\":\"\"}"
                         },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "This endpoint is used for creating job for authenticated user."
                     },
                     "response": []
                 }

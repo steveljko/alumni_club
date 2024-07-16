@@ -12,48 +12,15 @@ class ChangePasswordController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
     {
-        return ['auth'];
+        return ['auth:sanctum'];
     }
 
     /**
-     * @OA\Put(
-     *  path="/change-password",
-     *  summary="Change user password",
-     *  description="Change password...",
-     *  tags={"Auth"},
+     * Change password
      *
-     *  @OA\RequestBody(
-     *    required=true,
+     * This endpoint is used for changing user passowrd.
      *
-     *    @OA\JsonContent(
-     *      required={"password", "password_confirmation"},
-     *
-     *      @OA\Property(property="password", type="string", format="password", example="password123"),
-     *      @OA\Property(property="password_confirmation", type="string", format="password", example="password123")
-     *    ),
-     *  ),
-     *
-     *  @OA\Response(
-     *    response=200,
-     *    description="User password is changed succesfully.",
-     *
-     *    @OA\JsonContent(
-     *
-     *      @OA\Property(property="success", type="boolean", example=true),
-     *    )
-     *  ),
-     *
-     *  @OA\Response(
-     *   response=422,
-     *   description="Laravel validation",
-     *
-     *   @OA\JsonContent(
-     *
-     *      @OA\Property(property="message", type="string"),
-     *      @OA\Property(property="errors", type="object")
-     *   )
-     *  ),
-     * ),
+     * @authenticated
      */
     public function __invoke(ChangePasswordRequest $request, SetNewPassword $service): JsonResponse
     {

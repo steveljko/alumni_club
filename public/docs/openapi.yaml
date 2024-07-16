@@ -9,8 +9,8 @@ servers:
 paths:
   /api/login:
     post:
-      summary: 'Login endpoint'
-      operationId: loginEndpoint
+      summary: Login
+      operationId: login
       description: 'This endpoint is used for user logging in.'
       parameters: []
       responses: {  }
@@ -58,13 +58,13 @@ paths:
         - Auth
   /api/register:
     post:
-      summary: ''
-      operationId: postApiRegister
-      description: ''
+      summary: Register
+      operationId: register
+      description: "This endpoint is used for registering new user's into app."
       parameters: []
       responses: {  }
       tags:
-        - Endpoints
+        - Auth
       requestBody:
         required: true
         content:
@@ -83,67 +83,15 @@ paths:
               required:
                 - name
                 - email
-      security: []
-  /api/change-initial-password:
-    put:
-      summary: ''
-      operationId: putApiChangeInitialPassword
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Endpoints
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                password:
-                  type: string
-                  description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: "f(|[-)'"
-              required:
-                - password
-      security: []
-  /api/change-password:
-    put:
-      summary: ''
-      operationId: putApiChangePassword
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Endpoints
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                password:
-                  type: string
-                  description: 'New password'
-                  example: password
-                password_confirmation:
-                  type: string
-                  description: 'New password confirmed'
-                  example: password
-              required:
-                - password
-                - password_confirmation
-      security: []
   /api/change-details:
     patch:
-      summary: ''
-      operationId: patchApiChangeDetails
-      description: ''
+      summary: 'Change user details'
+      operationId: changeUserDetails
+      description: 'This endpoint is used for changing user details'
       parameters: []
       responses: {  }
       tags:
-        - Endpoints
+        - Auth
       requestBody:
         required: true
         content:
@@ -191,16 +139,64 @@ paths:
                 - phone_number_visible
                 - uni_start_year
                 - uni_finish_year
-      security: []
-  /api/job/create:
-    post:
-      summary: ''
-      operationId: postApiJobCreate
-      description: ''
+  /api/change-initial-password:
+    put:
+      summary: 'Change initial password'
+      operationId: changeInitialPassword
+      description: "This endpoint is used only for changing user's initial password."
       parameters: []
       responses: {  }
       tags:
         - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
+                  example: 'VZ>W{@g='
+              required:
+                - password
+  /api/change-password:
+    put:
+      summary: 'Change password'
+      operationId: changePassword
+      description: 'This endpoint is used for changing user passowrd.'
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: 'New password'
+                  example: password
+                password_confirmation:
+                  type: string
+                  description: 'New password confirmed'
+                  example: password
+              required:
+                - password
+                - password_confirmation
+  /api/jobs:
+    post:
+      summary: 'Create job endpoint'
+      operationId: createJobEndpoint
+      description: 'This endpoint is used for creating job for authenticated user.'
+      parameters: []
+      responses: {  }
+      tags:
+        - Jobs
       requestBody:
         required: true
         content:
@@ -234,11 +230,13 @@ paths:
                 - start_date
                 - end_date
                 - desc
-      security: []
 tags:
   -
     name: Auth
     description: ''
   -
     name: Endpoints
+    description: ''
+  -
+    name: Jobs
     description: ''
