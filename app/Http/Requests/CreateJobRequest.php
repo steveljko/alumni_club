@@ -3,13 +3,15 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 use Knuckles\Scribe\Attributes\BodyParam;
+use Illuminate\Validation\Validator;
 
 #[BodyParam("company_name", "string", "Company name", required: true, example: "Moto IT")]
 #[BodyParam("position", "string", required: true, example: "Front-end Develper")]
 #[BodyParam("start_date", "string", "Must be a valid date in the format Y-m-d", required: true, example: "2020-04-14")]
-#[BodyParam("end_date", "string", "Must be a valid date in the format Y-m-d, and after start_date.", required: true, example: "2022-4-14")]
-#[BodyParam("desc", "string", "Describe what you do...", example: "")]
+#[BodyParam("end_date", "string", "Must be a valid date in the format Y-m-d, and after start_date", required: false, example: "2022-4-14")]
+#[BodyParam("desc", "string", "Describe everything about this job...", example: "")]
 class CreateJobRequest extends FormRequest
 {
   /**
@@ -30,9 +32,35 @@ class CreateJobRequest extends FormRequest
     return [
       'company_name' => ['required', 'string', 'min:3', 'max:16'],
       'position' => ['required', 'string', 'min:3', 'max:24'],
-      'start_date' => ['required', 'date', 'before:end_date'],
-      'end_date' => ['required', 'date', 'after:start_date'],
+      'start_date' => ['required', 'date'],
+      'end_date' => ['nullable', 'date'],
       'desc' => ['min:8', 'max:256'],
     ];
+  }
+
+
+  /**
+   * Configure custom validation rules.
+   *
+   * @param \Illuminate\Validation\Validator $validator
+   * @return void
+   */
+  public function withValidator(Validator $validator): void
+  {
+    $validator->after(function (Validator $validator) {
+      $startDate = $this->start_date;
+      $endDate = $this->end_date;
+
+      if ($startDate && $endDate) {
+        $start = Carbon::parse($startDate);
+        $end = Carbon::parse($endDate);
+
+        if ($start->gte($end)) {
+          $validator
+            ->errors()
+            ->add('end_date', 'The end date must be a date after the start date.');
+        }
+      }
+    });
   }
 }

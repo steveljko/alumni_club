@@ -16,6 +16,7 @@ class UserJobs extends Model
     'position',
     'start_date',
     'end_date',
+    'current',
     'desc'
   ];
 

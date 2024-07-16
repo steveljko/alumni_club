@@ -16,10 +16,10 @@ return new class extends Migration
       $table->string('company_name');
       $table->string('position');
       $table->date('start_date');
-      $table->date('end_date')->default(null);
-      $table->text('desc');
+      $table->date('end_date')->nullable();
+      $table->text('desc')->nullable();
       $table->foreignId('user_id')->constrained();
-      $table->integer('changed')->default(false);
+      $table->boolean('current')->default(false);
       $table->timestamps();
     });
   }
