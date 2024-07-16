@@ -125,8 +125,7 @@ return [
   'intro_text' => <<<INTRO
   This documentation aims to provide all the information you need to work with our API.
 
-  <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
-  You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
+  For every request that needs authorization, you first need to log in with valid credentials in 'Auth/Login', then use this endpoint that requires authentication.
   INTRO
   ,
 
