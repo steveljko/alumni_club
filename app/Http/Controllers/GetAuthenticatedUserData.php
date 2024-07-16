@@ -29,7 +29,9 @@ class GetAuthenticatedUserData extends Controller implements HasMiddleware
   public function __invoke(): JsonResponse
   {
     $user = new UserResource(
-      User::with('details', 'jobs')->find(Auth::id())
+      User::with(['details', 'jobs' => function ($query) {
+        $query->orderBy('created_at', 'desc');
+      }])->find(Auth::id())
     );
 
     return $this->sendResponse('User fetched succesfully', $user);
