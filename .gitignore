@@ -15,6 +15,9 @@ Homestead.yaml
 auth.json
 npm-debug.log
 yarn-error.log
+resources/docs/
+resources/views/scribe/
+.scribe/
 /.fleet
 /.idea
 /.vscode
