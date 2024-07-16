@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterRequest;
-use App\Models\User;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Services\GenerateInitialPassword;
+use App\Http\Requests\RegisterRequest;
+use Knuckles\Scribe\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Knuckles\Scribe\Attributes\Group;
+use App\Models\User;
 
 #[Group('Auth')]
 class RegisterController extends Controller implements HasMiddleware
@@ -27,6 +27,10 @@ class RegisterController extends Controller implements HasMiddleware
    * This endpoint is used for registering new user's into app.
    *
    * @authenticated
+   *
+   * @var \App\Http\Requests\RegisterRequest $request
+   * @var \App\Services\GenerateInitialPassword $service
+   * @return \Illuminate\Http\JsonResponse
    */
   public function __invoke(RegisterRequest $request, GenerateInitialPassword $service): JsonResponse
   {
@@ -49,12 +53,6 @@ class RegisterController extends Controller implements HasMiddleware
       'bio' => null,
     ]);
 
-    return new JsonResponse(
-      [
-        'success' => true,
-        'message' => "Your initial password is $password",
-      ],
-      Response::HTTP_CREATED
-    );
+    return $this->sendResponse("User is successfully registered.", null, Response::HTTP_CREATED);
   }
 }

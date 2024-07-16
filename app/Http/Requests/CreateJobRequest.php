@@ -7,8 +7,8 @@ use Knuckles\Scribe\Attributes\BodyParam;
 
 #[BodyParam("company_name", "string", "Company name", required: true, example: "Moto IT")]
 #[BodyParam("position", "string", required: true, example: "Front-end Develper")]
-#[BodyParam("start_date", "string", "Must be a valid date in the format d-m-Y", required: true, example: "10-04-1997")]
-#[BodyParam("end_date", "string", "Must be a valid date in the format d-m-Y", required: true, example: "15-05-1997")]
+#[BodyParam("start_date", "string", "Must be a valid date in the format Y-m-d", required: true, example: "2020-04-14")]
+#[BodyParam("end_date", "string", "Must be a valid date in the format Y-m-d, and after start_date.", required: true, example: "2022-4-14")]
 #[BodyParam("desc", "string", "Describe what you do...", example: "")]
 class CreateJobRequest extends FormRequest
 {

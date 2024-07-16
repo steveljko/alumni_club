@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Knuckles\Scribe\Attributes\BodyParam;
 
 #[BodyParam("password", "string", "New password", required: true, example: "password")]
 #[BodyParam("password_confirmation", "string", "New password confirmed", required: true, example: "password")]

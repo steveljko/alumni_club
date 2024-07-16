@@ -27,7 +27,7 @@ class CreateJobController extends Controller implements HasMiddleware
   public function __invoke(CreateJobRequest $request): JsonResponse
   {
     $createdJob = Auth::user()
-      ->jobs
+      ->jobs()
       ->create($request->validated());
 
     return new JsonResponse([
