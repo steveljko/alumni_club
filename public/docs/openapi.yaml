@@ -37,8 +37,8 @@ paths:
       security: []
   /api/user:
     get:
-      summary: 'User endpoint'
-      operationId: userEndpoint
+      summary: 'Get user'
+      operationId: getUser
       description: "This endpoint returns the authenticated user's data."
       parameters: []
       responses:
@@ -83,6 +83,55 @@ paths:
               required:
                 - name
                 - email
+  /api/change-initial-password:
+    put:
+      summary: 'Change initial password'
+      operationId: changeInitialPassword
+      description: "This endpoint is used only for changing user's initial password."
+      parameters: []
+      responses: {  }
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
+                  example: 'vxleU~X[krr'
+              required:
+                - password
+  /api/change-password:
+    put:
+      summary: 'Change password'
+      operationId: changePassword
+      description: 'This endpoint is used for changing user passowrd.'
+      parameters: []
+      responses: {  }
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: 'New password'
+                  example: password
+                password_confirmation:
+                  type: string
+                  description: 'New password confirmed'
+                  example: password
+              required:
+                - password
+                - password_confirmation
   /api/change-details:
     patch:
       summary: 'Change user details'
@@ -139,59 +188,10 @@ paths:
                 - phone_number_visible
                 - uni_start_year
                 - uni_finish_year
-  /api/change-initial-password:
-    put:
-      summary: 'Change initial password'
-      operationId: changeInitialPassword
-      description: "This endpoint is used only for changing user's initial password."
-      parameters: []
-      responses: {  }
-      tags:
-        - Endpoints
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                password:
-                  type: string
-                  description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
-                  example: '}B?pJn$_2~h/d}?|4W-('
-              required:
-                - password
-  /api/change-password:
-    put:
-      summary: 'Change password'
-      operationId: changePassword
-      description: 'This endpoint is used for changing user passowrd.'
-      parameters: []
-      responses: {  }
-      tags:
-        - Endpoints
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                password:
-                  type: string
-                  description: 'New password'
-                  example: password
-                password_confirmation:
-                  type: string
-                  description: 'New password confirmed'
-                  example: password
-              required:
-                - password
-                - password_confirmation
   /api/jobs:
     post:
-      summary: 'Create job endpoint'
-      operationId: createJobEndpoint
+      summary: 'Create job'
+      operationId: createJob
       description: 'This endpoint is used for creating job for authenticated user.'
       parameters: []
       responses: {  }
@@ -233,9 +233,6 @@ paths:
 tags:
   -
     name: Auth
-    description: ''
-  -
-    name: Endpoints
     description: ''
   -
     name: Jobs

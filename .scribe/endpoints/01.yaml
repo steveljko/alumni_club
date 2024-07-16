@@ -1,17 +1,17 @@
-name: Endpoints
+name: Jobs
 description: ''
 endpoints:
   -
     httpMethods:
-      - PUT
-    uri: api/change-initial-password
+      - POST
+    uri: api/jobs
     metadata:
-      groupName: Endpoints
+      groupName: Jobs
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Change initial password'
-      description: "This endpoint is used only for changing user's initial password."
+      title: 'Create job'
+      description: 'This endpoint is used for creating job for authenticated user.'
       authenticated: true
       custom: []
     headers:
@@ -22,67 +22,57 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      password:
-        name: password
-        description: 'Must be at least 8 characters. Must not be greater than 256 characters.'
+      company_name:
+        name: company_name
+        description: 'Company name'
         required: true
-        example: '}B?pJn$_2~h/d}?|4W-('
+        example: 'Moto IT'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      position:
+        name: position
+        description: ''
+        required: true
+        example: 'Front-end Develper'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      start_date:
+        name: start_date
+        description: 'Must be a valid date in the format d-m-Y'
+        required: true
+        example: 10-04-1997
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      end_date:
+        name: end_date
+        description: 'Must be a valid date in the format d-m-Y'
+        required: true
+        example: 15-05-1997
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      desc:
+        name: desc
+        description: 'Describe what you do...'
+        required: true
+        example: ''
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      password: '}B?pJn$_2~h/d}?|4W-('
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PUT
-    uri: api/change-password
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Change password'
-      description: 'This endpoint is used for changing user passowrd.'
-      authenticated: true
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      password:
-        name: password
-        description: 'New password'
-        required: true
-        example: password
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        custom: []
-      password_confirmation:
-        name: password_confirmation
-        description: 'New password confirmed'
-        required: true
-        example: password
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        custom: []
-    cleanBodyParameters:
-      password: password
-      password_confirmation: password
+      company_name: 'Moto IT'
+      position: 'Front-end Develper'
+      start_date: 10-04-1997
+      end_date: 15-05-1997
+      desc: ''
     fileParameters: []
     responses: []
     responseFields: []

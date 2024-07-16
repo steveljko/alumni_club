@@ -18,7 +18,7 @@ class GetAuthenticatedUserData extends Controller implements HasMiddleware
   }
 
   /**
-   * User endpoint
+   * Get user
    *
    * This endpoint returns the authenticated user's data.
    *

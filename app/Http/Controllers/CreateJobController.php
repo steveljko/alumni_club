@@ -18,7 +18,7 @@ class CreateJobController extends Controller implements HasMiddleware
   }
 
   /**
-   * Create job endpoint
+   * Create job
    *
    * This endpoint is used for creating job for authenticated user.
    *

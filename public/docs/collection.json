@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Alumni Club API",
-        "_postman_id": "5e7314fa-40ca-4ffa-a805-c447d369af89",
+        "_postman_id": "69fd934b-d1d1-45f8-ad8f-8994c55ba5ce",
         "description": "Simple yet powerful api for alumni club app",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -51,7 +51,7 @@
                     "response": []
                 },
                 {
-                    "name": "User endpoint",
+                    "name": "Get user",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -124,40 +124,6 @@
                     "response": []
                 },
                 {
-                    "name": "Change user details",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/change-details",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/change-details"
-                        },
-                        "method": "PATCH",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"date_of_birth\":\"10-04-1997\",\"gender\":\"male\",\"email_visible\":false,\"phone_number\":\"+3816060606\",\"phone_number_visible\":false,\"uni_start_year\":2020,\"uni_finish_year\":2023,\"bio\":\"\"}"
-                        },
-                        "description": "This endpoint is used for changing user details"
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "Endpoints",
-            "description": "",
-            "item": [
-                {
                     "name": "Change initial password",
                     "request": {
                         "url": {
@@ -179,7 +145,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"password\":\"}B?pJn$_2~h\\\/d}?|4W-(\"}"
+                            "raw": "{\"password\":\"vxleU~X[krr\"}"
                         },
                         "description": "This endpoint is used only for changing user's initial password."
                     },
@@ -212,6 +178,34 @@
                         "description": "This endpoint is used for changing user passowrd."
                     },
                     "response": []
+                },
+                {
+                    "name": "Change user details",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/change-details",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/change-details"
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"date_of_birth\":\"10-04-1997\",\"gender\":\"male\",\"email_visible\":false,\"phone_number\":\"+3816060606\",\"phone_number_visible\":false,\"uni_start_year\":2020,\"uni_finish_year\":2023,\"bio\":\"\"}"
+                        },
+                        "description": "This endpoint is used for changing user details"
+                    },
+                    "response": []
                 }
             ]
         },
@@ -220,7 +214,7 @@
             "description": "",
             "item": [
                 {
-                    "name": "Create job endpoint",
+                    "name": "Create job",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
