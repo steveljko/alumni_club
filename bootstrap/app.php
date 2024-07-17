@@ -45,7 +45,11 @@ return Application::configure(basePath: dirname(__DIR__))
 
       // Change rendering output for NotFoundHttpException
       $exceptions->render(function (NotFoundHttpException $e, Request $request) {
-        $methods = [Request::METHOD_PUT, Request::METHOD_PATCH];
+        $methods = [
+          Request::METHOD_PUT,
+          Request::METHOD_PATCH,
+          Request::METHOD_DELETE
+        ];
 
         if (in_array($request->method(), $methods)) {
           $params = explode('/', $request->path());
