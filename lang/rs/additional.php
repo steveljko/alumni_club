@@ -9,5 +9,6 @@ return [
     'successful_delete' => 'Uspešno izbrisan posao.',
 
     'failed_update' => 'Neuspešna izmena posla! Molimo Vas, pokušajte ponovo.',
+    'failed_delete' => 'Neuspešno brisanje posla.',
   ],
 ];

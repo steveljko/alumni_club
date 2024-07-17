@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Carbon;
 use Knuckles\Scribe\Attributes\BodyParam;
 use Illuminate\Validation\Validator;
+use Illuminate\Support\Carbon;
 
 #[BodyParam("company_name", "string", "Company name", required: true, example: "Moto IT")]
 #[BodyParam("position", "string", required: true, example: "Front-end Develper")]

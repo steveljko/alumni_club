@@ -9,5 +9,6 @@ return [
     'successful_delete' => 'Job succesfully deleted.',
 
     'failed_update' => 'Job update failed! Please, try again.',
+    'failed_delete' => 'Job delete failed!',
   ],
 ];

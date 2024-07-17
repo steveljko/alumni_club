@@ -5,6 +5,7 @@ use App\Http\Controllers\ChangeUserDetailsController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\GetAuthenticatedUserData;
 use App\Http\Controllers\Jobs\CreateJobController;
+use App\Http\Controllers\Jobs\DeleteJobController;
 use App\Http\Controllers\Jobs\UpdateJobController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
@@ -29,4 +30,6 @@ Route::prefix('jobs')
       ->name('jobs.create');
     Route::put('/{job}', UpdateJobController::class)
       ->name('jobs.update');
+    Route::delete('/{job}', DeleteJobController::class)
+      ->name('jobs.delete');
   });
