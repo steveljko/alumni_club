@@ -7,22 +7,40 @@ use Illuminate\Http\Response;
 
 class Controller
 {
+  /**
+   * Send success JSON message
+   *
+   * @var string $message
+   * @var $data
+   * @var int $status
+   * @return \Illuminate\Http\JsonResponse
+   */
   public function sendResponse(
     string $message = 'Success',
-    $data = [],
-    $status = Response::HTTP_OK
+    $data = null,
+    int $status = Response::HTTP_OK
   ): JsonResponse
   {
-    return new JsonResponse([
+    $response = [
       'success' => true,
       'message' => $message,
-      'data' => $data,
-    ], $status);
+    ];
+
+    if ($data) $response['data'] = $data;
+
+    return new JsonResponse($response, $status);
   }
 
+  /**
+   * Send fail JSON message
+   *
+   * @var string $message
+   * @var int $status
+   * @return \Illuminate\Http\JsonResponse
+   */
   public function sendFailResponse(
     string $message = 'Failed',
-    $status = Response::HTTP_FORBIDDEN
+    int $status = Response::HTTP_FORBIDDEN
   ): JsonResponse
   {
     return new JsonResponse([
