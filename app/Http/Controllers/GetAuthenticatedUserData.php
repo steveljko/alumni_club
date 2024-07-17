@@ -34,6 +34,9 @@ class GetAuthenticatedUserData extends Controller implements HasMiddleware
       }])->find(Auth::id())
     );
 
-    return $this->sendResponse('User fetched succesfully', $user);
+    return $this->sendResponse(
+      message: __('auth.successful_user_fetch'),
+      data: $user
+    );
   }
 }

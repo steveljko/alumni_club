@@ -30,9 +30,10 @@ class CreateJobController extends Controller implements HasMiddleware
       ->jobs()
       ->create($request->validated());
 
-    return new JsonResponse([
-      'success' => true,
-      'job' => $createdJob
-    ], Response::HTTP_CREATED);
+    return $this->sendResponse(
+      message: __('additional.job.successful_create'),
+      data: $createdJob,
+      status: Response::HTTP_CREATED,
+    );
   }
 }

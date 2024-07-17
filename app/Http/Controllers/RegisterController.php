@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use App\Models\User;
 
-#[Group('Auth')]
+#[Group('Admin', 'Auth')]
 class RegisterController extends Controller implements HasMiddleware
 {
   public static function middleware(): array
@@ -53,6 +53,9 @@ class RegisterController extends Controller implements HasMiddleware
       'bio' => null,
     ]);
 
-    return $this->sendResponse("User is successfully registered.", null, Response::HTTP_CREATED);
+    return $this->sendResponse(
+      message: __('auth.successful_register'),
+      status: Response::HTTP_CREATED
+    );
   }
 }

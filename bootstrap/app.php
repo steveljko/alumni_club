@@ -7,6 +7,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -28,7 +29,15 @@ return Application::configure(basePath: dirname(__DIR__))
       $exceptions->render(function (AuthenticationException $e, Request $request) {
         return new JsonResponse([
           'success' => false,
-          'message' => 'You are unautheticated for exectuing this request.',
+          'message' => __('auth.unauthenticated'),
         ], Response::HTTP_UNAUTHORIZED);
+      });
+
+      // Change rendering output for UnauthorizedException
+      $exceptions->render(function (UnauthorizedException $e, Request $request) {
+        return new JsonResponse([
+          'success' => false,
+          'message' => __('auth.unauthorized'),
+        ], Response::HTTP_FORBIDDEN);
       });
     })->create();

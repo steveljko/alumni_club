@@ -2,12 +2,8 @@
 
 namespace App\Providers;
 
-use Knuckles\Camel\Extraction\ExtractedEndpointData;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Http\Request;
-use Laravel\Sanctum\Sanctum;
-use Knuckles\Scribe\Scribe;
-use App\Models\User;
+use Illuminate\Support\Facades\App;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +20,6 @@ class AppServiceProvider extends ServiceProvider
    */
   public function boot(): void
   {
-    //
+    App::setLocale('rs');
   }
 }

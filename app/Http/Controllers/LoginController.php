@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 
 #[Group('Auth')]
 class LoginController extends Controller
@@ -25,9 +24,13 @@ class LoginController extends Controller
   {
     if (Auth::attempt($request->only(['email', 'password']))) {
       $loggedInUser = new UserResource(Auth::user());
-      return $this->sendResponse('User succesfully logged in.', $loggedInUser);
+
+      return $this->sendResponse(
+        message: __('auth.successful_login'),
+        data: $loggedInUser
+      );
     } else {
-      throw ValidationException::withMessages(['email' => 'Provided credentials do not match our records.']);
+      throw ValidationException::withMessages(['email' => __('auth.failed')]);
     }
   }
 }
