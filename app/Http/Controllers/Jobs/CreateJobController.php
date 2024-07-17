@@ -1,22 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Jobs;
 
-use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Http\Requests\CreateJobRequest;
+use Knuckles\Scribe\Attributes\Group;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Knuckles\Scribe\Attributes\Group;
 
 #[Group('Jobs')]
-class CreateJobController extends Controller implements HasMiddleware
+class CreateJobController extends Controller
 {
-  public static function middleware(): array
-  {
-    return ['auth:sanctum'];
-  }
-
   /**
    * Create job
    *

@@ -7,5 +7,7 @@ return [
     'successful_create' => 'Job successfully created.',
     'successful_update' => 'Job successfully updated.',
     'successful_delete' => 'Job succesfully deleted.',
+
+    'failed_update' => 'Job update failed! Please, try again.',
   ],
 ];
