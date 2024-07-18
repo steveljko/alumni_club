@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Jobs;
 
 use Knuckles\Scribe\Attributes\Group;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use App\Models\UserJobs;
@@ -22,6 +23,12 @@ class DeleteJobController extends Controller
    */
   public function __invoke(UserJobs $job): JsonResponse
   {
+    if (!Auth::user()->owns(model: $job)) {
+      return $this->sendFailResponse(
+        message: __('additional.job.failed_delete')
+      );
+    }
+
     $deleted = $job->delete();
 
     if (!$deleted) {

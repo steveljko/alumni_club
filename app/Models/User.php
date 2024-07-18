@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use App\Traits\HasOwnership;
 
 class User extends Authenticatable
 {
-  use HasFactory, HasRoles, Notifiable;
+  use
+    HasOwnership,
+    HasFactory,
+    HasRoles,
+    Notifiable;
 
   /**
    * The attributes that are mass assignable.

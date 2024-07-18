@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Jobs;
 
 use App\Http\Requests\UpdateJobRequest;
 use App\Http\Resources\JobResource;
+use Auth;
 use Knuckles\Scribe\Attributes\Group;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -24,6 +25,12 @@ class UpdateJobController extends Controller
     UserJobs $job,
   ): JsonResponse
   {
+    if (!Auth::user()->owns(model: $job)) {
+      return $this->sendFailResponse(
+        message: __('additional.job.failed_update')
+      );
+    }
+
     $updated = $job->update($request->validated());
 
     if ($updated) {
