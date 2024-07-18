@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Jobs;
 
-use App\Http\Requests\UpdateJobRequest;
-use App\Http\Resources\JobResource;
-use Auth;
+use App\Http\Requests\Jobs\UpdateJobRequest;
 use Knuckles\Scribe\Attributes\Group;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\JobResource;
 use Illuminate\Http\JsonResponse;
 use App\Models\UserJobs;
 
@@ -19,6 +18,10 @@ class UpdateJobController extends Controller
    * This endpoint is used for updating job by using their id.
    *
    * @authenticated
+   *
+   * @var \App\Http\Requests\Jobs\UpdateJobRequest $request
+   * @var \App\Models\UserJobs $job
+   * @return \Illuminate\Http\JsonResponse
    */
   public function __invoke(
     UpdateJobRequest $request,

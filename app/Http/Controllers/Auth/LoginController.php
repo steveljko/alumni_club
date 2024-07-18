@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\Auth\LoginRequest;
 use Knuckles\Scribe\Attributes\Group;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use App\Http\Requests\LoginRequest;
 use Illuminate\Http\JsonResponse;
 
 #[Group('Auth')]

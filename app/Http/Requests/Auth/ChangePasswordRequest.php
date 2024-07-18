@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Knuckles\Scribe\Attributes\BodyParam;
 
-#[BodyParam("name", "string", "User's name", required: true, example: "John Doe")]
-#[BodyParam("email", "string", "User's email address", required: true, example: "john@doe.com")]
-class RegisterRequest extends FormRequest
+#[BodyParam("password", "string", "New password", required: true, example: "password")]
+#[BodyParam("password_confirmation", "string", "New password confirmed", required: true, example: "password")]
+class ChangePasswordRequest extends FormRequest
 {
   /**
      * Determine if the user is authorized to make this request.
      */
   public function authorize(): bool
   {
-    return true;
+    return false;
   }
 
   /**
@@ -25,8 +25,7 @@ class RegisterRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'name' => ['required', 'string', 'min:3', 'max:256'],
-      'email' => ['required', 'email', 'min:8', 'max:256', 'unique:users'],
+      'password' => ['required', 'string', 'min:8', 'max:256', 'confirmed'],
     ];
   }
 }

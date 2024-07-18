@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\Auth\ChangePasswordRequest;
 use Illuminate\Routing\Controllers\HasMiddleware;
-use App\Http\Requests\ChangePasswordRequest;
 use Knuckles\Scribe\Attributes\Group;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use App\Services\SetNewPassword;
 
@@ -23,6 +24,10 @@ class ChangePasswordController extends Controller implements HasMiddleware
    * This endpoint is used for changing user passowrd.
    *
    * @authenticated
+   *
+   * @var \App\Http\Requests\Auth\ChangePasswordRequest $request
+   * @var \App\Services\SetNewPassword $service
+   * @return \Illuminate\Http\JsonResponse
    */
   public function __invoke(ChangePasswordRequest $request, SetNewPassword $service): JsonResponse
   {

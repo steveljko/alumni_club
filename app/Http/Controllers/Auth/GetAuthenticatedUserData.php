@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Knuckles\Scribe\Attributes\Group;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use App\Models\User;
 
@@ -24,7 +25,7 @@ class GetAuthenticatedUserData extends Controller implements HasMiddleware
    *
    * @authenticated
    *
-   * @return \App\Http\JsonResponse
+   * @return \Illuminate\Http\JsonResponse
    */
   public function __invoke(): JsonResponse
   {

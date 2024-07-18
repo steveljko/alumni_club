@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\ChangeInitialPasswordRequest;
+use App\Http\Requests\Auth\ChangeInitialPasswordRequest;
 use App\Exceptions\InitialPasswordAlreadyChanged;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Knuckles\Scribe\Attributes\Group;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use App\Services\SetNewPassword;
 
@@ -24,6 +25,10 @@ class ChangeInitialPasswordController extends Controller implements HasMiddlewar
    * This endpoint is used only for changing user's initial password.
    *
    * @authenticated
+   *
+   * @var \App\Http\Requests\Auth\ChangeInitialPasswordRequest $request
+   * @var \App\Services\SetNewPassword $service
+   * @return \Illuminate\Http\JsonResponse
    */
   public function __invoke(ChangeInitialPasswordRequest $request, SetNewPassword $service): JsonResponse
   {

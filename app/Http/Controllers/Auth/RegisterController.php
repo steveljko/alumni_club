@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use Illuminate\Routing\Controllers\HasMiddleware;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Services\GenerateInitialPassword;
-use App\Http\Requests\RegisterRequest;
 use Knuckles\Scribe\Attributes\Group;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use App\Models\User;

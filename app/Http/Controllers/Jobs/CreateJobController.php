@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Jobs;
 
-use App\Http\Requests\CreateJobRequest;
+use App\Http\Requests\Jobs\CreateJobRequest;
 use Knuckles\Scribe\Attributes\Group;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +18,9 @@ class CreateJobController extends Controller
    * This endpoint is used for creating job for authenticated user.
    *
    * @authenticated
+   *
+   * @var \App\Http\Requests\Jobs\CreateJobRequest $request
+   * @return \Illuminate\Http\JsonResponse
    */
   public function __invoke(CreateJobRequest $request): JsonResponse
   {

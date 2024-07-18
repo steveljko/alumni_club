@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Jobs;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Knuckles\Scribe\Attributes\BodyParam;
@@ -12,32 +12,49 @@ use Illuminate\Support\Carbon;
 #[BodyParam("start_date", "string", "Must be a valid date in the format Y-m-d", required: true, example: "2020-04-14")]
 #[BodyParam("end_date", "string", "Must be a valid date in the format Y-m-d, and after start_date", required: false, example: "2022-4-14")]
 #[BodyParam("desc", "string", "Describe everything about this job...", example: "")]
-class CreateJobRequest extends FormRequest
+class UpdateJobRequest extends FormRequest
 {
   /**
-   * Determine if the user is authorized to make this request.
-   */
+     * Determine if the user is authorized to make this request.
+     */
   public function authorize(): bool
   {
     return true;
   }
 
   /**
-   * Get the validation rules that apply to the request.
-   *
-   * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-   */
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
   public function rules(): array
   {
     return [
-      'company_name' => ['required', 'string', 'min:3', 'max:16'],
-      'position' => ['required', 'string', 'min:3', 'max:24'],
-      'start_date' => ['required', 'date'],
-      'end_date' => ['nullable', 'date'],
-      'desc' => ['min:8', 'max:256'],
+      'company_name' => [
+        'required',
+        'string',
+        'max:255',
+      ],
+      'position' => [
+        'required',
+        'string',
+        'max:255',
+      ],
+      'start_date' => [
+        'required',
+        'date',
+      ],
+      'end_date' => [
+        'nullable',
+        'date',
+        'after_or_equal:start_date',
+      ],
+      'desc' => [
+        'nullable',
+        'string',
+      ],
     ];
   }
-
 
   /**
    * Configure custom validation rules.
