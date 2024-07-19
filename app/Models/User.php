@@ -1,7 +1,6 @@
 <?php
 namespace App\Models;
 
-use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,7 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use App\Observers\UserObserver;
 use App\Traits\HasOwnership;
+use App\Traits\Filterable;
 
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
@@ -17,8 +18,9 @@ class User extends Authenticatable
   use
     HasOwnership,
     HasFactory,
-    HasRoles,
-    Notifiable;
+    Filterable,
+    Notifiable,
+    HasRoles;
 
   /**
    * The attributes that are mass assignable.

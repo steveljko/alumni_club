@@ -17,16 +17,16 @@ class GetUsersController extends Controller
     FilterModel $filterModel
   ): JsonResponse
   {
-    $users = $filterModel(
-      request: $request,
-      model: new User(),
+    $users = User::filter(
+      query: $request->query(),
       allowedParams: [
         'name' => ['eq'],
         '(details_uni_start_year)' => ['eq', 'gte', 'lte'],
         '(details_uni_finish_year)' => ['eq', 'gte', 'lte'],
       ]
     )
-      ->get(with: ['details']);
+      ->with('details')
+      ->get();
 
     $count = count($users);
 
