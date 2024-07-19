@@ -45,15 +45,6 @@ class RegisterController extends Controller implements HasMiddleware
       'password' => $hashedPassword,
     ]);
 
-    $user->details()->create([
-      'date_of_birth' => null,
-      'gender' => null,
-      'phone_number' => null,
-      'uni_start_year' => null,
-      'uni_finish_year' => null,
-      'bio' => null,
-    ]);
-
     return $this->sendResponse(
       message: __('auth.successful_register'),
       status: Response::HTTP_CREATED
