@@ -8,7 +8,6 @@ use Knuckles\Scribe\Attributes\Group;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 
 #[Group('User')]
 class ChangeUserDetailsController extends Controller implements HasMiddleware
@@ -30,10 +29,19 @@ class ChangeUserDetailsController extends Controller implements HasMiddleware
    */
   public function __invoke(ChangeUserDetailsRequest $request): JsonResponse
   {
-    $details = Auth::user()
-      ->details
-      ->update($request->validated());
+    $details = Auth::user()->details;
 
-    return new JsonResponse($details, Response::HTTP_OK);
+    $updated = $details->update($request->validated());
+
+    if (!$updated) {
+      return $this->sendFailResponse(
+        message: __('additional.users.details_failed_update'),
+      );
+    }
+
+    return $this->sendResponse(
+      message: __('additional.users.details_successful_update'),
+      data: $details,
+    );
   }
 }

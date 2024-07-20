@@ -4,6 +4,9 @@ return [
   'model_not_found' => ':model with :id is not found.',
 
   'users' => [
+    'details_successful_update' => 'User details successfully updated.',
+    'details_failed_update' => 'User details update failed! Please, try again.',
+
     'find_success' => '{1} :count user found.|[2,*] :count user\'s found.',
     'find_fail' => 'No users found with these search criteria.',
   ],
