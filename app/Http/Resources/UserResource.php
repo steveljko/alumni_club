@@ -18,7 +18,7 @@ class UserResource extends JsonResource
       'id' => $this->id,
       'name' => $this->name,
       'email' => $this->email,
-      'details' => new UserJobsResource($this->whenLoaded('details')),
+      'details' => new UserDetailsResource($this->whenLoaded('details')),
       'jobs' => JobResource::collection($this->whenLoaded('jobs')),
     ];
   }

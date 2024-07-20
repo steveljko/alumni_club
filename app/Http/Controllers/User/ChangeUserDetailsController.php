@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Requests\User\ChangeUserDetailsRequest;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use App\Http\Resources\UserDetailsResource;
 use Knuckles\Scribe\Attributes\Group;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -31,7 +32,9 @@ class ChangeUserDetailsController extends Controller implements HasMiddleware
   {
     $details = Auth::user()->details;
 
-    $updated = $details->update($request->validated());
+    $updated = $details->update(
+      $request->validated() + ['changed' => true]
+    );
 
     if (!$updated) {
       return $this->sendFailResponse(
@@ -41,7 +44,7 @@ class ChangeUserDetailsController extends Controller implements HasMiddleware
 
     return $this->sendResponse(
       message: __('additional.users.details_successful_update'),
-      data: $details,
+      data: new UserDetailsResource($details),
     );
   }
 }

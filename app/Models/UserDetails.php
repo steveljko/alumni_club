@@ -8,23 +8,24 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserDetails extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    /** @var array<int, string> */
-    public $fillable = [
-        'date_of_birth',
-        'gender',
-        'email_visible',
-        'phone_number',
-        'phone_number_visible',
-        'uni_start_year',
-        'uni_finish_year',
-        'bio',
-    ];
+  /** @var array<int, string> */
+  public $fillable = [
+    'date_of_birth',
+    'gender',
+    'email_visible',
+    'phone_number',
+    'phone_number_visible',
+    'uni_start_year',
+    'uni_finish_year',
+    'bio',
+    'changed',
+  ];
 
-    /** @return \Illuminate\Database\Eloquent\Relations\HasMany */
-    public function user(): HasOne
-    {
-        return $this->hasMany(User::class);
-    }
+  /** @return \Illuminate\Database\Eloquent\Relations\HasMany */
+  public function user(): HasOne
+  {
+    return $this->hasMany(User::class);
+  }
 }
