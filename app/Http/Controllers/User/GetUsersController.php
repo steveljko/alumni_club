@@ -2,19 +2,35 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+// TODO: In future filter only user's with student role
 class GetUsersController extends Controller
 {
+  /**
+   * Get users endpoint
+   *
+   * This endpoint is used for filtering user's from database.
+   *
+   * @var \Illuminate\Http\Request $request
+   * @return \Illuminate\Http\JsonResponse
+   */
   public function __invoke(
     Request $request,
   ): JsonResponse
   {
+    $page = $request->query('page', 1);
+
+    if ($page < 1)
+      return $this->sendFailResponse(
+        message: __('additional.pagination.invalid_page_number')
+      );
+
     $users = User::filter(
       query: $request->query(),
       allowedParams: [
@@ -24,7 +40,14 @@ class GetUsersController extends Controller
       ]
     )
       ->with('details')
-      ->get();
+      ->paginate(10);
+
+    if ($page > $users->lastPage())
+      return $this->sendFailResponse(
+        message: __('additional.pagination.page_not_found')
+      );
+
+    $data = UserResource::collection($users)->response()->getData();
 
     $count = count($users);
 
@@ -37,7 +60,7 @@ class GetUsersController extends Controller
 
     return $this->sendResponse(
       message: trans_choice(__('additional.users.find_success'), $count),
-      data: UserResource::collection($users)
+      data: $data,
     );
   }
 }

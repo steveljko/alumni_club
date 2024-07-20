@@ -3,6 +3,11 @@
 return [
   'model_not_found' => ':model with :id is not found.',
 
+  'pagination' => [
+    'invalid_page_number' => 'Page with this number is invalid.',
+    'page_not_found' => 'Page is not found.',
+  ],
+
   'users' => [
     'details_successful_update' => 'User details successfully updated.',
     'details_failed_update' => 'User details update failed! Please, try again.',
