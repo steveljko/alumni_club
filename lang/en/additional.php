@@ -2,6 +2,7 @@
 
 return [
   'model_not_found' => ':model with :id is not found.',
+  'initial_password_must_be_changed' => 'You must first change the initial password to be able to use the application.',
 
   'pagination' => [
     'invalid_page_number' => 'Page with this number is invalid.',

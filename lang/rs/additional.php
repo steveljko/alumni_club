@@ -2,6 +2,7 @@
 
 return [
   'model_not_found' => ':model sa ID-jem :id nije pronađen.',
+  'initial_password_must_be_changed' => 'Prvo morate promeniti početnu lozinku da biste mogli koristiti aplikaciju.',
 
   'pagination' => [
     'invalid_page_number' => 'Broj stranice koji ste uneli je invalidan.',
