@@ -2,19 +2,17 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
-    {
-        $admin = Role::create(['name' => 'admin']);
-        $createUserPermission = Permission::create(['name' => 'create user']);
-        $createUserPermission->assignRole($admin);
-    }
+  /**
+   * Run the database seeds.
+   */
+  public function run(): void
+  {
+    Role::create(['name' => 'admin']);
+    Role::create(['name' => 'default']);
+  }
 }

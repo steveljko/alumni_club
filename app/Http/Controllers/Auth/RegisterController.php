@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Services\GenerateInitialPassword;
 use Knuckles\Scribe\Attributes\Group;
@@ -12,16 +11,8 @@ use Illuminate\Http\Response;
 use App\Models\User;
 
 #[Group('Admin', 'Auth')]
-class RegisterController extends Controller implements HasMiddleware
+class RegisterController extends Controller
 {
-  public static function middleware(): array
-  {
-    return [
-      'auth',
-      'permission:create user',
-    ];
-  }
-
   /**
    * Register
    *

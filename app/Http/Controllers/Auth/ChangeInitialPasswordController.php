@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Requests\Auth\ChangeInitialPasswordRequest;
 use App\Exceptions\InitialPasswordAlreadyChanged;
-use Illuminate\Routing\Controllers\HasMiddleware;
 use Knuckles\Scribe\Attributes\Group;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -12,13 +11,8 @@ use Illuminate\Http\JsonResponse;
 use App\Services\SetNewPassword;
 
 #[Group('Auth')]
-class ChangeInitialPasswordController extends Controller implements HasMiddleware
+class ChangeInitialPasswordController extends Controller
 {
-  public static function middleware(): array
-  {
-    return ['auth:sanctum'];
-  }
-
   /**
    * Change initial password
    *

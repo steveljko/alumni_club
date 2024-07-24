@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Routing\Controllers\HasMiddleware;
 use Knuckles\Scribe\Attributes\Group;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
@@ -11,13 +10,8 @@ use Illuminate\Http\JsonResponse;
 use App\Models\User;
 
 #[Group('Auth')]
-class GetAuthenticatedUserData extends Controller implements HasMiddleware
+class GetAuthenticatedUserData extends Controller
 {
-  public static function middleware(): array
-  {
-    return ['auth:sanctum'];
-  }
-
   /**
    * Get user
    *

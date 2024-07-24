@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Requests\Auth\ChangePasswordRequest;
-use Illuminate\Routing\Controllers\HasMiddleware;
 use Knuckles\Scribe\Attributes\Group;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -11,13 +10,8 @@ use Illuminate\Http\JsonResponse;
 use App\Services\SetNewPassword;
 
 #[Group('Auth')]
-class ChangePasswordController extends Controller implements HasMiddleware
+class ChangePasswordController extends Controller
 {
-  public static function middleware(): array
-  {
-    return ['auth:sanctum'];
-  }
-
   /**
    * Change password
    *

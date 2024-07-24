@@ -14,12 +14,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')
   ->name('auth.')
+  ->middleware('auth:sanctum')
   ->group(function () {
     Route::post('/login', LoginController::class)
-      ->name('auth.login');
-
-    Route::post('/register', RegisterController::class)
-      ->name('register');
+      ->withoutMiddleware('auth:sanctum')
+      ->name('login');
 
     Route::get('/user', GetAuthenticatedUserData::class)
       ->name('user');
@@ -30,6 +29,10 @@ Route::prefix('auth')
     Route::put('/password', ChangePasswordController::class)
       ->middleware('verify_password_change')
       ->name('password');
+
+    Route::post('/register', RegisterController::class)
+      ->middleware(['role:admin'])
+      ->name('register');
   });
 
 
@@ -40,12 +43,13 @@ Route::prefix('users')
       ->name('get');
 
     Route::patch('/details', ChangeUserDetailsController::class)
+      ->middleware(['auth:sanctum', 'role:default'])
       ->name('change_details');
   });
 
 Route::prefix('jobs')
   ->name('jobs.')
-  ->middleware(['auth:sanctum'])
+  ->middleware(['auth:sanctum', 'role:default'])
   ->group(function () {
     Route::post('/', CreateJobController::class)
       ->name('create');

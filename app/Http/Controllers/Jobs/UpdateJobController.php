@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Jobs;
 
 use App\Http\Requests\Jobs\UpdateJobRequest;
 use Knuckles\Scribe\Attributes\Group;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JobResource;
 use Illuminate\Http\JsonResponse;

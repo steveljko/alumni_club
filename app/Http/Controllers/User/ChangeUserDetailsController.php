@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Requests\User\ChangeUserDetailsRequest;
-use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Http\Resources\UserDetailsResource;
 use Knuckles\Scribe\Attributes\Group;
 use Illuminate\Support\Facades\Auth;
@@ -11,13 +10,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 
 #[Group('User')]
-class ChangeUserDetailsController extends Controller implements HasMiddleware
+class ChangeUserDetailsController extends Controller
 {
-  public static function middleware(): array
-  {
-    return ['auth:sanctum'];
-  }
-
   /**
    * Change user details
    *
