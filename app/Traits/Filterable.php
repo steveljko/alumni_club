@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Database\Eloquent\Builder;
+use App\Enums\FilterOperators;
 
 // TODO: If allowedParams is not specified, than enable for all fields all operators
 // TODO: Find better way to define relationship allowed params
@@ -23,21 +25,22 @@ trait Filterable
    * @var array<string, string>
    */
   private $operators = [
-    'eq' => '=',    // equals
-    'lt' => '<',    // less than
-    'lte' => '<=',  // less than equals
-    'gt' => '>',    // grater than
-    'gte' => '>=',  // grater than equals
+    FilterOperators::EQUALS => '=',
+    FilterOperators::LESS_THAN => '<',
+    FilterOperators::LESS_THAN_EQUALS => '<=',
+    FilterOperators::GRATER_THAN => '>',
+    FilterOperators::GRATER_THAN_EQUALS => '>=',
   ];
 
   /**
    * @param array<int,mixed> $query
    * @param array<int,mixed> $allowedParams
+   * @return \Illuminate\Database\Eloquent\Builder
    */
   public static function filter(
     array $query = [],
     array $allowedParams = []
-  )
+  ): Builder
   {
     // TODO: Handle unspecified query paramater used
 

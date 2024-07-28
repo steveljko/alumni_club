@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Resources\UserResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use App\Enums\FilterOperators;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -34,9 +35,17 @@ class GetUsersController extends Controller
     $users = User::filter(
       query: $request->query(),
       allowedParams: [
-        'name' => ['eq'],
-        '(details_uni_start_year)' => ['eq', 'gte', 'lte'],
-        '(details_uni_finish_year)' => ['eq', 'gte', 'lte'],
+        'name' => [FilterOperators::EQUALS],
+        '(details_uni_start_year)' => [
+          FilterOperators::EQUALS,
+          FilterOperators::GRATER_THAN_EQUALS,
+          FilterOperators::LESS_THAN_EQUALS,
+        ],
+        '(details_uni_finish_year)' => [
+          FilterOperators::EQUALS,
+          FilterOperators::GRATER_THAN_EQUALS,
+          FilterOperators::LESS_THAN_EQUALS,
+        ],
       ]
     )
       ->with('details')
