@@ -29,7 +29,7 @@ class RegisterTest extends TestCase
       $role = Role::firstOrCreate(['name' => 'default']);
       $user->assignRole($role);
     } else {
-      throw new Exception("This type doesn't exist!", 1);
+      throw new \Exception("This type doesn't exist!", 1);
     }
   }
 
