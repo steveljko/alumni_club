@@ -36,15 +36,17 @@ class GetUsersController extends Controller
       query: $request->query(),
       allowedParams: [
         'name' => [FilterOperators::EQUALS],
-        '(details_uni_start_year)' => [
-          FilterOperators::EQUALS,
-          FilterOperators::GRATER_THAN_EQUALS,
-          FilterOperators::LESS_THAN_EQUALS,
-        ],
-        '(details_uni_finish_year)' => [
-          FilterOperators::EQUALS,
-          FilterOperators::GRATER_THAN_EQUALS,
-          FilterOperators::LESS_THAN_EQUALS,
+        'details' => [
+          'uni_start_year' => [
+            FilterOperators::EQUALS,
+            FilterOperators::GRATER_THAN_EQUALS,
+            FilterOperators::LESS_THAN_EQUALS,
+          ],
+          'uni_finish_year' => [
+            FilterOperators::EQUALS,
+            FilterOperators::GRATER_THAN_EQUALS,
+            FilterOperators::LESS_THAN_EQUALS,
+          ],
         ],
       ]
     )

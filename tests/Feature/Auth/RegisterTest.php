@@ -3,10 +3,9 @@
 namespace Tests\Feature\Auth;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Response;
-use Illuminate\Validation\ValidationException;
 use PHPUnit\Framework\Attributes\Test;
 use Spatie\Permission\Models\Role;
+use Illuminate\Http\Response;
 use App\Models\User;
 use Tests\TestCase;
 

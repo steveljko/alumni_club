@@ -50,8 +50,8 @@ class GetUsersTest extends TestCase
     $user->details()->update(['uni_start_year' => '2020', 'uni_finish_year' => '2023']);
 
     $response = $this->get(route('users.get', [
-      '(details_uni_start_year)' => ['gte' => '2020'],
-      '(details_uni_finish_year)' => ['lte' => '2023'],
+      'details.uni_start_year' => ['gte' => '2020'],
+      'details.uni_finish_year' => ['lte' => '2023'],
     ]));
 
     $response->assertStatus(Response::HTTP_OK)
