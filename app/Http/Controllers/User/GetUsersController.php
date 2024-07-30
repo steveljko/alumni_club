@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
+use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\QueryParam;
 use App\Http\Resources\UserResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -10,11 +12,15 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-// TODO: In future filter only user's with student role
+#[Group('User')]
+#[QueryParam("name[eq]", "Only support eq (equals).", required: false, example: "John Doe")]
+#[QueryParam("details.uni_start_year[gte]", "Support eq (equals), gte (grater than equals) and lte (less than equals).", required: false, example: "2020")]
+#[QueryParam("details.uni_finish_year[lte]", "Support eq (equals), gte (grater than equals) and lte (less than equals).", required: false, example: "2023")]
+#[QueryParam("page", "Page number", required: false, example: "1")]
 class GetUsersController extends Controller
 {
   /**
-   * Get users endpoint
+   * Get users
    *
    * This endpoint is used for filtering user's from database.
    *
