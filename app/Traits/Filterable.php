@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Http\Resources\PaginateResource;
 use Illuminate\Database\Eloquent\Builder;
 use App\Enums\FilterOperators;
 use Illuminate\Support\Arr;
@@ -32,11 +33,16 @@ trait Filterable
     FilterOperators::GRATER_THAN_EQUALS => '>=',
   ];
 
+
   /**
-   * Function that filters by url query parameters.
+   * Filters model with query parameters
    *
-   * @param array<int,mixed> $query
-   * @param array<int,mixed> $allowedParams
+   * This function filters the provided query parameters according to the allowed parameters
+   * and constructs a query using Eloquent's query builder. It supports filtering by both direct
+   * conditions and relationships using the `whereHas` method.
+   *
+   * @param array<int, mixed> $query List of query parameters.
+   * @param array<int, mixed> $allowedParams List of allowed filter parameters.
    * @return \Illuminate\Database\Eloquent\Builder
    */
   public static function filter(
@@ -65,6 +71,74 @@ trait Filterable
     }
 
     return $query;
+  }
+
+  /**
+   * Processes and filters query parameters for fetching paginated data.
+   *
+   * This function takes an array of query parameters, filters them according to the allowed parameters,
+   * and prepares the data for retrieval with the specified relationships eagerly loaded. The result is
+   * mapped into a specified resource class, and pagination is applied based on the provided number of records per page.
+   *
+   * @param array<int, mixed> $query List of query parameters.
+   * @param array<int, mixed> $allowedParams List of allowed filter parameters.
+   * @param array<int, mixed> $with List of relationships to be eager loaded.
+   * @param string $resource Resource class to map returned data.
+   * @param int $records Number of elements per page.
+   */
+  public static function filterWithPagination(
+    array $query = [],
+    array $allowedParams = [],
+    array $with = [],
+    string $resource,
+    int $records = 10,
+  )
+  {
+    $instance = new self();
+    $page = isset($query['page']) ? $query['page'] : 1;
+    $query = $instance->filter($query, $allowedParams);
+
+    if ($page < 1)
+      throw new \Exception(__('additional.pagination.page_not_found'));
+
+    if (count($with)) {
+      $query =
+        $query
+          ->with($with)
+          ->paginate($records);
+    } else {
+      $query = $query->paginate($records);
+    }
+
+    $query = $query->withQueryString(); // append all query parametrs to pagination urls
+
+    if ($page > $query->lastPage())
+      throw new \Exception(__('additional.pagination.invalid_page_number'));
+
+    $result = PaginateResource::make($query, $resource);
+
+    return new class($result, $result->count()) {
+      public function __construct(private object $data, private int $count)
+      {
+        $this->data = $data;
+        $this->count = $count;
+      }
+
+      public function getData(): object
+      {
+        return $this->data;
+      }
+
+      public function getCount(): int
+      {
+        return $this->count;
+      }
+
+      public function empty(): bool
+      {
+        return $this->getCount() <= 0;
+      }
+    };
   }
 
   /**
