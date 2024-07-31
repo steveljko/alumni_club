@@ -2,21 +2,25 @@
 
 namespace App\Traits;
 
-use App\Http\Resources\PaginateResource;
+use App\Exceptions\PaginationInvalidPageNumber;
+use App\Exceptions\PaginationPageNotFound;
 use Illuminate\Database\Eloquent\Builder;
+use App\Http\Resources\PaginateResource;
 use App\Enums\FilterOperators;
 use Illuminate\Support\Arr;
 
-// TODO: If allowedParams is not specified, than enable for all fields all operators
 trait Filterable
 {
+  /** @var array<string, mixed> */
+  private static array $queryParams = [];
+
   /** @var array */
   private array $query = [];
 
   /**
    * Array with alloed params for query.
    *
-   * @var array<string, array>
+   * @var array<string, mixed>
    */
   private $allowedParams = [];
 
@@ -33,6 +37,11 @@ trait Filterable
     FilterOperators::GRATER_THAN_EQUALS => '>=',
   ];
 
+  protected static function bootFilterable(): void
+  {
+    static::$queryParams = request()->query();
+  }
+
 
   /**
    * Filters model with query parameters
@@ -41,20 +50,14 @@ trait Filterable
    * and constructs a query using Eloquent's query builder. It supports filtering by both direct
    * conditions and relationships using the `whereHas` method.
    *
-   * @param array<int, mixed> $query List of query parameters.
    * @param array<int, mixed> $allowedParams List of allowed filter parameters.
    * @return \Illuminate\Database\Eloquent\Builder
    */
-  public static function filter(
-    array $query = [],
-    array $allowedParams = []
-  ): Builder
+  public static function filter(array $allowedParams = []): Builder
   {
-    // TODO: Handle unspecified query paramater used
-
     $instance = new self();
     $instance->allowedParams = $instance->remapArray($allowedParams);
-    $instance->extractQueryConditions($query);
+    $instance->extractQueryConditions(static::$queryParams);
 
     $query = $instance->newQuery();
 
@@ -80,14 +83,12 @@ trait Filterable
    * and prepares the data for retrieval with the specified relationships eagerly loaded. The result is
    * mapped into a specified resource class, and pagination is applied based on the provided number of records per page.
    *
-   * @param array<int, mixed> $query List of query parameters.
    * @param array<int, mixed> $allowedParams List of allowed filter parameters.
    * @param array<int, mixed> $with List of relationships to be eager loaded.
    * @param string $resource Resource class to map returned data.
    * @param int $records Number of elements per page.
    */
   public static function filterWithPagination(
-    array $query = [],
     array $allowedParams = [],
     array $with = [],
     string $resource,
@@ -95,11 +96,9 @@ trait Filterable
   )
   {
     $instance = new self();
-    $page = isset($query['page']) ? $query['page'] : 1;
-    $query = $instance->filter($query, $allowedParams);
+    $query = $instance->filter($allowedParams);
 
-    if ($page < 1)
-      throw new \Exception(__('additional.pagination.page_not_found'));
+    if (($page = request()->query('page', 1)) < 1) throw new PaginationInvalidPageNumber;
 
     if (count($with)) {
       $query =
@@ -112,13 +111,15 @@ trait Filterable
 
     $query = $query->withQueryString(); // append all query parametrs to pagination urls
 
-    if ($page > $query->lastPage())
-      throw new \Exception(__('additional.pagination.invalid_page_number'));
+    if ($page > $query->lastPage()) throw new PaginationPageNotFound;
 
     $result = PaginateResource::make($query, $resource);
 
     return new class($result, $result->count()) {
-      public function __construct(private object $data, private int $count)
+      public function __construct(
+        private object $data,
+        private int $count
+      )
       {
         $this->data = $data;
         $this->count = $count;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\QueryParam;
+use Knuckles\Scribe\Attributes\Group;
 use App\Http\Resources\UserResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -33,7 +33,6 @@ class GetUsersController extends Controller
   {
     $result =
       User::filterWithPagination(
-        query: $request->query(),
         allowedParams: [
           'name' => [FilterOperators::EQUALS],
           'details' => [
