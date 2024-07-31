@@ -1,21 +1,20 @@
 <?php
+
 namespace App\Models;
 
+use App\Traits\Filterable;
+use App\Traits\HasOwnership;
+use App\Observers\UserObserver;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
-use App\Observers\UserObserver;
-use App\Traits\HasOwnership;
-use App\Traits\Filterable;
 
 #[ObservedBy([UserObserver::class])]
 /**
- * 
- *
  * @property int $id
  * @property string $name
  * @property string $email
@@ -35,6 +34,7 @@ use App\Traits\Filterable;
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
  * @property-read int|null $roles_count
+ *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
@@ -53,60 +53,60 @@ use App\Traits\Filterable;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable
 {
-  use
-    HasOwnership,
-    HasFactory,
-    Filterable,
-    Notifiable,
-    HasRoles;
+    use Filterable,
+        HasFactory,
+        HasOwnership,
+        HasRoles,
+        Notifiable;
 
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array<int, string>
-   */
-  protected $fillable = [
-    'name',
-    'email',
-    'password',
-  ];
-
-  /**
-   * The attributes that should be hidden for serialization.
-   *
-   * @var array<int, string>
-   */
-  protected $hidden = [
-    'password',
-    'remember_token',
-  ];
-
-  /**
-   * Get the attributes that should be cast.
-   *
-   * @return array<string, string>
-   */
-  protected function casts(): array
-  {
-    return [
-      'email_verified_at' => 'datetime',
-      'password' => 'hashed',
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
     ];
-  }
 
-  /** @var \Illuminate\Database\Eloquent\Relations\HasOne */
-  public function details(): HasOne
-  {
-    return $this->hasOne(UserDetails::class);
-  }
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-  /** @var \Illuminate\Database\Eloquent\Relations\HasMany */
-  public function jobs(): HasMany
-  {
-    return $this->hasMany(UserJobs::class);
-  }
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    /** @var \Illuminate\Database\Eloquent\Relations\HasOne */
+    public function details(): HasOne
+    {
+        return $this->hasOne(UserDetails::class);
+    }
+
+    /** @var \Illuminate\Database\Eloquent\Relations\HasMany */
+    public function jobs(): HasMany
+    {
+        return $this->hasMany(UserJobs::class);
+    }
 }

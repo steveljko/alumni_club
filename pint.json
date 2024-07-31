@@ -1,0 +1,23 @@
+{
+  "preset": "laravel",
+  "rules": {
+    "no_unused_imports": true,
+    "visibility_required": {
+      "elements": ["method", "property"]
+    },
+    "no_useless_else": true,
+    "single_line_after_imports": true,
+    "combine_consecutive_issets": true,
+    "array_syntax": { "syntax": "short" },
+    "single_quote": true,
+    "blank_line_after_namespace": true,
+    "curly_braces_position": {
+      "classes_opening_brace": "next_line_unless_newline_at_signature_end"
+    },
+    "ordered_imports": {
+      "sort_algorithm": "length"
+    },
+    "no_trailing_whitespace": true,
+    "no_trailing_whitespace_in_comment": true
+  }
+}

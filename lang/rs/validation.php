@@ -190,8 +190,8 @@ return [
     */
 
     'attributes' => [
-      'email' => 'E-mail adresa',
-      'password' => 'šifra',
+        'email' => 'E-mail adresa',
+        'password' => 'šifra',
     ],
 
 ];

@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
- *
  * @property int $id
  * @property string|null $date_of_birth
  * @property string|null $gender
@@ -21,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int $changed
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|UserDetails newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserDetails newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserDetails query()
@@ -36,28 +35,29 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|UserDetails whereUniStartYear($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserDetails whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserDetails whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class UserDetails extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  /** @var array<int, string> */
-  public $fillable = [
-    'date_of_birth',
-    'gender',
-    'email_visible',
-    'phone_number',
-    'phone_number_visible',
-    'uni_start_year',
-    'uni_finish_year',
-    'bio',
-    'changed',
-  ];
+    /** @var array<int, string> */
+    public $fillable = [
+        'date_of_birth',
+        'gender',
+        'email_visible',
+        'phone_number',
+        'phone_number_visible',
+        'uni_start_year',
+        'uni_finish_year',
+        'bio',
+        'changed',
+    ];
 
-  /** @return \Illuminate\Database\Eloquent\Relations\HasMany */
-  public function user(): HasOne
-  {
-    return $this->hasMany(User::class);
-  }
+    /** @return \Illuminate\Database\Eloquent\Relations\HasMany */
+    public function user(): HasOne
+    {
+        return $this->hasMany(User::class);
+    }
 }
