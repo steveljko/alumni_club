@@ -24,7 +24,7 @@ class DeleteJobController extends Controller
     {
         if (! Auth::user()->owns(model: $job)) {
             return $this->sendFailResponse(
-                message: __('additional.job.failed_delete')
+                message: __('additional.jobs.failed_delete')
             );
         }
 
@@ -32,12 +32,12 @@ class DeleteJobController extends Controller
 
         if (! $deleted) {
             return $this->sendFailResponse(
-                message: __('additional.job.failed_delete')
+                message: __('additional.jobs.failed_delete')
             );
         }
 
         return $this->sendResponse(
-            message: __('additional.job.successful_delete'),
+            message: __('additional.jobs.successful_delete'),
         );
     }
 }

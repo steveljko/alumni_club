@@ -28,7 +28,7 @@ class CreateJobController extends Controller
             ->create($request->validated());
 
         return $this->sendResponse(
-            message: __('additional.job.successful_create'),
+            message: __('additional.jobs.successful_create'),
             data: $createdJob,
             status: Response::HTTP_CREATED,
         );

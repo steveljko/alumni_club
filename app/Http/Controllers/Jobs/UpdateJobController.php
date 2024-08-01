@@ -29,7 +29,7 @@ class UpdateJobController extends Controller
     ): JsonResponse {
         if (! Auth::user()->owns(model: $job)) {
             return $this->sendFailResponse(
-                message: __('additional.job.failed_update')
+                message: __('additional.jobs.failed_update')
             );
         }
 
@@ -37,13 +37,13 @@ class UpdateJobController extends Controller
 
         if ($updated) {
             return $this->sendResponse(
-                message: __('additional.job.successful_update'),
+                message: __('additional.jobs.successful_update'),
                 data: new JobResource($job),
             );
         }
 
         return $this->sendFailResponse(
-            message: __('additional.job.failed_update')
+            message: __('additional.jobs.failed_update')
         );
 
     }

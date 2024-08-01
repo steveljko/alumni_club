@@ -17,7 +17,7 @@ return [
         'find_fail' => 'No users found with these search criteria.',
     ],
 
-    'job' => [
+    'jobs' => [
         'successful_create' => 'Job successfully created.',
         'successful_update' => 'Job successfully updated.',
         'successful_delete' => 'Job succesfully deleted.',

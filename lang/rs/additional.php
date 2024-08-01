@@ -10,6 +10,8 @@ return [
     ],
 
     'users' => [
+        'model_name' => 'Korisnik',
+
         'details_successful_update' => 'Korisnički detalji uspešno izmenjeni.',
         'details_failed_update' => 'Izmena korisničkih podataka neuspešna! Molimo Vas, pokušajte opet.',
 
@@ -17,7 +19,9 @@ return [
         'find_fail' => 'Nije pronađen nijedan korisnik sa ovakvim kriterijumima pretrage.',
     ],
 
-    'job' => [
+    'jobs' => [
+        'model_name' => 'Posao',
+
         'successful_create' => 'Uspešno napravljen novi posao.',
         'successful_update' => 'Uspešno izmenjen posao.',
         'successful_delete' => 'Uspešno izbrisan posao.',
