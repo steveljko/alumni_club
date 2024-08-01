@@ -47,6 +47,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Change rendering output for NotFoundHttpException
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             $methods = [
+                Request::METHOD_GET,
                 Request::METHOD_PUT,
                 Request::METHOD_PATCH,
                 Request::METHOD_DELETE,
@@ -56,11 +57,11 @@ return Application::configure(basePath: dirname(__DIR__))
                 $params = explode('/', $request->path());
 
                 if (isset($params[1])) {
-                    $model = ucfirst($params[1]);
-
-                    // TODO: Find better way to translate model names to Serbian language.
-                    if (Lang::locale() == 'rs' && $model == 'Jobs') {
-                        $model = 'Posao';
+                    if (Lang::locale() == 'rs') {
+                        $lang = trans('additional');
+                        $model = $lang[$params[1]]['model_name'];
+                    } else {
+                        $model = ucfirst($params[1]);
                     }
 
                     $id = $params[2] ?? null;
