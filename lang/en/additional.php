@@ -15,6 +15,8 @@ return [
 
         'find_success' => '{1} :count user found.|[2,*] :count user\'s found.',
         'find_fail' => 'No users found with these search criteria.',
+
+        'get' => 'User found.',
     ],
 
     'jobs' => [

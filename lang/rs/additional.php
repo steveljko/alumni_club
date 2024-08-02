@@ -17,6 +17,8 @@ return [
 
         'find_success' => '{1} :count korisnik pronađen.|[2,*] :count korisnika pronađeno.',
         'find_fail' => 'Nije pronađen nijedan korisnik sa ovakvim kriterijumima pretrage.',
+
+        'get' => 'Korisnik uspešno pronađen.',
     ],
 
     'jobs' => [
