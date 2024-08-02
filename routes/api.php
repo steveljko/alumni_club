@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\User\GetUserController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\User\GetUsersController;
 use App\Http\Controllers\Jobs\CreateJobController;
@@ -39,6 +40,9 @@ Route::prefix('users')
     ->name('users.')
     ->group(function () {
         Route::get('/', GetUsersController::class)
+            ->name('all');
+
+        Route::get('/{user}', GetUserController::class)
             ->name('get');
 
         Route::patch('/details', ChangeUserDetailsController::class)

@@ -15,9 +15,12 @@ class GetUsersTest extends TestCase
     #[Test]
     public function it_filters_by_exact_name(): void
     {
+        User::factory(20)->create();
         $user = User::factory()->create(['name' => 'John Doe']);
 
-        $response = $this->get(route('users.get', ['name' => ['eq' => 'John Doe']]));
+        $response = $this->get($this->route([
+            'name' => ['eq' => 'John Doe'],
+        ]));
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJson([
@@ -34,7 +37,9 @@ class GetUsersTest extends TestCase
     {
         User::factory()->create(['name' => 'Jane Doe']);
 
-        $response = $this->get(route('users.get', ['name' => ['eq' => 'John Doe 2']]));
+        $response = $this->get($this->route([
+            'name' => ['eq' => 'John Doe 2'],
+        ]));
 
         $response->assertStatus(Response::HTTP_NOT_FOUND)
             ->assertJson([
@@ -47,11 +52,11 @@ class GetUsersTest extends TestCase
     {
         User::factory(20)->create();
         $user = User::factory()->create(['name' => 'John Doe']);
-        $user->details()->update(['uni_start_year' => '2020', 'uni_finish_year' => '2023']);
+        $user->details()->update(['uni_start_year' => 2020, 'uni_finish_year' => 2023]);
 
-        $response = $this->get(route('users.get', [
-            'details.uni_start_year' => ['gte' => '2020'],
-            'details.uni_finish_year' => ['lte' => '2023'],
+        $response = $this->get($this->route([
+            'details.uni_start_year' => ['gte' => 2020],
+            'details.uni_finish_year' => ['lte' => 2023],
         ]));
 
         $response->assertStatus(Response::HTTP_OK)
@@ -61,12 +66,20 @@ class GetUsersTest extends TestCase
                         [
                             'name' => 'John Doe',
                             'details' => [
-                                'uni_start_year' => '2020',
-                                'uni_finish_year' => '2023',
+                                'uni_start_year' => 2020,
+                                'uni_finish_year' => 2023,
                             ],
                         ],
                     ],
                 ],
             ]);
+    }
+
+    /**
+     * @param  array<int,mixed>  $params
+     */
+    private function route(array $params = []): string
+    {
+        return route('users.all', $params, false);
     }
 }
