@@ -3,7 +3,9 @@
 namespace App\Traits;
 
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
 use App\Enums\FilterOperators;
+use Illuminate\Support\Facades\Log;
 use App\Http\Resources\PaginateResource;
 use Illuminate\Database\Eloquent\Builder;
 use App\Exceptions\PaginationPageNotFound;
@@ -11,10 +13,7 @@ use App\Exceptions\PaginationInvalidPageNumber;
 
 trait Filterable
 {
-    /** @var array<string, mixed> */
-    private static array $queryParams = [];
-
-    private array $query = [];
+    public array $query = [];
 
     /**
      * Array with alloed params for query.
@@ -36,11 +35,6 @@ trait Filterable
         FilterOperators::GRATER_THAN_EQUALS => '>=',
     ];
 
-    protected static function bootFilterable(): void
-    {
-        static::$queryParams = request()->query();
-    }
-
     /**
      * Filters model with query parameters
      *
@@ -54,7 +48,10 @@ trait Filterable
     {
         $instance = new self();
         $instance->allowedParams = $instance->remapArray($allowedParams);
-        $instance->extractQueryConditions(static::$queryParams);
+        $instance->extractQueryConditions(request()->query());
+
+        $className = class_basename(static::class);
+        Log::info("Filtering is executed on model $className with ", $instance->query);
 
         $query = $instance->newQuery();
 
@@ -95,7 +92,7 @@ trait Filterable
         $query = $instance->filter($allowedParams);
 
         if (($page = request()->query('page', 1)) < 1) {
-            throw new PaginationInvalidPageNumber;
+            throw new PaginationInvalidPageNumber();
         }
 
         if (count($with)) {
@@ -110,12 +107,12 @@ trait Filterable
         $query = $query->withQueryString(); // append all query parametrs to pagination urls
 
         if ($page > $query->lastPage()) {
-            throw new PaginationPageNotFound;
+            throw new PaginationPageNotFound();
         }
 
         $result = PaginateResource::make($query, $resource);
 
-        return new class($result, $result->count()) {
+        return new class ($result, $result->count()) {
             public function __construct(
                 private object $data,
                 private int $count
