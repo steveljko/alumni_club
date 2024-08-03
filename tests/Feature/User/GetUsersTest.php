@@ -5,6 +5,7 @@ namespace Tests\Feature\User;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Http\Response;
+use Illuminate\Testing\TestResponse;
 use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -18,9 +19,7 @@ class GetUsersTest extends TestCase
         User::factory(20)->create();
         $user = User::factory()->create(['name' => 'John Doe']);
 
-        $response = $this->get($this->route([
-            'name' => ['eq' => 'John Doe'],
-        ]));
+        $response = $this->response(['name' => ['eq' => 'John Doe']]);
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJson([
@@ -37,9 +36,7 @@ class GetUsersTest extends TestCase
     {
         User::factory()->create(['name' => 'Jane Doe']);
 
-        $response = $this->get($this->route([
-            'name' => ['eq' => 'John Doe 2'],
-        ]));
+        $response = $this->response(['name' => ['eq' => 'John Doe 2']]);
 
         $response->assertStatus(Response::HTTP_NOT_FOUND)
             ->assertJson([
@@ -54,10 +51,10 @@ class GetUsersTest extends TestCase
         $user = User::factory()->create(['name' => 'John Doe']);
         $user->details()->update(['uni_start_year' => 2020, 'uni_finish_year' => 2023]);
 
-        $response = $this->get($this->route([
+        $response = $this->response([
             'details.uni_start_year' => ['gte' => 2020],
             'details.uni_finish_year' => ['lte' => 2023],
-        ]));
+        ]);
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJson([
@@ -78,8 +75,8 @@ class GetUsersTest extends TestCase
     /**
      * @param  array<int,mixed>  $params
      */
-    private function route(array $params = []): string
+    private function response(array $params = []): TestResponse
     {
-        return route('users.all', $params, false);
+        return $this->get(route('users.all', $params));
     }
 }
