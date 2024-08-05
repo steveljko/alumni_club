@@ -8,5 +8,5 @@ enum PostType: string
 
     public const EVENT = 'event';
 
-    public const JOB = 'event';
+    public const JOB = 'job';
 }
