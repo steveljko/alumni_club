@@ -14,4 +14,9 @@ class Post extends Model
     {
         return $this->hasOne(PostDefault::class);
     }
+
+    public function event(): HasOne
+    {
+        return $this->hasOne(PostEvent::class);
+    }
 }
