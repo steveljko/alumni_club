@@ -4,11 +4,16 @@ namespace App\Enums;
 
 enum PostStatus: string
 {
-    public const PUBLISHED = 'published';
+    case PUBLISHED = 'published';
 
-    public const PENDING = 'pending';
+    case PENDING = 'pending';
 
-    public const DRAFT = 'draft';
+    case DRAFT = 'draft';
 
-    public const ARCHIVED = 'archived';
+    case ARCHIVED = 'archived';
+
+    public static function toArray(): array
+    {
+        return array_column(self::cases(), 'value');
+    }
 }

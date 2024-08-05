@@ -4,13 +4,13 @@ namespace App\Enums;
 
 enum FilterOperators: string
 {
-    const EQUALS = 'eq';
+    case EQUALS = 'eq';
 
-    const LESS_THAN = 'lt';
+    case LESS_THAN = 'lt';
 
-    const LESS_THAN_EQUALS = 'lte';
+    case LESS_THAN_EQUALS = 'lte';
 
-    const GRATER_THAN = 'gt';
+    case GRATER_THAN = 'gt';
 
-    const GRATER_THAN_EQUALS = 'gte';
+    case GRATER_THAN_EQUALS = 'gte';
 }

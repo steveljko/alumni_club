@@ -4,9 +4,14 @@ namespace App\Enums;
 
 enum PostType: string
 {
-    public const DEFAULT = 'default';
+    case DEFAULT = 'default';
 
-    public const EVENT = 'event';
+    case EVENT = 'event';
 
-    public const JOB = 'job';
+    case JOB = 'job';
+
+    public static function toArray(): array
+    {
+        return array_column(self::cases(), 'value');
+    }
 }
