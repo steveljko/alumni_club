@@ -3,8 +3,6 @@
 namespace App\Traits;
 
 use Illuminate\Support\Arr;
-use Illuminate\Http\Request;
-use App\Enums\FilterOperators;
 use Illuminate\Support\Facades\Log;
 use App\Http\Resources\PaginateResource;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,24 +14,11 @@ trait Filterable
     public array $query = [];
 
     /**
-     * Array with alloed params for query.
+     * Array with allowed params for query.
      *
      * @var array<string, mixed>
      */
     private $allowedParams = [];
-
-    /**
-     * Textual representation of operators.
-     *
-     * @var array<string, string>
-     */
-    private $operators = [
-        FilterOperators::EQUALS => '=',
-        FilterOperators::LESS_THAN => '<',
-        FilterOperators::LESS_THAN_EQUALS => '<=',
-        FilterOperators::GRATER_THAN => '>',
-        FilterOperators::GRATER_THAN_EQUALS => '>=',
-    ];
 
     /**
      * Filters model with query parameters
@@ -185,11 +170,19 @@ trait Filterable
             $q = $query[$param];
 
             foreach ($operators as $operator) {
-                if (isset($q[$operator])) {
+                if (isset($q[$operator->getUrlParam()])) {
                     if (preg_match('/^(.*?)_(.*?)$/', $param, $matches)) {
-                        $this->query[$matches[1]][] = [$matches[2], $this->operators[$operator], $q[$operator]];
+                        $this->query[$matches[1]][] = [
+                            $matches[2],
+                            $operator->getQueryParam(),
+                            $q[$operator->getUrlParam()],
+                        ];
                     } else {
-                        $this->query[] = [$param, $this->operators[$operator], $q[$operator]];
+                        $this->query[] = [
+                            $param,
+                            $operator->getQueryParam(),
+                            $q[$operator->getUrlParam()],
+                        ];
                     }
                 }
             }

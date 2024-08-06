@@ -5,12 +5,12 @@ namespace App\Http\Controllers\User;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Enums\FilterOperators;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\QueryParam;
+use App\Traits\Concerns\Enums\FilterOperators;
 
 #[Group('User')]
 #[QueryParam('name[eq]', 'Only support eq (equals).', required: false, example: 'John Doe')]
