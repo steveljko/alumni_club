@@ -10,7 +10,9 @@ use App\Http\Controllers\Jobs\DeleteJobController;
 use App\Http\Controllers\Jobs\UpdateJobController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\GetAuthenticatedUserData;
+use App\Http\Controllers\Posts\CreateEventPostController;
 use App\Http\Controllers\User\ChangeUserDetailsController;
+use App\Http\Controllers\Posts\CreateDefaultPostController;
 use App\Http\Controllers\Auth\ChangeInitialPasswordController;
 
 Route::prefix('auth')
@@ -62,4 +64,15 @@ Route::prefix('jobs')
 
         Route::delete('/{job}', DeleteJobController::class)
             ->name('delete');
+    });
+
+Route::prefix('posts')
+    ->name('posts.')
+    ->middleware(['auth:sanctum', 'role:default'])
+    ->group(function () {
+        Route::post('/', CreateDefaultPostController::class)
+            ->name('create.default');
+
+        Route::post('/event', CreateEventPostController::class)
+            ->name('create.event');
     });

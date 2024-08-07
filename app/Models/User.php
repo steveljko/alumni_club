@@ -58,11 +58,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    use Filterable,
-        HasFactory,
-        HasOwnership,
-        HasRoles,
-        Notifiable;
+    use Filterable;
+    use HasFactory;
+    use HasOwnership;
+    use HasRoles;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.

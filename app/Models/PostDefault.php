@@ -10,6 +10,10 @@ class PostDefault extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'body',
+    ];
+
     public function data(): BelongsTo
     {
         return $this->belongsTo(Post::class);

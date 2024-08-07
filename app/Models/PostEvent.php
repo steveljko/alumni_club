@@ -10,6 +10,17 @@ class PostEvent extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'title',
+        'description',
+        'event_page_url',
+        'start_time',
+        'end_time',
+        'address',
+        'city',
+        'thumb_url',
+    ];
+
     public function data(): BelongsTo
     {
         return $this->belongsTo(Post::class);
