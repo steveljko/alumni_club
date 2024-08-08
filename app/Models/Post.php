@@ -36,6 +36,11 @@ class Post extends Model
         return $this->hasOne(PostEvent::class);
     }
 
+    public function job(): HasOne
+    {
+        return $this->hasOne(PostJob::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

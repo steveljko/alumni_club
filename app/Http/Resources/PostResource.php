@@ -18,6 +18,7 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'status' => $this->status,
             'type' => $this->type,
+            'likes_count' => $this->likes_count,
             'user' => new UserResource($this->user),
             'created_at' => $this->created_at,
         ];
@@ -28,6 +29,10 @@ class PostResource extends JsonResource
 
         if ($this->type->value == 'event') {
             $data['data'] = new PostEventResource($this->event);
+        }
+
+        if ($this->type->value == 'job') {
+            $data['data'] = new PostJobResource($this->job);
         }
 
         return $data;

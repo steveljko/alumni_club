@@ -30,6 +30,7 @@ class CreatePostTest extends TestCase
                     'id',
                     'status',
                     'type',
+                    'likes_count',
                     'user' => ['id', 'name', 'email'],
                     'created_at',
                     'data' => ['body'],
@@ -59,11 +60,47 @@ class CreatePostTest extends TestCase
                     'id',
                     'status',
                     'type',
+                    'likes_count',
                     'user' => ['id', 'name', 'email'],
                     'created_at',
                     'data' => [
                         'title', 'description', 'event_page_url',
                         'start_time', 'end_time', 'address', 'city',
+                    ],
+                ],
+            ]);
+    }
+
+    #[Test]
+    public function it_creates_new_job_post_successfully(): void
+    {
+        $response = $this->response('job', [
+            'status' => 'published',
+            'type' => 'job',
+            'position' => 'Example Position',
+            'description' => 'This is example for position.',
+            'company_name' => 'Example Company',
+            'company_city' => 'Example City',
+            'opening_start' => now(),
+            'opening_end' => now()->addMonths(1),
+            'job_page_url' => 'https://www.example.com',
+        ]);
+
+        $response
+            ->assertStatus(Response::HTTP_CREATED)
+            ->assertJsonStructure([
+                'data' => [
+                    'id',
+                    'status',
+                    'type',
+                    'likes_count',
+                    'user' => ['id', 'name', 'email'],
+                    'created_at',
+                    'data' => [
+                        'position', 'description',
+                        'company_name', 'company_city',
+                        'opening_start', 'opening_end',
+                        'job_page_url',
                     ],
                 ],
             ]);

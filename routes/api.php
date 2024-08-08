@@ -10,6 +10,7 @@ use App\Http\Controllers\Jobs\DeleteJobController;
 use App\Http\Controllers\Jobs\UpdateJobController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\GetAuthenticatedUserData;
+use App\Http\Controllers\Posts\CreateJobPostController;
 use App\Http\Controllers\Posts\CreateEventPostController;
 use App\Http\Controllers\User\ChangeUserDetailsController;
 use App\Http\Controllers\Posts\CreateDefaultPostController;
@@ -75,4 +76,7 @@ Route::prefix('posts')
 
         Route::post('/event', CreateEventPostController::class)
             ->name('create.event');
+
+        Route::post('/job', CreateJobPostController::class)
+            ->name('create.job');
     });

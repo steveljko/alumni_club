@@ -9,28 +9,27 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use Knuckles\Scribe\Attributes\Group;
-use App\Http\Requests\Posts\CreateEventPostRequest;
+use App\Http\Requests\Posts\CreateJobPostRequest;
 
-// TODO: Create thumbnail image uploading
 #[Group('Post')]
-class CreateEventPostController extends Controller
+class CreateJobPostController extends Controller
 {
     /**
-     * Create event post
+     * Create job post
      *
      * @authenticated
      */
     public function __invoke(
-        CreateEventPostRequest $request
+        CreateJobPostRequest $request
     ): JsonResponse {
         $data = $request->validated();
 
         $postData = Arr::only($data, ['status', 'type']);
-        $eventData = Arr::except($data, ['status', 'type']);
+        $jobData = Arr::except($data, ['status', 'type']);
 
         $post = Post::create($postData + ['user_id' => auth()->user()->id]);
-        $post->event()->create($eventData);
-        $post->load('event');
+        $post->job()->create($jobData);
+        $post->load('job');
 
         return $this->sendResponse(
             data: new PostResource($post),
