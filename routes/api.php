@@ -8,6 +8,7 @@ use App\Http\Controllers\User\GetUsersController;
 use App\Http\Controllers\Jobs\CreateJobController;
 use App\Http\Controllers\Jobs\DeleteJobController;
 use App\Http\Controllers\Jobs\UpdateJobController;
+use App\Http\Controllers\Posts\UpdatePostController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\GetAuthenticatedUserData;
 use App\Http\Controllers\Posts\CreateJobPostController;
@@ -79,4 +80,7 @@ Route::prefix('posts')
 
         Route::post('/job', CreateJobPostController::class)
             ->name('create.job');
+
+        Route::put('/{post}', UpdatePostController::class)
+            ->name('update');
     });
