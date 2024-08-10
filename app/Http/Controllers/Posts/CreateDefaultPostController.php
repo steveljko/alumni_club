@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Posts;
 
-use App\Models\Post;
-use Illuminate\Support\Arr;
+use App\Services\CreatePost;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -21,15 +20,11 @@ class CreateDefaultPostController extends Controller
      */
     public function __invoke(
         CreateDefaultPostRequest $request,
+        CreatePost $service,
     ): JsonResponse {
         $data = $request->validated();
 
-        $postData = Arr::only($data, ['status', 'type']);
-        $defaultData = Arr::except($data, ['status', 'type']);
-
-        $post = Post::create($postData + ['user_id' => auth()->user()->id]);
-        $post->default()->create($defaultData);
-        $post->load('default');
+        $post = $service($data);
 
         return $this->sendResponse(
             data: new PostResource($post),

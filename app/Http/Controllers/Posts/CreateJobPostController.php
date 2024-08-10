@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Posts;
 
-use App\Models\Post;
-use Illuminate\Support\Arr;
+use App\Services\CreatePost;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -20,16 +19,12 @@ class CreateJobPostController extends Controller
      * @authenticated
      */
     public function __invoke(
-        CreateJobPostRequest $request
+        CreateJobPostRequest $request,
+        CreatePost $service,
     ): JsonResponse {
         $data = $request->validated();
 
-        $postData = Arr::only($data, ['status', 'type']);
-        $jobData = Arr::except($data, ['status', 'type']);
-
-        $post = Post::create($postData + ['user_id' => auth()->user()->id]);
-        $post->job()->create($jobData);
-        $post->load('job');
+        $post = $service($data);
 
         return $this->sendResponse(
             data: new PostResource($post),

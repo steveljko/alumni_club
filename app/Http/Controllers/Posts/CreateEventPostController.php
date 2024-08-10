@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Posts;
 
-use App\Models\Post;
-use Illuminate\Support\Arr;
+use App\Services\CreatePost;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -21,16 +20,12 @@ class CreateEventPostController extends Controller
      * @authenticated
      */
     public function __invoke(
-        CreateEventPostRequest $request
+        CreateEventPostRequest $request,
+        CreatePost $service,
     ): JsonResponse {
         $data = $request->validated();
 
-        $postData = Arr::only($data, ['status', 'type']);
-        $eventData = Arr::except($data, ['status', 'type']);
-
-        $post = Post::create($postData + ['user_id' => auth()->user()->id]);
-        $post->event()->create($eventData);
-        $post->load('event');
+        $post = $service($data);
 
         return $this->sendResponse(
             data: new PostResource($post),
