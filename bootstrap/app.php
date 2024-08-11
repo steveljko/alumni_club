@@ -6,10 +6,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Foundation\Application;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Illuminate\Validation\UnauthorizedException as IlluminateUnauthorizedException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -31,7 +31,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         // Change rendering output for UnauthorizedException
-        $exceptions->render(function (IlluminateUnauthorizedException $e, Request $request) {
+        $exceptions->render(function (UnauthorizedException $e, Request $request) {
             return new JsonResponse([
                 'success' => false,
                 'message' => __('auth.unauthorized'),
