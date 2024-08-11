@@ -20,6 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->statefulApi();
+
+        $middleware->alias([
+            'role' => App\Http\Middleware\CheckUserRole::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // Change rendering output for AuthenticationException
@@ -35,7 +39,7 @@ return Application::configure(basePath: dirname(__DIR__))
             return new JsonResponse([
                 'success' => false,
                 'message' => __('auth.unauthorized'),
-            ], Response::HTTP_FORBIDDEN);
+            ], Response::HTTP_UNAUTHORIZED);
         });
 
         // Change rendering output for NotFoundHttpException

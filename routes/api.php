@@ -56,7 +56,7 @@ Route::prefix('users')
 
 Route::prefix('jobs')
     ->name('jobs.')
-    ->middleware(['auth:sanctum'])
+    ->middleware(['auth:sanctum', 'role:default'])
     ->group(function () {
         Route::post('/', CreateJobController::class)
             ->name('create');
@@ -70,7 +70,7 @@ Route::prefix('jobs')
 
 Route::prefix('posts')
     ->name('posts.')
-    ->middleware(['auth:sanctum'])
+    ->middleware(['auth:sanctum', 'role:default'])
     ->group(function () {
         Route::post('/', CreateDefaultPostController::class)
             ->name('create.default');
