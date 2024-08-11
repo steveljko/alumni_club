@@ -4,11 +4,11 @@ namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Enums\UserRole;
 use Illuminate\Testing\TestResponse;
 use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-// TODO: Create admin user for tests
 class RegisterTest extends TestCase
 {
     use RefreshDatabase;
@@ -26,9 +26,10 @@ class RegisterTest extends TestCase
             'email' => 'newuser@example.com',
         ]);
 
-        $response->dd();
+        $response->assertCreated();
 
         $this->assertDatabaseHas('users', [
+            'name' => 'New User',
             'email' => 'newuser@example.com',
         ]);
     }
@@ -39,16 +40,30 @@ class RegisterTest extends TestCase
         $response = $this->response([]);
 
         $response
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonValidationErrors(['name', 'email']);
+    }
+
+    #[Test]
+    public function it_fails_when_logged_in_user_is_not_admin(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user, 'sanctum')
+            ->postJson(route('auth.register'), []);
+
+        $response->assertUnauthorized();
     }
 
     private function response(array $data): TestResponse
     {
-        $adminUser = User::factory()->create();
+        $user = User::factory()
+            ->withRole(UserRole::ADMIN)
+            ->create();
 
         return $this
-            ->actingAs($adminUser, 'sanctum')
+            ->actingAs($user, 'sanctum')
             ->postJson(route('auth.register'), $data);
     }
 }
