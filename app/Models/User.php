@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\Filterable;
 use App\Traits\HasOwnership;
 use App\Observers\UserObserver;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -61,7 +60,6 @@ class User extends Authenticatable
     use Filterable;
     use HasFactory;
     use HasOwnership;
-    use HasRoles;
     use Notifiable;
 
     /**

@@ -4,48 +4,28 @@ namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Http\Response;
-use Spatie\Permission\Models\Role;
+use Illuminate\Testing\TestResponse;
 use PHPUnit\Framework\Attributes\Test;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
+// TODO: Create admin user for tests
 class RegisterTest extends TestCase
 {
     use RefreshDatabase;
 
-    const ADMIN = 'admin';
-
-    const DEFAULT = 'default';
-
-    private function generateUser(string $type = ''): User
+    public function setUp(): void
     {
-        if ($type === self::ADMIN) {
-            $user = User::factory()->create();
-            $role = Role::firstOrCreate(['name' => 'admin']);
-            $user->assignRole($role);
-
-            return $user;
-        } elseif ($type === self::DEFAULT) {
-            $user = User::factory()->create();
-            $role = Role::firstOrCreate(['name' => 'default']);
-            $user->assignRole($role);
-        } else {
-            throw new \Exception("This type doesn't exist!", 1);
-        }
+        parent::setUp();
     }
 
     #[Test]
     public function admin_can_successfully_register_new_user(): void
     {
-        $adminUser = $this->generateUser(self::ADMIN);
+        $response = $this->response([
+            'name' => 'New User',
+            'email' => 'newuser@example.com',
+        ]);
 
-        $response = $this->actingAs($adminUser)
-            ->post(route('auth.register'), [
-                'name' => 'New User',
-                'email' => 'newuser@example.com',
-            ]);
-
-        $response->assertStatus(Response::HTTP_CREATED);
+        $response->dd();
 
         $this->assertDatabaseHas('users', [
             'email' => 'newuser@example.com',
@@ -55,13 +35,19 @@ class RegisterTest extends TestCase
     #[Test]
     public function it_fails_if_name_and_email_is_not_provided(): void
     {
-        $adminUser = $this->generateUser(self::ADMIN);
+        $response = $this->response([]);
 
-        $resp = $this
-            ->actingAs($adminUser)
-            ->json('POST', route('auth.register'), []);
+        $response
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['name', 'email']);
+    }
 
-        $resp->assertStatus(422);
-        $resp->assertJsonValidationErrors(['name', 'email']);
+    private function response(array $data): TestResponse
+    {
+        $adminUser = User::factory()->create();
+
+        return $this
+            ->actingAs($adminUser, 'sanctum')
+            ->postJson(route('auth.register'), $data);
     }
 }

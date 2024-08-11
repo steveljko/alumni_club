@@ -50,13 +50,13 @@ Route::prefix('users')
             ->name('get');
 
         Route::patch('/details', ChangeUserDetailsController::class)
-            ->middleware(['auth:sanctum', 'role:default'])
+            ->middleware(['auth:sanctum'])
             ->name('change_details');
     });
 
 Route::prefix('jobs')
     ->name('jobs.')
-    ->middleware(['auth:sanctum', 'role:default'])
+    ->middleware(['auth:sanctum'])
     ->group(function () {
         Route::post('/', CreateJobController::class)
             ->name('create');
@@ -70,7 +70,7 @@ Route::prefix('jobs')
 
 Route::prefix('posts')
     ->name('posts.')
-    ->middleware(['auth:sanctum', 'role:default'])
+    ->middleware(['auth:sanctum'])
     ->group(function () {
         Route::post('/', CreateDefaultPostController::class)
             ->name('create.default');

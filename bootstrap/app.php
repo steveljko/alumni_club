@@ -8,8 +8,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Spatie\Permission\Exceptions\UnauthorizedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Validation\UnauthorizedException as IlluminateUnauthorizedException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -20,12 +20,6 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->statefulApi();
-
-        $middleware->alias([
-            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
-            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
-            'verify_password_change' => \App\Http\Middleware\EnsureInitialPasswordIsChanged::class,
-        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // Change rendering output for AuthenticationException
@@ -37,7 +31,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         // Change rendering output for UnauthorizedException
-        $exceptions->render(function (UnauthorizedException $e, Request $request) {
+        $exceptions->render(function (IlluminateUnauthorizedException $e, Request $request) {
             return new JsonResponse([
                 'success' => false,
                 'message' => __('auth.unauthorized'),

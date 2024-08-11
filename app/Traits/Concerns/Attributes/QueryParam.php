@@ -9,6 +9,5 @@ class QueryParam
 {
     public function __construct(
         public string $value,
-    ) {
-    }
+    ) {}
 }

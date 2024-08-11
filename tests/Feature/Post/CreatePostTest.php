@@ -5,7 +5,6 @@ namespace Tests\Feature\Post;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Http\Response;
-use Spatie\Permission\Models\Role;
 use Illuminate\Testing\TestResponse;
 use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -109,9 +108,6 @@ class CreatePostTest extends TestCase
     private function response(string $type, array $params = []): TestResponse
     {
         $user = User::factory()->create();
-        $role = Role::create(['name' => 'default']);
-
-        $user->assignRole($role);
 
         return $this
             ->actingAs($user, 'sanctum')

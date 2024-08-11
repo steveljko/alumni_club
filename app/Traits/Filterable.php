@@ -97,7 +97,7 @@ trait Filterable
 
         $result = PaginateResource::make($query, $resource);
 
-        return new class ($result, $result->count()) {
+        return new class($result, $result->count()) {
             public function __construct(
                 private object $data,
                 private int $count

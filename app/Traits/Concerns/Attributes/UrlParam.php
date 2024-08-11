@@ -9,6 +9,5 @@ class UrlParam
 {
     public function __construct(
         public string $value,
-    ) {
-    }
+    ) {}
 }

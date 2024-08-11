@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\User;
-use Spatie\Permission\Models\Role;
 
 class UserObserver
 {
@@ -20,8 +19,5 @@ class UserObserver
             'uni_finish_year' => null,
             'bio' => null,
         ]);
-
-        $role = Role::findOrCreate('default');
-        $user->assignRole($role);
     }
 }
