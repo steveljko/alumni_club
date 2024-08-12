@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum UserRole: string
 {
-    case DEFAULT = 'defualt';
+    case DEFAULT = 'default';
 
     case ADMIN = 'admin';
 
