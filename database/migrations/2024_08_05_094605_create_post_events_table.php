@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class() extends Migration {
+return new class () extends Migration {
     /**
      * Run the migrations.
      */
@@ -20,7 +20,9 @@ return new class() extends Migration {
             $table->string('address');
             $table->string('city');
             $table->string('thumb_url')->nullable();
-            $table->foreignId('post_id')->constrained();
+            $table->foreignId('post_id')
+                ->constrained()
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

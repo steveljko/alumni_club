@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class() extends Migration {
+return new class () extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,7 +13,9 @@ return new class() extends Migration {
         Schema::create('post_defaults', function (Blueprint $table) {
             $table->id();
             $table->text('body');
-            $table->foreignId('post_id')->constrained();
+            $table->foreignId('post_id')
+                ->constrained()
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

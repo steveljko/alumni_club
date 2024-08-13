@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class() extends Migration {
+return new class () extends Migration {
     /**
      * Run the migrations.
      */
@@ -19,7 +19,9 @@ return new class() extends Migration {
             $table->timestamp('opening_start');
             $table->timestamp('opening_end')->nullable();
             $table->string('job_page_url');
-            $table->foreignId('post_id')->constrained();
+            $table->foreignId('post_id')
+                ->constrained()
+                ->onDelete('cascade');
             $table->timestamps();
 
             $table->index(['company_name', 'company_city']);
