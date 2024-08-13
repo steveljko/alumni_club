@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Posts;
 
 use App\Models\Post;
 use App\Services\UpdatePost;
-use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
@@ -26,21 +25,15 @@ class UpdatePostController extends Controller
         UpdatePost $service
     ): JsonResponse {
         if (! Auth::user()->owns(model: $post)) {
-            return $this->sendFailResponse(
-                message: __('additional.posts.failed_update'),
-                status: Response::HTTP_UNAUTHORIZED
-            );
+            return $this->sendUnauthorized();
         }
 
-        $updated = $service(post: $post);
+        try {
+            $service(post: $post);
 
-        if ($updated) {
-            return $this->sendResponse(
-                message: __('additional.posts.successful_update'),
-                data: new PostResource($post)
-            );
+            return $this->sendOk(data: new PostResource($post));
+        } catch (\Exception $e) {
+            return $this->sendForbidden();
         }
-
-        return $this->sendFailResponse(message: __('additional.posts.failed_update'));
     }
 }

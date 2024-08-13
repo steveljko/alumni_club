@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Jobs;
 
-use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -27,10 +26,6 @@ class CreateJobController extends Controller
             ->jobs()
             ->create($request->validated());
 
-        return $this->sendResponse(
-            message: __('additional.jobs.successful_create'),
-            data: $createdJob,
-            status: Response::HTTP_CREATED,
-        );
+        return $this->sendCreated(data: $createdJob);
     }
 }

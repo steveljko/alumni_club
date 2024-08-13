@@ -28,23 +28,15 @@ class UpdateJobController extends Controller
         UserJobs $job,
     ): JsonResponse {
         if (! Auth::user()->owns(model: $job)) {
-            return $this->sendFailResponse(
-                message: __('additional.jobs.failed_update')
-            );
+            return $this->sendUnauthorized();
         }
 
-        $updated = $job->update($request->validated());
+        try {
+            $job->update($request->validated());
 
-        if ($updated) {
-            return $this->sendResponse(
-                message: __('additional.jobs.successful_update'),
-                data: new JobResource($job),
-            );
+            return $this->sendOk(data: new JobResource($job));
+        } catch (\Exception $ex) {
+            return $this->sendForbidden();
         }
-
-        return $this->sendFailResponse(
-            message: __('additional.jobs.failed_update')
-        );
-
     }
 }

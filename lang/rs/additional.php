@@ -24,6 +24,8 @@ return [
     'jobs' => [
         'model_name' => 'Posao',
 
+        'unauthorized' => 'Nemata prava da vršite operacije nad ovim poslom.',
+
         'successful_create' => 'Uspešno napravljen novi posao.',
         'successful_update' => 'Uspešno izmenjen posao.',
         'successful_delete' => 'Uspešno izbrisan posao.',
@@ -33,9 +35,15 @@ return [
     ],
 
     'posts' => [
+        'model_name' => 'Objava',
+
+        'unauthorized' => 'Nemate prava da vršite operacije nad ovom objavom.',
+
         'successful_create' => 'Uspešno napravljena nova objava.',
         'successful_update' => 'Uspešno izmenjena objava.',
+        'successful_delete' => 'Uspešno obrisana objava.',
 
         'failed_update' => 'Neuspešna izmena objave! Molimo Vas, pokušajte ponovo.',
+        'failed_delete' => 'Neuspešno brisanje objave! Molimo Vas, pokušajte ponovo.',
     ],
 ];

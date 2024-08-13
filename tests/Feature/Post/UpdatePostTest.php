@@ -191,7 +191,7 @@ it('applies localization correctly', function ($lang) {
 
     expect($response)
         ->toBeUnauthorized()
-        ->jsonToBe(['message' => __('additional.posts.failed_update')]);
+        ->jsonToBe(['message' => __('additional.posts.unauthorized')]);
 })->with(['en', 'rs']);
 
 function sendUpdatePostRequest(User $user, int $id, array $data): TestResponse

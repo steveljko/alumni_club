@@ -114,7 +114,7 @@ function sendRequest(
             return test()->putJson($url, $data);
             break;
         case 'DELETE':
-            return test()->deleteJson($url, $data);
+            return test()->deleteJson($url);
             break;
     }
 }

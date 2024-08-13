@@ -23,21 +23,15 @@ class DeleteJobController extends Controller
     public function __invoke(UserJobs $job): JsonResponse
     {
         if (! Auth::user()->owns(model: $job)) {
-            return $this->sendFailResponse(
-                message: __('additional.jobs.failed_delete')
-            );
+            return $this->sendUnauthorized();
         }
 
-        $deleted = $job->delete();
+        try {
+            $job->delete();
 
-        if (! $deleted) {
-            return $this->sendFailResponse(
-                message: __('additional.jobs.failed_delete')
-            );
+            return $this->sendOk();
+        } catch (\Exception $ex) {
+            return $this->sendForbidden();
         }
-
-        return $this->sendResponse(
-            message: __('additional.jobs.successful_delete'),
-        );
     }
 }

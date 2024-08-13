@@ -20,6 +20,8 @@ return [
     ],
 
     'jobs' => [
+        'unauthorized' => 'You don\'t have permission to do this operation on this job.',
+
         'successful_create' => 'Job successfully created.',
         'successful_update' => 'Job successfully updated.',
         'successful_delete' => 'Job succesfully deleted.',
@@ -29,9 +31,13 @@ return [
     ],
 
     'posts' => [
+        'unauthorized' => 'You don\'t have permission to do this operation on this post.',
+
         'successful_create' => 'Post successfully created.',
         'successful_update' => 'Post successfully updated.',
+        'successful_delete' => 'Post succesfully deleted.',
 
         'failed_update' => 'Post update failed! Please, try again.',
+        'failed_delete' => 'Job update failed! Please, try again.',
     ],
 ];
