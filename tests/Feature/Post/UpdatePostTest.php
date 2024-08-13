@@ -145,6 +145,23 @@ it('updates job post successfully', function () {
         ]);
 });
 
+it('restrics update if user is not owner of post', function () {
+    $post = Post::factory()
+        ->withType(PostType::JOB)
+        ->withUser(User::factory()->create())
+        ->create();
+
+    $response = sendUpdatePostRequest(
+        User::factory()->create(),
+        $post->id,
+        []
+    );
+
+    expect($response)
+        ->toBeUnauthorized()
+        ->jsonToBe(['success' => false]);
+});
+
 function sendUpdatePostRequest(User $user, int $id, array $data): TestResponse
 {
     return sendRequest(
