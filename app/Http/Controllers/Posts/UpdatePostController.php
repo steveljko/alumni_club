@@ -9,24 +9,38 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Auth;
+use Knuckles\Scribe\Attributes\Group;
 
+#[Group('Post')]
 class UpdatePostController extends Controller
 {
+    /**
+     * Update post
+     *
+     * This endpoint is used for updating post by using their id.
+     *
+     * @authenticated
+     */
     public function __invoke(
         Post $post,
         UpdatePost $service
     ): JsonResponse {
-        if (! Auth::user()->owns($post)) {
+        if (! Auth::user()->owns(model: $post)) {
             return $this->sendFailResponse(
-                message: 'Unauthorized',
+                message: __('additional.posts.failed_update'),
                 status: Response::HTTP_UNAUTHORIZED
             );
         }
 
-        $updatedPost = $service($post);
+        $updated = $service(post: $post);
 
-        return $this->sendResponse(
-            data: new PostResource($updatedPost)
-        );
+        if ($updated) {
+            return $this->sendResponse(
+                message: __('additional.posts.successful_update'),
+                data: new PostResource($post)
+            );
+        }
+
+        return $this->sendFailResponse(message: __('additional.posts.failed_update'));
     }
 }

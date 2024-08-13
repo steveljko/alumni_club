@@ -5,6 +5,7 @@ namespace Tests\Feature\Post;
 use App\Models\Post;
 use App\Models\User;
 use App\Enums\PostType;
+use Illuminate\Support\Facades\App;
 use Illuminate\Testing\TestResponse;
 
 it('updates default post successfully', function () {
@@ -161,6 +162,37 @@ it('restrics update if user is not owner of post', function () {
         ->toBeUnauthorized()
         ->jsonToBe(['success' => false]);
 });
+
+it('applies localization correctly', function ($lang) {
+    $user = User::factory()->create();
+
+    $post = Post::factory()
+        ->withType(PostType::DEFAULT)
+        ->withUser($user)
+        ->create();
+
+    App::setLocale($lang);
+
+    $response = sendUpdatePostRequest(
+        user: $user,
+        id: $post->id,
+        data: ['body' => 'Updated Body']
+    );
+
+    expect($response)
+        ->toBeOk()
+        ->jsonToBe(['message' => __('additional.posts.successful_update')]);
+
+    $response = sendUpdatePostRequest(
+        user: User::factory()->create(),
+        id: $post->id,
+        data: ['body' => 'Updated Body']
+    );
+
+    expect($response)
+        ->toBeUnauthorized()
+        ->jsonToBe(['message' => __('additional.posts.failed_update')]);
+})->with(['en', 'rs']);
 
 function sendUpdatePostRequest(User $user, int $id, array $data): TestResponse
 {

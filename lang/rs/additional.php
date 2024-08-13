@@ -31,4 +31,11 @@ return [
         'failed_update' => 'Neuspešna izmena posla! Molimo Vas, pokušajte ponovo.',
         'failed_delete' => 'Neuspešno brisanje posla.',
     ],
+
+    'posts' => [
+        'successful_create' => 'Uspešno napravljena nova objava.',
+        'successful_update' => 'Uspešno izmenjena objava.',
+
+        'failed_update' => 'Neuspešna izmena objave! Molimo Vas, pokušajte ponovo.',
+    ],
 ];

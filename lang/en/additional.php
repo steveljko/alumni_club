@@ -27,4 +27,11 @@ return [
         'failed_update' => 'Job update failed! Please, try again.',
         'failed_delete' => 'Job delete failed!',
     ],
+
+    'posts' => [
+        'successful_create' => 'Post successfully created.',
+        'successful_update' => 'Post successfully updated.',
+
+        'failed_update' => 'Post update failed! Please, try again.',
+    ],
 ];
