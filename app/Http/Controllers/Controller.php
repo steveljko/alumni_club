@@ -16,7 +16,7 @@ class Controller
         $ref = new \ReflectionClass($this);
         $class = $ref->getShortName();
 
-        preg_match('/^[A-Z][a-z]*/', $class, $matches);
+        $matches = preg_split('/(?=[A-Z])/', $class, -1, PREG_SPLIT_NO_EMPTY);
 
         if (count($matches) == 3) {
             $this->model = strtolower($matches[1]);
@@ -67,10 +67,20 @@ class Controller
     }
 
     /* Methods for sending localized messages in the controller */
-    protected function sendOk(): JsonResponse
+    protected function sendOk($data = null): JsonResponse
     {
         return $this->sendResponse(
-            message: __("additional.{$this->getModel()}s.successful_{$this->getType()}")
+            message: __("additional.{$this->getModel()}s.successful_{$this->getType()}"),
+            data: $data,
+        );
+    }
+
+    protected function sendCreated($data = null): JsonResponse
+    {
+        return $this->sendResponse(
+            message: __("additional.{$this->getModel()}s.successful_create"),
+            data: $data,
+            status: Response::HTTP_CREATED
         );
     }
 
