@@ -27,10 +27,10 @@ class ChangeInitialPasswordController extends Controller
     {
         try {
             if ($service(user: Auth::user(), request: $request)) {
-                return $this->sendResponse(message: __('auth.initial_password_change.successful'));
+                return $this->sendOk(key: 'auth.initial_password_change.successful');
             }
         } catch (InitialPasswordAlreadyChanged $ex) {
-            return $this->sendFailResponse(message: __('auth.initial_password_change.failed'));
+            return $this->sendForbidden(key: 'auth.initial_password_change.failed');
         }
     }
 }

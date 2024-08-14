@@ -67,35 +67,55 @@ class Controller
     }
 
     /* Methods for sending localized messages in the controller */
-    protected function sendOk($data = null): JsonResponse
-    {
+    protected function sendOk(
+        ?string $key = null,
+        $data = null,
+    ): JsonResponse {
+        $message = ! $key ?
+            __("additional.{$this->getModel()}s.successful_{$this->getType()}") :
+            __($key);
+
         return $this->sendResponse(
-            message: __("additional.{$this->getModel()}s.successful_{$this->getType()}"),
+            message: $message,
             data: $data,
         );
     }
 
-    protected function sendCreated($data = null): JsonResponse
-    {
+    protected function sendCreated(
+        ?string $key = null,
+        $data = null,
+    ): JsonResponse {
+        $message = ! $key ?
+            __("additional.{$this->getModel()}s.successful_create") :
+            __($key);
+
         return $this->sendResponse(
-            message: __("additional.{$this->getModel()}s.successful_create"),
+            message: $message,
             data: $data,
             status: Response::HTTP_CREATED
         );
     }
 
-    protected function sendUnauthorized(): JsonResponse
+    protected function sendUnauthorized(?string $key = null): JsonResponse
     {
+        $message = ! $key ?
+            __("additional.{$this->getModel()}s.unauthorized") :
+            __($key);
+
         return $this->sendFailResponse(
-            message: __("additional.{$this->getModel()}s.unauthorized"),
+            message: $message,
             status: Response::HTTP_UNAUTHORIZED,
         );
     }
 
-    protected function sendForbidden(): JsonResponse
+    protected function sendForbidden(?string $key = null): JsonResponse
     {
+        $message = ! $key ?
+            __("additional.{$this->getModel()}s.{$this->getType()}_failed") :
+            __($key);
+
         return $this->sendFailResponse(
-            message: __("additional.{$this->getModel()}s.{$this->getType()}_failed"),
+            message: $message
         );
     }
 

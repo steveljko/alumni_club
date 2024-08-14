@@ -25,10 +25,10 @@ class ChangePasswordController extends Controller
     public function __invoke(ChangePasswordRequest $request, SetNewPassword $service): JsonResponse
     {
         if ($service(user: Auth::user(), request: $request)) {
-            return $this->sendResponse(message: __('auth.password_change.successful'));
+            return $this->sendOk(key: 'auth.password_change.successful');
         }
 
-        return $this->sendFailResponse(message: __('auth.password_change.failed'));
+        return $this->sendForbidden(key: 'auth.password_change.failed');
 
     }
 }

@@ -27,8 +27,8 @@ class GetAuthenticatedUserData extends Controller
             }])->find(Auth::id())
         );
 
-        return $this->sendResponse(
-            message: __('auth.successful_user_fetch'),
+        return $this->sendOk(
+            key: 'auth.successful_user_fetch',
             data: $user
         );
     }

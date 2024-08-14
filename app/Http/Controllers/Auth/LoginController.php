@@ -23,13 +23,14 @@ class LoginController extends Controller
     public function __invoke(LoginRequest $request): JsonResponse
     {
         if (Auth::attempt($request->only(['email', 'password']))) {
-            $loggedInUser = new UserResource(Auth::user());
+            $user = new UserResource(Auth::user());
 
-            return $this->sendResponse(
-                message: __('auth.successful_login'),
-                data: $loggedInUser
+            return $this->sendOk(
+                key: 'auth.successful_login',
+                data: $user
             );
         }
+
         throw ValidationException::withMessages(['email' => __('auth.failed')]);
     }
 }

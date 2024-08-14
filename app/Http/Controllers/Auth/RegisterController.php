@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Knuckles\Scribe\Attributes\Group;
@@ -35,9 +34,6 @@ class RegisterController extends Controller
             'password' => $hashedPassword,
         ]);
 
-        return $this->sendResponse(
-            message: __('auth.successful_register'),
-            status: Response::HTTP_CREATED
-        );
+        return $this->sendCreated(key: 'auth.successful_register');
     }
 }
