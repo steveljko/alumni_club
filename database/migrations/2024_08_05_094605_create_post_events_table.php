@@ -19,7 +19,6 @@ return new class () extends Migration {
             $table->timestamp('end_time')->nullable();
             $table->string('address');
             $table->string('city');
-            $table->string('thumb_url')->nullable();
             $table->foreignId('post_id')
                 ->constrained()
                 ->onDelete('cascade');
