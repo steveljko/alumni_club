@@ -34,6 +34,7 @@ class CreateEventPostRequest extends FormRequest
             'end_time' => ['required', 'date', 'after:start_time'],
             'address' => ['required', 'min:6', 'max:64'],
             'city' => ['required', 'min:6', 'max:64'],
+            'thumbnail_image' => ['nullable', 'file', 'mimes:jpeg,jpg', 'max:2048'],
         ];
     }
 }

@@ -22,7 +22,9 @@ class PostEventResource extends JsonResource
             'end_time' => $this->end_time,
             'address' => $this->address,
             'city' => $this->city,
-            'thumb_url' => $this->thumb_url,
+            'thumbnail_image' => $this->whenLoaded('thumbImage', function () {
+                return $this->thumbImage->path;
+            }, null),
         ];
     }
 }

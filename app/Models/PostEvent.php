@@ -18,11 +18,17 @@ class PostEvent extends Model
         'end_time',
         'address',
         'city',
-        'thumb_url',
     ];
 
     public function data(): BelongsTo
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public function thumbImage()
+    {
+        return $this
+            ->morphOne(Images::class, 'model')
+            ->where('type', 'thumbnail_image');
     }
 }
