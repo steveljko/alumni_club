@@ -15,7 +15,7 @@ class RegisterController extends Controller
     /**
      * Register
      *
-     * This endpoint is used for registering new user's into app.
+     * This endpoint is used by administrators to register new users into the app.
      *
      * @authenticated
      *

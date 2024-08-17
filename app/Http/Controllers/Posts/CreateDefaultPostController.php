@@ -9,11 +9,13 @@ use App\Http\Resources\PostResource;
 use Knuckles\Scribe\Attributes\Group;
 use App\Http\Requests\Posts\CreateDefaultPostRequest;
 
-#[Group('Post')]
+#[Group('Posts')]
 class CreateDefaultPostController extends Controller
 {
     /**
      * Create default post
+     *
+     * This endpoint allows authenticated users to create a default post.
      *
      * @authenticated
      */

@@ -9,11 +9,13 @@ use App\Http\Resources\PostResource;
 use Knuckles\Scribe\Attributes\Group;
 use App\Http\Requests\Posts\CreateJobPostRequest;
 
-#[Group('Post')]
+#[Group('Posts')]
 class CreateJobPostController extends Controller
 {
     /**
      * Create job post
+     *
+     * This endpoint allows authenticated users to create an job post.
      *
      * @authenticated
      */

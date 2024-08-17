@@ -10,13 +10,15 @@ use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Auth;
 use Knuckles\Scribe\Attributes\Group;
 
-#[Group('Post')]
+#[Group('Posts')]
 class UpdatePostController extends Controller
 {
     /**
      * Update post
      *
      * This endpoint is used for updating post by using their id.
+     * It accepts a type, then validates the fields using validation for this post type.
+     * It accepts the same fields as post creation.
      *
      * @authenticated
      */

@@ -8,9 +8,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Knuckles\Scribe\Attributes\Group;
 
-#[Group('Post')]
+#[Group('Posts')]
 class DeletePostController extends Controller
 {
+    /**
+     * Delete post by ID
+     *
+     *
+     *
+     * @authenticated
+     */
     public function __invoke(Post $post): JsonResponse
     {
         if (! Auth::user()->owns(model: $post)) {

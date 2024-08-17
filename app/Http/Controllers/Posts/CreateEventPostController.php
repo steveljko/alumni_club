@@ -10,11 +10,13 @@ use App\Http\Resources\PostResource;
 use Knuckles\Scribe\Attributes\Group;
 use App\Http\Requests\Posts\CreateEventPostRequest;
 
-#[Group('Post')]
+#[Group('Posts')]
 class CreateEventPostController extends Controller
 {
     /**
      * Create event post
+     *
+     * This endpoint allows authenticated users to create an event post.
      *
      * @authenticated
      */
