@@ -4,9 +4,9 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\ChangePasswordRequest;
 use App\Exceptions\InitialPasswordAlreadyChanged;
-use App\Http\Requests\ChangeInitialPasswordRequest;
+use App\Http\Requests\Auth\ChangePasswordRequest;
+use App\Http\Requests\Auth\ChangeInitialPasswordRequest;
 
 class SetNewPassword
 {
@@ -14,8 +14,10 @@ class SetNewPassword
      * @param \App\Models\User
      * @param \App\Http\Requests\ChangePasswordRequest|\App\Http\Requests\ChangeInitialPasswordRequest
      */
-    public function __invoke(User $user, ChangePasswordRequest|ChangeInitialPasswordRequest $request): bool
-    {
+    public function __invoke(
+        User $user,
+        ChangePasswordRequest|ChangeInitialPasswordRequest $request
+    ): bool {
         if ($request instanceof ChangeInitialPasswordRequest) {
             if ($user->initial_password_changed == false) {
                 $user->password = Hash::make($request->password);

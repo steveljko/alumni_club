@@ -30,11 +30,11 @@ Route::prefix('auth')
             ->name('user');
 
         Route::put('/initial-password', ChangeInitialPasswordController::class)
-            ->name('initial_password');
+            ->name('change_initial_password');
 
         Route::put('/password', ChangePasswordController::class)
             ->middleware('verify_password_change')
-            ->name('password');
+            ->name('change_password');
 
         Route::post('/register', RegisterController::class)
             ->middleware(['role:admin'])

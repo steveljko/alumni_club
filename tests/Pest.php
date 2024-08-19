@@ -44,6 +44,10 @@ expect()->extend('toBeCreated', function () {
     return $this->assertCreated();
 });
 
+expect()->extend('toBeForbidden', function () {
+    return $this->assertForbidden();
+});
+
 expect()->extend('toBeUnprocessable', function () {
     return $this->assertUnprocessable();
 });
@@ -59,6 +63,10 @@ expect()->extend('toBeNotFound', function () {
 // Json validation
 expect()->extend('toHaveJsonStructure', function ($data) {
     return $this->assertJsonStructure($data);
+});
+
+expect()->extend('validationToFailWithFields', function ($data) {
+    return $this->assertUnprocessable() && $this->assertJsonValidationErrors($data);
 });
 
 expect()->extend('toHaveValidationErrors', function ($data) {

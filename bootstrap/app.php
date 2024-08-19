@@ -22,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->statefulApi();
 
         $middleware->alias([
+            'verify_password_change' => App\Http\Middleware\EnsureInitialPasswordIsChanged::class,
             'role' => App\Http\Middleware\CheckUserRole::class,
         ]);
     })

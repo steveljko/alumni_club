@@ -52,4 +52,9 @@ class UserFactory extends Factory
             'role' => $role,
         ]);
     }
+
+    public function withUnchangedInitialPassword(): static
+    {
+        return $this->state(fn () => ['initial_password_changed' => false]);
+    }
 }
