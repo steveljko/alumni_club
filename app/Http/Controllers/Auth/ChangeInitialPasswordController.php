@@ -30,7 +30,7 @@ class ChangeInitialPasswordController extends Controller
                 return $this->sendOk(key: 'auth.initial_password_change.successful');
             }
         } catch (InitialPasswordAlreadyChanged $ex) {
-            return $this->sendForbidden(key: 'auth.initial_password_change.failed');
+            throw $ex;
         }
     }
 }
