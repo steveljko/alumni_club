@@ -3,16 +3,15 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Http\Response;
+use App\Traits\Responses;
 use Illuminate\Http\JsonResponse;
 
 class PaginationInvalidPageNumber extends Exception
 {
+    use Responses;
+
     public function render(): JsonResponse
     {
-        return new JsonResponse([
-            'success' => false,
-            'message' => __('additional.pagination.invalid_page_number'),
-        ], Response::HTTP_NOT_FOUND);
+        return $this->sendNotFound(key: 'additional.pagination.invalid_page_number');
     }
 }

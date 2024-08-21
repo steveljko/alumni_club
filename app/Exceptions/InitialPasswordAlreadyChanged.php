@@ -3,16 +3,15 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Http\Response;
+use App\Traits\Responses;
 use Illuminate\Http\JsonResponse;
 
 class InitialPasswordAlreadyChanged extends Exception
 {
+    use Responses;
+
     public function render(): JsonResponse
     {
-        return new JsonResponse([
-            'success' => false,
-            'message' => __('auth.initial_password_change.failed'),
-        ], Response::HTTP_FORBIDDEN);
+        return $this->sendForbidden(key: 'auth.initial_password_change.failed');
     }
 }
