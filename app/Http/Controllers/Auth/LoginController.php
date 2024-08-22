@@ -22,7 +22,7 @@ class LoginController extends Controller
      */
     public function __invoke(LoginRequest $request): JsonResponse
     {
-        if (Auth::attempt($request->only(['email', 'password']))) {
+        if (Auth::guard('web')->attempt($request->only(['email', 'password']))) {
             $user = new UserResource(Auth::user());
 
             return $this->sendOk(
