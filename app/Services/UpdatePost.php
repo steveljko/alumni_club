@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Models\Post;
-use App\Http\Requests\UpdateJobPostRequest;
-use App\Http\Requests\UpdateEventPostRequest;
-use App\Http\Requests\UpdateDefaultPostRequest;
+use App\Http\Requests\Posts\UpdateJobPostRequest;
+use App\Http\Requests\Posts\UpdateEventPostRequest;
+use App\Http\Requests\Posts\UpdateDefaultPostRequest;
 
 class UpdatePost
 {

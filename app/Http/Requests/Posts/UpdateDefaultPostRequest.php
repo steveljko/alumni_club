@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Posts;
 
 use App\Enums\PostType;
 use App\Enums\PostStatus;
