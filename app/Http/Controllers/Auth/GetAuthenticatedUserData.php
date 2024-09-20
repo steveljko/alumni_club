@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,8 @@ class GetAuthenticatedUserData extends Controller
                 $query->orderBy('created_at', 'desc');
             }])->find(Auth::id())
         );
+
+        Log::info('User with ID {id} get their data successfully.', ['id' => Auth::user()->id]);
 
         return $this->sendOk(
             key: 'auth.successful_user_fetch',

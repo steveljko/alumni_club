@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Services\SetNewPassword;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Knuckles\Scribe\Attributes\Group;
@@ -25,10 +26,13 @@ class ChangePasswordController extends Controller
     public function __invoke(ChangePasswordRequest $request, SetNewPassword $service): JsonResponse
     {
         if ($service(user: Auth::user(), request: $request)) {
+            Log::info('User {name} with ID {id} successfully changed their password.', ['name' => Auth::user()->name, 'id' => Auth::user()->id]);
+
             return $this->sendOk(key: 'auth.password_change.successful');
         }
 
-        return $this->sendForbidden(key: 'auth.password_change.failed');
+        Log::warning('User {name} with ID {id} attempted to change their password, but failed.', ['name' => Auth::user()->name, 'id' => Auth::user()->id]);
 
+        return $this->sendForbidden(key: 'auth.password_change.failed');
     }
 }

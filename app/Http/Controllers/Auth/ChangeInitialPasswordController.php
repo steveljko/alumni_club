@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Services\SetNewPassword;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Knuckles\Scribe\Attributes\Group;
@@ -27,9 +28,12 @@ class ChangeInitialPasswordController extends Controller
     {
         try {
             if ($service(user: Auth::user(), request: $request)) {
+                Log::info('User {name} with ID {id} successfully changed their initial registration password.', ['name' => Auth::user()->name, 'id' => Auth::user()->id]);
+
                 return $this->sendOk(key: 'auth.initial_password_change.successful');
             }
         } catch (InitialPasswordAlreadyChanged $ex) {
+            Log::warning('User {name} with ID {id} attempted to change their already changed initial password.', ['name' => Auth::user()->name, 'id' => Auth::user()->id]);
             throw $ex;
         }
     }
