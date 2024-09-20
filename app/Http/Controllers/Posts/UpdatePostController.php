@@ -6,9 +6,9 @@ use App\Models\Post;
 use App\Services\UpdatePost;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Auth;
 use Knuckles\Scribe\Attributes\Group;
+use App\Http\Resources\Posts\PostResource;
 
 #[Group('Posts')]
 class UpdatePostController extends Controller

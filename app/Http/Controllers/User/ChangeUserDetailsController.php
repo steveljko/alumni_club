@@ -6,8 +6,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Knuckles\Scribe\Attributes\Group;
-use App\Http\Resources\UserDetailsResource;
-use App\Http\Requests\User\ChangeUserDetailsRequest;
+use App\Http\Resources\User\UserDetailsResource;
 
 #[Group('User')]
 class ChangeUserDetailsController extends Controller

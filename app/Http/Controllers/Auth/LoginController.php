@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Knuckles\Scribe\Attributes\Group;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Resources\User\UserResource;
 use Illuminate\Validation\ValidationException;
 
 #[Group('Auth')]

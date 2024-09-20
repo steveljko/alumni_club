@@ -5,9 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\UrlParam;
+use App\Http\Resources\User\UserResource;
 
 #[Group('User')]
 #[UrlParam('user_id', 'User\'s ID', required: true, example: '1')]

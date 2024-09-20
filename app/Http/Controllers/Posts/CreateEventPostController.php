@@ -6,8 +6,8 @@ use App\Models\Post;
 use App\Services\CreatePost;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PostResource;
 use Knuckles\Scribe\Attributes\Group;
+use App\Http\Resources\Posts\PostResource;
 use App\Http\Requests\Posts\CreateEventPostRequest;
 
 #[Group('Posts')]

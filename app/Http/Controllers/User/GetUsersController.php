@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
 use Knuckles\Scribe\Attributes\Group;
+use App\Http\Resources\User\UserResource;
 use Knuckles\Scribe\Attributes\QueryParam;
 use App\Traits\Concerns\Enums\FilterOperators;
 

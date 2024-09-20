@@ -6,9 +6,9 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Knuckles\Scribe\Attributes\Group;
+use App\Http\Resources\User\UserResource;
 
 #[Group('Auth')]
 class GetAuthenticatedUserData extends Controller

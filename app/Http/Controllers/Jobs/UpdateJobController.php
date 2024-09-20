@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Jobs;
 
 use App\Models\UserJobs;
 use Illuminate\Http\JsonResponse;
-use App\Http\Resources\JobResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Knuckles\Scribe\Attributes\Group;
+use App\Http\Resources\Jobs\JobResource;
 use App\Http\Requests\Jobs\UpdateJobRequest;
 
 #[Group('Jobs')]
