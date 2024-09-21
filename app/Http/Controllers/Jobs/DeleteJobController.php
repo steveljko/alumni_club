@@ -29,8 +29,12 @@ class DeleteJobController extends Controller
         try {
             $job->delete();
 
+            Log::info('User with ID {userId} successfully delete Job with ID {jobId}', ['userId' => Auth::user()->id, 'jobId' => $job->id]);
+
             return $this->sendOk();
         } catch (\Exception $ex) {
+            Log::warning('User with ID {userId} failed to delete Job with ID {jobId}.', ['userId' => Auth::user()->id, 'jobId' => $job->id]);
+
             return $this->sendForbidden();
         }
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Jobs;
 
 use App\Models\UserJobs;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Knuckles\Scribe\Attributes\Group;
@@ -28,14 +29,20 @@ class UpdateJobController extends Controller
         UserJobs $job,
     ): JsonResponse {
         if (! Auth::user()->owns(model: $job)) {
+            Log::warning('User with ID {userId} tried to update Job with ID {jobId}, but doesn\'t have permission', ['userId' => Auth::user()->id, 'jobId' => $job->id]);
+
             return $this->sendUnauthorized();
         }
 
         try {
             $job->update($request->validated());
 
+            Log::info('User with ID {userId} successfully update Job with ID {jobId}.', ['userId' => Auth::user()->id, 'jobId' => $job->id]);
+
             return $this->sendOk(data: new JobResource($job));
         } catch (\Exception $ex) {
+            Log::warning('User with ID {userId} failed to update Job with ID {jobId}.', ['userId' => Auth::user()->id, 'jobId' => $job->id]);
+
             return $this->sendForbidden();
         }
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\UrlParam;
@@ -18,6 +19,8 @@ class GetUserController extends Controller
      */
     public function __invoke(User $user): JsonResponse
     {
+        Log::info('User with ID {userId} successfully fetched.', ['userId' => $user->id]);
+
         return $this->sendResponse(
             message: __('additional.users.get'),
             data: new UserResource($user)

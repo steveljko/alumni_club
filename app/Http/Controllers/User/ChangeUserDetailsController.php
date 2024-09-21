@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Knuckles\Scribe\Attributes\Group;
@@ -27,6 +28,8 @@ class ChangeUserDetailsController extends Controller
         $updated = $details->update(
             $request->validated() + ['changed' => true]
         );
+
+        Log::info('User with ID {userId} successfully changed their details.', ['userId' => Auth::user()->id]);
 
         if (! $updated) {
             return $this->sendFailResponse(
