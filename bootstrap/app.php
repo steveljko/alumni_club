@@ -45,33 +45,37 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Change rendering output for NotFoundHttpException
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
-            $methods = [
-                Request::METHOD_GET,
-                Request::METHOD_PUT,
-                Request::METHOD_PATCH,
-                Request::METHOD_DELETE,
-            ];
+            // TODO: Find better way to implement this logic
+            // BUG: If this if is removed, it will accur to all pages
+            if (str_contains($request->path(), 'users')) {
+                $methods = [
+                    Request::METHOD_GET,
+                    Request::METHOD_PUT,
+                    Request::METHOD_PATCH,
+                    Request::METHOD_DELETE,
+                ];
 
-            if (in_array($request->method(), $methods)) {
-                $params = explode('/', $request->path());
+                if (in_array($request->method(), $methods)) {
+                    $params = explode('/', $request->path());
 
-                if (isset($params[1])) {
-                    if (Lang::locale() == 'rs') {
-                        $lang = trans('additional');
-                        $model = $lang[$params[1]]['model_name'];
-                    } else {
-                        $model = ucfirst($params[1]);
+                    if (isset($params[1])) {
+                        if (Lang::locale() == 'rs') {
+                            $lang = trans('additional');
+                            $model = $lang[$params[1]]['model_name'];
+                        } else {
+                            $model = ucfirst($params[1]);
+                        }
+
+                        $id = $params[2] ?? null;
+
+                        return new JsonResponse([
+                            'success' => false,
+                            'message' => __('additional.model_not_found', [
+                                'model' => $model,
+                                'id' => $id,
+                            ]),
+                        ], Response::HTTP_NOT_FOUND);
                     }
-
-                    $id = $params[2] ?? null;
-
-                    return new JsonResponse([
-                        'success' => false,
-                        'message' => __('additional.model_not_found', [
-                            'model' => $model,
-                            'id' => $id,
-                        ]),
-                    ], Response::HTTP_NOT_FOUND);
                 }
             }
         });
