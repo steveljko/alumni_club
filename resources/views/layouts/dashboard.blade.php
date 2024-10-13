@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="flex h-screen overflow-hidden">
-      <aside class="flex flex-col w-[20%] h-screen bg-gray-700">
+      <aside class="flex flex-col w-[20%] h-screen bg-gray-700 border-r border-gray-200">
         <h3 class="mx-4 py-4 text-sm font-medium text-white uppercase">Meni</h3>
         <ul class="flex flex-col mx-4 space-y-2">
             <a

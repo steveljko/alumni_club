@@ -46,4 +46,10 @@ return [
         'failed_update' => 'Neuspešna izmena objave! Molimo Vas, pokušajte ponovo.',
         'failed_delete' => 'Neuspešno brisanje objave! Molimo Vas, pokušajte ponovo.',
     ],
+
+    // For blade pages
+    'dashboard' => [
+        'overview' => 'Pregled',
+        'users' => 'Korisnici',
+    ],
 ];
