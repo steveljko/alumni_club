@@ -6,8 +6,8 @@
   @vite('resources/css/app.css')
 </head>
 <body>
-    <div class="flex h-screen overflow-hidden">
-      <aside class="flex flex-col w-[20%] h-screen bg-gray-700 border-r border-gray-200">
+    <div class="flex">
+      <aside class="flex flex-col w-[30%] h-screen sticky top-0 bg-gray-700 border-r border-gray-200">
         <h3 class="mx-4 py-4 text-sm font-medium text-white uppercase">Meni</h3>
         <ul class="flex flex-col mx-4 space-y-2">
             <a
@@ -33,7 +33,7 @@
         </ul>
       </aside>
       <div class="w-full">
-        <div class="w-[1170px] mx-auto">
+        <div class="w-[80%] mx-auto">
             @yield('content')
         </div>
       </div>
