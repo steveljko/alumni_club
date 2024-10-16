@@ -14,6 +14,12 @@ Route::get('/dashboard/users', function (Request $request) {
         $users->where('name', 'LIKE', '%'.$request->name.'%');
     }
 
+    if ($request->query('uni_start_year')) {
+        $users->whereHas('details', function ($query) use ($request) {
+            return $query->where('uni_start_year', $request->uni_start_year);
+        });
+    }
+
     $users = $users->paginate(10)->appends(request()->query());
 
     return view('dashboard/users', compact('users'));

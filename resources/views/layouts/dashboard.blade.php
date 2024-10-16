@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="flex">
-      <aside class="flex flex-col w-[30%] h-screen sticky top-0 bg-gray-700 border-r border-gray-200">
+      <aside class="w-64 flex flex-col h-screen sticky top-0 bg-gray-700 border-r border-gray-200">
         <h3 class="mx-4 py-4 text-sm font-medium text-white uppercase">Meni</h3>
         <ul class="flex flex-col mx-4 space-y-2">
             <a
