@@ -1,26 +1,15 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Web\Dashboard\DashboardUsersController;
 
-Route::get('/dashboard', function () {
-    return view('dashboard/overview');
-})->name('dashboard.index');
+// TODO: implement middleware only for admins to access
+Route::prefix('dashboard')
+    ->name('dashboard.')
+    ->group(function () {
+        Route::get('/', function () {
+            return view('dashboard/overview');
+        })->name('index');
 
-Route::get('/dashboard/users', function (Request $request) {
-    $users = User::with('details');
-
-    if ($request->query('name')) {
-        $users->where('name', 'LIKE', '%'.$request->name.'%');
-    }
-
-    if ($request->query('uni_start_year')) {
-        $users->whereHas('details', function ($query) use ($request) {
-            return $query->where('uni_start_year', $request->uni_start_year);
-        });
-    }
-
-    $users = $users->paginate(10)->appends(request()->query());
-
-    return view('dashboard/users', compact('users'));
-})->name('dashboard.users');
+        Route::get('users', DashboardUsersController::class)
+            ->name('users');
+    });
