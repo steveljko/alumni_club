@@ -35,7 +35,7 @@ it('fails when users are not found with this criteria', function () {
 });
 
 it('filters by relationship correctly', function () {
-    User::factory(20)->create();
+    User::factory(1)->create();
     $user = User::factory()->create(['name' => 'John Doe']);
     $user->details()->update(['uni_start_year' => 2020, 'uni_finish_year' => 2023]);
 

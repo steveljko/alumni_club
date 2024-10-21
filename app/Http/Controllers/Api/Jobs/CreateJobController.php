@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Jobs;
+namespace App\Http\Controllers\Api\Jobs;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;

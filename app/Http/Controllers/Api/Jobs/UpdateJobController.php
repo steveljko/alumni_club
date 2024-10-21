@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Jobs;
+namespace App\Http\Controllers\Api\Jobs;
 
 use App\Models\UserJobs;
 use Illuminate\Http\JsonResponse;

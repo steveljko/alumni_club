@@ -1,22 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\User\GetUserController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\User\GetUsersController;
-use App\Http\Controllers\Jobs\CreateJobController;
-use App\Http\Controllers\Jobs\DeleteJobController;
-use App\Http\Controllers\Jobs\UpdateJobController;
-use App\Http\Controllers\Posts\DeletePostController;
-use App\Http\Controllers\Posts\UpdatePostController;
-use App\Http\Controllers\Auth\ChangePasswordController;
-use App\Http\Controllers\Auth\GetAuthenticatedUserData;
-use App\Http\Controllers\Posts\CreateJobPostController;
-use App\Http\Controllers\Posts\CreateEventPostController;
-use App\Http\Controllers\User\ChangeUserDetailsController;
-use App\Http\Controllers\Posts\CreateDefaultPostController;
-use App\Http\Controllers\Auth\ChangeInitialPasswordController;
+use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\User\GetUserController;
+use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\User\GetUsersController;
+use App\Http\Controllers\Api\Jobs\CreateJobController;
+use App\Http\Controllers\Api\Jobs\DeleteJobController;
+use App\Http\Controllers\Api\Jobs\UpdateJobController;
+use App\Http\Controllers\Api\Posts\DeletePostController;
+use App\Http\Controllers\Api\Posts\UpdatePostController;
+use App\Http\Controllers\Api\Auth\ChangePasswordController;
+use App\Http\Controllers\Api\Auth\GetAuthenticatedUserData;
+use App\Http\Controllers\Api\Posts\CreateJobPostController;
+use App\Http\Controllers\Api\Posts\CreateEventPostController;
+use App\Http\Controllers\Api\User\ChangeUserDetailsController;
+use App\Http\Controllers\Api\Posts\CreateDefaultPostController;
+use App\Http\Controllers\Api\Auth\ChangeInitialPasswordController;
 
 Route::prefix('auth')
     ->name('auth.')

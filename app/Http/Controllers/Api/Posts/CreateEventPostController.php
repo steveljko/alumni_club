@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Posts;
+namespace App\Http\Controllers\Api\Posts;
 
 use App\Models\Post;
 use App\Services\CreatePost;
