@@ -14,7 +14,7 @@
               href="{{ route('web.dashboard.index') }}"
               @class([
                 'inline-flex items-center px-4 py-2 text-white rounded',
-                'bg-gray-600' => Route::is('dashboard.index')
+                'bg-gray-600' => Route::is('web.dashboard.index')
               ])
             >
                 @svg('heroicon-o-chart-bar', 'w-5 h-5 text-white-500 mr-2')
@@ -24,7 +24,7 @@
               href="{{ route('web.dashboard.users') }}"
               @class([
                 'inline-flex items-center px-4 py-2 text-white rounded',
-                'bg-gray-600' => Route::is('dashboard.users')
+                'bg-gray-600' => Route::is('web.dashboard.users')
               ])
           >
                 @svg('heroicon-o-user', 'w-5 h-5 text-white-500 mr-2')
