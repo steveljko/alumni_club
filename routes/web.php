@@ -1,15 +1,29 @@
 <?php
 
+use App\Http\Controllers\Web\Auth\LoginController;
+use App\Http\Controllers\Web\Auth\LogoutController;
 use App\Http\Controllers\Web\Dashboard\DashboardUsersController;
 
-// TODO: implement middleware only for admins to access
-Route::prefix('dashboard')
-    ->name('dashboard.')
-    ->group(function () {
-        Route::get('/', function () {
-            return view('dashboard/overview');
-        })->name('index');
+Route::name('web.')->group(function () {
+    Route::name('auth.')
+        ->group(function () {
+            Route::get('/login', LoginController::class)->name('login');
+            Route::post('/login', [LoginController::class, 'handle'])->name('login.handle');
 
-        Route::get('users', DashboardUsersController::class)
-            ->name('users');
-    });
+            Route::get('/logout', LogoutController::class)
+                ->name('logout')
+                ->middleware('auth:sanctum');
+        });
+
+    Route::prefix('dashboard')
+        ->name('dashboard.')
+        ->middleware(['auth:sanctum', 'role:admin'])
+        ->group(function () {
+            Route::get('/', function () {
+                return view('dashboard/overview');
+            })->name('index');
+
+            Route::get('users', DashboardUsersController::class)
+                ->name('users');
+        });
+});

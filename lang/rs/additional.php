@@ -51,5 +51,6 @@ return [
     'dashboard' => [
         'overview' => 'Pregled',
         'users' => 'Korisnici',
+        'logout' => 'Izloguj se',
     ],
 ];

@@ -19,10 +19,14 @@ class CheckUserRole
     {
         $user = Auth::user();
 
-        if ($user && $user->role->value === $roleName) {
+        // if ($user && $user->role->value === $roleName) {
+        //     return $next($request);
+        // }
+
+        if ($user && $user->role == $roleName) {
             return $next($request);
         }
 
-        throw new UnauthorizedException();
+        throw new UnauthorizedException;
     }
 }

@@ -11,7 +11,7 @@
         <h3 class="mx-4 py-4 text-sm font-medium text-white uppercase">Meni</h3>
         <ul class="flex flex-col mx-4 space-y-2">
             <a
-              href="{{ route('dashboard.index') }}"
+              href="{{ route('web.dashboard.index') }}"
               @class([
                 'inline-flex items-center px-4 py-2 text-white rounded',
                 'bg-gray-600' => Route::is('dashboard.index')
@@ -21,7 +21,7 @@
                 {{ __('additional.dashboard.overview') }}
             </a>
             <a
-              href="{{ route('dashboard.users') }}"
+              href="{{ route('web.dashboard.users') }}"
               @class([
                 'inline-flex items-center px-4 py-2 text-white rounded',
                 'bg-gray-600' => Route::is('dashboard.users')
@@ -29,6 +29,13 @@
           >
                 @svg('heroicon-o-user', 'w-5 h-5 text-white-500 mr-2')
                 {{ __('additional.dashboard.users') }}
+            </a>
+            <a
+              href="{{ route('web.auth.logout') }}"
+              class="inline-flex items-center px-4 py-2 text-white rounded"
+            >
+                @svg('mdi-logout', 'w-5 h-5 text-white-500 mr-2')
+                {{ __('additional.dashboard.logout') }}
             </a>
         </ul>
       </aside>
