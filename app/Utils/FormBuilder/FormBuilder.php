@@ -98,9 +98,14 @@ class FormBuilder
                 break;
             case 'select':
                 $html .= "<select name=\"{$name}\" class=\"block\">";
+
+                if (isset($o['label'])) {
+                    $html .= "<option selected disabled>{$o['label']}</option>";
+                }
                 foreach ($o['options'] as $option) {
                     $html .= "<option value=\"{$option->getValue()}\">{$option->getName()}</option>";
                 }
+
                 $html .= '</select>';
                 break;
         }
