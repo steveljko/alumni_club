@@ -1,1 +1,2 @@
-import './bootstrap';
+import Form from './form';
+window.Form = new Form;
