@@ -15,7 +15,7 @@ class RightSidebar extends Component
         public string $id,
         public string $title
     ) {
-        $this->id = $id;
+        $this->id = $id.'Modal';
         $this->title = $title;
     }
 
