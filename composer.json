@@ -10,6 +10,7 @@
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "owenvoke/blade-fontawesome": "^2.6",
         "postare/blade-mdi": "^1.1"
     },
     "require-dev": {

@@ -25,5 +25,8 @@ Route::name('web.')->group(function () {
 
             Route::get('users', DashboardUsersController::class)
                 ->name('users');
+
+            Route::post('updateUser', [DashboardUsersController::class, 'updateUser'])
+                ->name('updateUser');
         });
 });

@@ -1,65 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<!-- Edit Modal -->
-<div id="editModal" class="fixed inset-0 z-50 flex justify-end bg-black bg-opacity-50 hidden">
-    <div class="bg-white rounded-tl-lg shadow-lg p-6 mt-2 w-1/3">
-        <div>
-            <span id="close" class="cursor-pointer text-gray-500 float-right">&times;</span>
-            <h2 class="text-lg font-semibold mb-4">Izmeni korisnika</h2>
-        </div>
-        <div>
-            <form id="editForm">
-                @csrf
-                <input type="hidden" name="id" id="itemId">
-                <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Ime</label>
-                    <input type="text" name="name" id="modalName" required class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-                </div>
-
-                <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email adresa</label>
-                    <input type="text" name="email" id="modalEmail" required class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-                </div>
-
-                <div class="w-full mb-4 flex space-x-4">
-                  <div class="w-full">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Godina upisa</label>
-                    <select
-                        name="uni_start_year"
-                        id="modalUniStartYear"
-                        class="block w-full p-2 h-10 bg-white border border-gray-300 rounded-md"
-                    >
-                        <option selected disabled>Izaberite godinu upisa</option>
-                        @foreach (range(1910, date('Y')) as $year)
-                            <option value="{{ $year }}">{{ $year }}</option>
-                        @endforeach
-                    </select>
-                  </div>
-                  <div class="w-full">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Godina završetka</label>
-                    <select
-                        name="uni_finish_year"
-                        id="modalUniFinishYear"
-                        class="block w-full p-2 h-10 bg-white border border-gray-300 rounded-md"
-                    >
-                        <option selected disabled>Izaberite godinu završetka</option>
-                        @foreach (range(1910, date('Y')) as $year)
-                            <option value="{{ $year }}">{{ $year }}</option>
-                        @endforeach
-                    </select>
-                  </div>
-                </div>
-
-                <button type="submit" class="w-full bg-blue-500 text-white rounded-md p-2 hover:bg-blue-600">Sačuvaj izmene</button>
-            </form>
-
-            <div class="w-full my-4 h-[1px] bg-gray-300"></div>
-
-            <h2>Zatrazi promenu sifre</h2>
-        </div>
-    </div>
-</div>
+<x-right-sidebar id="updateUser" title="Izmeni korisnika">{!! $updateForm !!}</x-right-sidebar>
 
 <h2 class="text-xl my-8">{{ __('additional.dashboard.users') }}</h2>
 
@@ -115,8 +57,10 @@
                 <td scope="row" class="px-6 py-4 text-left">{{ $user->name }}</td>
                 <td scope="row" class="px-6 py-4 text-left">{{ $user->details->uni_start_year }}</td>
                 <td scope="row" class="px-6 py-4 text-right">
-                  <a href="#" data-user="{{ $user }}" class="edit-button | px-2 py-1 bg-blue-700 font-semibold text-sm text-blue-950 uppercase rounded-md mr-2">Pogledaj</a>
-                  <a href="#" class="px-2 py-1 bg-yellow-500 font-semibold text-sm text-yellow-950 uppercase rounded-md">Izmeni</a>
+                    <a href="#" data-user="{{ $user }}" class="edit-button | inline-flex items-center font-medium text-sm text-yellow-500">
+                        @svg('far-edit', 'w-4 h-4 text-yellow-500 mr-1')
+                        Izmeni
+                    </a>
                 </td>
             </tr>
             @endforeach
@@ -124,26 +68,39 @@
     </table>
     <x-pagination :model="$users"/>
 </div>
+@stop
 
-<script>
-const setField = (id, value) => document.getElementById(id).value = value;
+@section('js')
 const datasetAsJson = (doc, name) => JSON.parse(doc.dataset[name]);
+
+const updateForm = window.Form.getByName('updateUser');
+
+# TODO: Good idea for making this possible
+updateForm.describe([]);
+updateForm.populate(user);
 
 document.querySelectorAll('.edit-button').forEach(button => {
     button.addEventListener('click', function() {
         const user = datasetAsJson(this, 'user');
 
-        setField('modalName', user.name);
-        setField('modalEmail', user.email);
-        setField('modalUniStartYear', Number(user.details.uni_start_year));
-        setField('modalUniFinishYear', Number(user.details.uni_finish_year));
+        sessionStorage.setItem('user', JSON.stringify(user));
 
-        document.getElementById('editModal').classList.remove('hidden');
+        updateForm.setField('name', user.name);
+        updateForm.setField('email', user.email);
+        updateForm.setField('role', user.role);
+
+        updateForm.toggleFormModal();
     });
 });
 
-document.getElementById('close').addEventListener('click', function () {
-  document.getElementById('editModal').classList.add('hidden');
-});
-</script>
-@stop
+const user = JSON.parse(sessionStorage.getItem('user'));
+const visible = new URL(window.location.href).searchParams.get('v');
+
+if (user && visible) {
+  updateForm.setField('name', user.name);
+  updateForm.setField('email', user.email);
+  updateForm.setField('role', user.role);
+
+  updateForm.toggleFormModal();
+}
+@endsection

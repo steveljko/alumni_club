@@ -45,5 +45,12 @@
         </div>
       </div>
     </div>
+
+    @vite('resources/js/app.js')
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+          @yield('js')
+        });
+    </script>
 </body>
 </html>
