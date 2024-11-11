@@ -71,36 +71,25 @@
 @stop
 
 @section('js')
-const datasetAsJson = (doc, name) => JSON.parse(doc.dataset[name]);
-
 const updateForm = window.Form.getByName('updateUser');
 
-# TODO: Good idea for making this possible
-updateForm.describe([]);
-updateForm.populate(user);
-
 document.querySelectorAll('.edit-button').forEach(button => {
-    button.addEventListener('click', function() {
-        const user = datasetAsJson(this, 'user');
+    button.addEventListener('click', (e) => {
+        const tableRow = button.parentElement.parentElement;
 
+        const user = JSON.parse(e.currentTarget.dataset.user);
         sessionStorage.setItem('user', JSON.stringify(user));
 
-        updateForm.setField('name', user.name);
-        updateForm.setField('email', user.email);
-        updateForm.setField('role', user.role);
+        updateForm.populate({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          uni_start_year: user.details.uni_start_year,
+          uni_finish_year: user.details.uni_finish_year,
+        });
 
         updateForm.toggleFormModal();
     });
 });
-
-const user = JSON.parse(sessionStorage.getItem('user'));
-const visible = new URL(window.location.href).searchParams.get('v');
-
-if (user && visible) {
-  updateForm.setField('name', user.name);
-  updateForm.setField('email', user.email);
-  updateForm.setField('role', user.role);
-
-  updateForm.toggleFormModal();
-}
 @endsection

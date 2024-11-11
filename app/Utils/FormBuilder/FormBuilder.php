@@ -51,15 +51,15 @@ class FormBuilder
      */
     public function render(): string
     {
-        $html = "<form id=\"$this->name\" method=\"$this->method\" action=\"$this->route\">";
-        $html .= csrf_field();
+        $html = "<form id=\"$this->name\" data-method=\"$this->method\" data-action=\"$this->route\">";
+        $html .= "<div id='errors'></div>";
 
         foreach ($this->fields as $field) {
             $html .= $this->renderField($field);
         }
 
         $btnText = $this->buttonText ? $this->buttonText : 'Submit';
-        $html .= "<button class=\"px-2 py-1 bg-blue-700 rounded\" type=\"submit\">$btnText</button>";
+        $html .= "<button class=\"w-full px-2 py-1 bg-blue-700 rounded\">$btnText</button>";
         $html .= '</form>';
 
         return $html;
@@ -70,11 +70,11 @@ class FormBuilder
      *
      * @var string
      */
+    // FIX: Placeholder
     protected function renderField(array $field): string
     {
         $html = '<div class="mb-4">';
 
-        $err = session('errors') ? session('errors')->first($field['name']) : null;
         $f = $field;
         $name = $f['name'];
         $o = $field['options'];
@@ -110,9 +110,7 @@ class FormBuilder
                 break;
         }
 
-        if ($err) {
-            $html .= "<div class=\"text-red-500\">$err</div>";
-        }
+        $html .= "<div id=\"error-$name\" class=\"text-red-500\"></div>";
 
         $html .= '</div>';
 

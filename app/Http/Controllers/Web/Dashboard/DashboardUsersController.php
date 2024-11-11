@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Dashboard;
 
+use Validator;
 use App\Models\User;
 use App\Enums\UserRole;
 use Illuminate\View\View;
@@ -34,17 +35,20 @@ class DashboardUsersController
 
     public function updateUser(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
             'role' => 'required',
         ]);
 
-        $previousUrl = strtok(url()->previous(), '?');
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
-        return redirect()->to(
-            $previousUrl . '?' . http_build_query(['v' => true])
-        );
+        $user = User::find($request->id);
+        $user->update($request->all());
+
+        return response()->json($user, 200);
     }
 
     protected function getUpdateForm(): string
@@ -54,6 +58,9 @@ class DashboardUsersController
             method: 'POST',
             route: route('web.dashboard.updateUser'),
         ))
+            ->addField(name: 'id', options: [
+                'placeholder' => 'id',
+            ])
             ->addField(name: 'name', options: [
                 'label' => 'Ime i Prezime',
                 'placeholder' => 'Unesite ime i prezime',
@@ -67,7 +74,19 @@ class DashboardUsersController
                 'label' => 'Odaberite ulogu',
                 'options' => Option::fromEnum(UserRole::class),
             ])
-            ->withButtonText('Izmeni korisnika')
+            ->addField(name: 'uni_start_year', type: 'select', options: [
+                'label' => 'Odaberite godinu upisa faksa',
+                'options' => array_map(function ($year) {
+                    return new Option(value: (string) $year, name: (string) $year);
+                }, range(1910, date('Y'))),
+            ])
+            ->addField(name: 'uni_finish_year', type: 'select', options: [
+                'label' => 'Odaberite godinu završetka faksa',
+                'options' => array_map(function ($year) {
+                    return new Option(value: (string) $year, name: (string) $year);
+                }, range(1910, date('Y'))),
+            ])
+            ->withButtonText(text: 'Izmeni korisnika')
             ->render();
     }
 }
