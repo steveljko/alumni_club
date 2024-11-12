@@ -48,7 +48,7 @@ class DashboardUsersController
         $user = User::find($request->id);
         $user->update($request->all());
 
-        return response()->json($user, 200);
+        return view('markup/users_table')->with('users', User::with('details')->paginate(10));
     }
 
     protected function getUpdateForm(): string

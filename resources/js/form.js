@@ -4,6 +4,7 @@ export default class Form {
     constructor() {
       this.form = null;
       this.name = '';
+      this.onSuccessCallback = null;
     }
 
     getByName(name) {
@@ -32,6 +33,10 @@ export default class Form {
         for (const key in data) this.setField(key, data[key]);
     }
 
+    setOnSuccess(callback) {
+        this.onSuccessCallback = callback;
+    }
+
     async sendRequest() {
       const method = this.form.getAttribute('data-method') || "POST";
       const url = this.form.getAttribute('data-action');
@@ -39,7 +44,7 @@ export default class Form {
       const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
       try {
-        const resp = await axios({
+        const response = await axios({
           method,
           url,
           data,
@@ -49,6 +54,9 @@ export default class Form {
           }
         })
 
+        if (this.onSuccessCallback && typeof this.onSuccessCallback === 'function') {
+          this.onSuccessCallback(response.data);
+        }
         this.toggleFormModal()
       } catch (err) {
         const errors = err.response.data.errors;
@@ -58,13 +66,18 @@ export default class Form {
       }
     }
 
+    updateTableRecord(tableId, rowIdx) {
+        const table = document.querySelector(`table#${tableId}`);
+        const row = table.querySelector(`tr[data-index="${rowIdx}"]`);
+        console.log(row);
+    }
+
     setError(field, msg) {
         const errorField = document.querySelector(`#error-${field}`);
         errorField.innerHTML = msg;
         document
           .querySelector(`form#${this.name}Form *[name="${field}"]`)
           .addEventListener('keydown', e => errorField.innerHTML = '');
-
     }
 
     toggleFormModal() {
