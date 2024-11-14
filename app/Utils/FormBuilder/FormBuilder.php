@@ -2,6 +2,9 @@
 
 namespace App\Utils\FormBuilder;
 
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Cache;
+
 class FormBuilder
 {
     protected array $fields = [];
@@ -18,6 +21,9 @@ class FormBuilder
         $this->route = $route;
     }
 
+    /**
+     * @param  array<int,mixed>  $options
+     */
     public function addField(
         string $name,
         string $type = 'text',
@@ -62,85 +68,19 @@ class FormBuilder
      */
     public function render(): string
     {
-        $html = <<<HTML
-            <form id="{$this->name}" data-method="{$this->method}" data-action="{$this->route}">
-            <div id="errors"></div>
-        HTML;
-
-        foreach ($this->fields as $field) {
-            $html .= $this->renderField($field);
-        }
-
-        $btnText = $this->buttonText ?: 'Submit';
-        $html .= <<<HTML
-            <button class="w-full px-2 py-1 bg-blue-700 rounded">{$btnText}</button>
-            </form>
-        HTML;
-
-        return $html;
+        return Cache::rememberForever($this->getCacheKey(), function () {
+            return View::make('form', [
+                'name' => $this->name,
+                'method' => $this->method,
+                'route' => $this->route,
+                'fields' => $this->fields,
+                'buttonText' => $this->buttonText,
+            ])->render();
+        });
     }
 
-    /**
-     * Render form fields
-     *
-     * @var string
-     */
-    protected function renderField(array $field): string
+    protected function getCacheKey(): string
     {
-        $name = $field['name'];
-        $options = $field['options'];
-
-        $label = $options['label'] ?? '';
-        $placeholder = $options['placeholder'] ?? '';
-        $inputType = $options['inputType'] ?? 'text';
-        $oldVal = old($name);
-
-        $html = '<div class="mb-4">';
-
-        if ($label) {
-            $html .= <<<HTML
-            <label class="uppercase text-sm font-semibold" for="{$name}">{$label}</label>
-            HTML;
-        }
-
-        switch ($field['type']) {
-            // Render text input field
-            case 'text':
-                $html .= <<<HTML
-                <input
-                    name="{$name}"
-                    type="{$inputType}"
-                    placeholder="{$placeholder}"
-                    value="{$oldVal}"
-                    class="block"
-                />
-                HTML;
-                break;
-
-                // Render select with options
-            case 'select':
-                $html .= "<select name=\"{$name}\" class=\"block\">";
-                if ($label) {
-                    $html .= "<option selected disabled>{$label}</option>";
-                }
-                foreach ($options['options'] as $option) {
-                    $html .= "<option value=\"{$option->getValue()}\">{$option->getName()}</option>";
-                }
-                $html .= '</select>';
-                break;
-
-                // Render hidden field (used for id)
-            case 'hidden':
-                $html .= "<input type=\"hidden\" name=\"{$name}\" value=\"{$oldVal}\">";
-                break;
-        }
-
-        if ($name !== 'id') {
-            $html .= "<div id=\"error-$name\" class=\"block mt-2 text-sm text-red-500\"></div>";
-        }
-
-        $html .= '</div>';
-
-        return $html;
+        return 'form_builder:'.md5(serialize($this->fields).$this->buttonText);
     }
 }
