@@ -68,6 +68,10 @@ class FormBuilder
      */
     public function render(): string
     {
+        if (app()->environment('local')) {
+            Cache::forget($this->getCacheKey());
+        }
+
         return Cache::rememberForever($this->getCacheKey(), function () {
             return View::make('form', [
                 'name' => $this->name,

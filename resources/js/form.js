@@ -13,6 +13,10 @@ export default class Form {
 
       this.form.addEventListener('submit', (e) => {
         e.preventDefault();
+
+        const loadingSpinner = this.form.querySelector('button svg');
+        loadingSpinner.classList.remove('hidden');
+
         this.sendRequest();
       });
 
@@ -58,6 +62,7 @@ export default class Form {
           this.onSuccessCallback(response.data);
         }
         this.toggleFormModal()
+        this.form.querySelector('svg').classList.add('hidden');
       } catch (err) {
         const errors = err.response.data.errors;
         for (const [field, msg] of Object.entries(errors)) {
