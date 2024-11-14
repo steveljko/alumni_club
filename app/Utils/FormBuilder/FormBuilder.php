@@ -32,6 +32,17 @@ class FormBuilder
         return $this;
     }
 
+    public function addPrimaryField(string $name): self
+    {
+        $this->fields[] = [
+            'name' => $name,
+            'type' => 'hidden',
+            'options' => [],
+        ];
+
+        return $this;
+    }
+
     /**
      * Set submit button text
      *
@@ -51,16 +62,20 @@ class FormBuilder
      */
     public function render(): string
     {
-        $html = "<form id=\"$this->name\" data-method=\"$this->method\" data-action=\"$this->route\">";
-        $html .= "<div id='errors'></div>";
+        $html = <<<HTML
+            <form id="{$this->name}" data-method="{$this->method}" data-action="{$this->route}">
+            <div id="errors"></div>
+        HTML;
 
         foreach ($this->fields as $field) {
             $html .= $this->renderField($field);
         }
 
-        $btnText = $this->buttonText ? $this->buttonText : 'Submit';
-        $html .= "<button class=\"w-full px-2 py-1 bg-blue-700 rounded\">$btnText</button>";
-        $html .= '</form>';
+        $btnText = $this->buttonText ?: 'Submit';
+        $html .= <<<HTML
+            <button class="w-full px-2 py-1 bg-blue-700 rounded">{$btnText}</button>
+            </form>
+        HTML;
 
         return $html;
     }
@@ -70,47 +85,59 @@ class FormBuilder
      *
      * @var string
      */
-    // FIX: Placeholder
     protected function renderField(array $field): string
     {
+        $name = $field['name'];
+        $options = $field['options'];
+
+        $label = $options['label'] ?? '';
+        $placeholder = $options['placeholder'] ?? '';
+        $inputType = $options['inputType'] ?? 'text';
+        $oldVal = old($name);
+
         $html = '<div class="mb-4">';
 
-        $f = $field;
-        $name = $f['name'];
-        $o = $field['options'];
-
-        if (isset($o['label'])) {
-            $html .= "<label class=\"uppercase text-sm font-semibold\" for=\"{$name}\}\">{$o['label']}</label>";
+        if ($label) {
+            $html .= <<<HTML
+            <label class="uppercase text-sm font-semibold" for="{$name}">{$label}</label>
+            HTML;
         }
 
         switch ($field['type']) {
+            // Render text input field
             case 'text':
-                $inputType = isset($o['inputType']) ? $o['inputType'] : 'text';
-                $oldVal = old($name);
-
-                $html .= "<input
-                    name=\"{$name}\"
-                    type=\"{$inputType}\"
-                    placeholder=\"{$o['placeholder']}\"
-                    value=\"{$oldVal}\"
-                    class=\"block\"
-                />";
+                $html .= <<<HTML
+                <input
+                    name="{$name}"
+                    type="{$inputType}"
+                    placeholder="{$placeholder}"
+                    value="{$oldVal}"
+                    class="block"
+                />
+                HTML;
                 break;
+
+                // Render select with options
             case 'select':
                 $html .= "<select name=\"{$name}\" class=\"block\">";
-
-                if (isset($o['label'])) {
-                    $html .= "<option selected disabled>{$o['label']}</option>";
+                if ($label) {
+                    $html .= "<option selected disabled>{$label}</option>";
                 }
-                foreach ($o['options'] as $option) {
+                foreach ($options['options'] as $option) {
                     $html .= "<option value=\"{$option->getValue()}\">{$option->getName()}</option>";
                 }
-
                 $html .= '</select>';
+                break;
+
+                // Render hidden field (used for id)
+            case 'hidden':
+                $html .= "<input type=\"hidden\" name=\"{$name}\" value=\"{$oldVal}\">";
                 break;
         }
 
-        $html .= "<div id=\"error-$name\" class=\"text-red-500\"></div>";
+        if ($name !== 'id') {
+            $html .= "<div id=\"error-$name\" class=\"block mt-2 text-sm text-red-500\"></div>";
+        }
 
         $html .= '</div>';
 
