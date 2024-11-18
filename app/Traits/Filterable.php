@@ -31,7 +31,7 @@ trait Filterable
      */
     public static function filter(array $allowedParams = []): Builder
     {
-        $instance = new self();
+        $instance = new self;
         $instance->allowedParams = $instance->remapArray($allowedParams);
         $instance->extractQueryConditions(request()->query());
 
@@ -48,7 +48,12 @@ trait Filterable
                     }
                 });
             } else {
-                $query->where(...$conditions);
+                // TODO: Refector this
+                if (isset($conditions[1]) && $conditions[1] === 'like') {
+                    $query->where($conditions[0], 'like', '%'.$conditions[2].'%');
+                } else {
+                    $query->where(...$conditions);
+                }
             }
         }
 
@@ -73,11 +78,11 @@ trait Filterable
         string $resource,
         int $records = 10,
     ) {
-        $instance = new self();
+        $instance = new self;
         $query = $instance->filter($allowedParams);
 
         if (($page = request()->query('page', 1)) < 1) {
-            throw new PaginationInvalidPageNumber();
+            throw new PaginationInvalidPageNumber;
         }
 
         if (count($with)) {
@@ -92,7 +97,7 @@ trait Filterable
         $query = $query->withQueryString(); // append all query parametrs to pagination urls
 
         if ($page > $query->lastPage()) {
-            throw new PaginationPageNotFound();
+            throw new PaginationPageNotFound;
         }
 
         $result = PaginateResource::make($query, $resource);

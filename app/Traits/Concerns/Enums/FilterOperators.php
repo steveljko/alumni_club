@@ -27,6 +27,10 @@ enum FilterOperators
     #[QueryParam('>=')]
     case GRATER_THAN_EQUALS;
 
+    #[UrlParam('lk')]
+    #[QueryParam('like')]
+    case LIKE;
+
     public function getUrlParam(): string
     {
         return $this->getAttributeValue(UrlParam::class);
