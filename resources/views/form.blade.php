@@ -7,24 +7,45 @@
                 <label class="uppercase text-sm font-semibold" for="{{ $field['name'] }}">{{ $field['options']['label'] }}</label>
             @endif
 
+            @php
+              $query = $field['name'];
+              $parts = explode('[', $query);
+
+              $name = '';
+              $ft = '';
+
+              if (count($parts) > 0) {
+                  $name = trim($parts[0]);
+
+                  if (count($parts) > 1) {
+                      $ft = trim(rtrim($parts[1], ']'));
+                  }
+              }
+
+              $prevValue = request()->query($name)[$ft] ?? null;
+            @endphp
+
             @switch($field['type'])
                 @case('text')
                     <input
                         name="{{ $field['name'] }}"
                         type="{{ $field['options']['inputType'] ?? 'text' }}"
                         placeholder="{{ $field['options']['placeholder'] ?? '' }}"
-                        value="{{ old($field['name']) }}"
+                        value="{{ $prevValue }}"
                         class="block"
                     />
-                    @break
+                @break
 
                 @case('select')
                     <select name="{{ $field['name'] }}" class="block">
                         @if (!empty($field['options']['label']))
-                            <option selected disabled>{{ $field['options']['label'] }}</option>
+                            <option selected value="">{{ $field['options']['label'] }}</option>
                         @endif
                         @foreach ($field['options']['options'] as $option)
-                            <option value="{{ $option->getValue() }}">{{ $option->getName() }}</option>
+                            <option
+                              value="{{ $option->getValue() }}"
+                              {{ $prevValue == $option->getValue() ? 'selected' : '' }}
+                            >{{ $option->getName() }}</option>
                         @endforeach
                     </select>
                     @break
@@ -40,7 +61,7 @@
         </div>
     @endforeach
 
-    <button class="w-full inline-flex justify-center items-center px-2 py-1 bg-blue-700 rounded">
+    <button type="submit" class="w-full inline-flex justify-center items-center px-2 py-1 bg-blue-700 rounded">
         <!-- TODO: Make better spinner -->
         <svg aria-hidden="true" class="hidden mr-3 w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>

@@ -1,15 +1,14 @@
 import axios from 'axios';
 
 export default class Form {
-    constructor() {
-      this.form = null;
-      this.name = '';
-      this.onSuccessCallback = null;
-    }
-
-    getByName(name) {
+    constructor(name) {
       this.name = name;
       this.form = document.querySelector(`form#${name}Form`);
+
+      if (!this.form) {
+        console.error(`Form with id ${name} not found.`);
+        return null;
+      }
 
       this.form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -20,16 +19,16 @@ export default class Form {
         this.sendRequest();
       });
 
-      return this;
+      this.onSuccessCallback = null;
     }
 
     setField(name, value) {
-        const field = document.querySelector(`form#${this.name}Form *[name="${name}"]`);
+        const field = this.form.querySelector(`*[name="${name}"]`);
         field.value = value;
     }
 
     getField(name) {
-        const field = document.querySelector(`form#${this.name}Form *[name="${name}"]`);
+        const field = this.form.querySelector(`*[name="${name}]"`);
         return field.value;
     }
 
@@ -42,28 +41,51 @@ export default class Form {
     }
 
     async sendRequest() {
-      const method = this.form.getAttribute('data-method') || "POST";
+      const method = this.form.getAttribute('data-method') || "post";
       const url = this.form.getAttribute('data-action');
-      const data = new FormData(this.form);
       const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+      let config = {
+        method,
+        url,
+        headers: {
+          'X-Request-With': 'XMLHttpRequest',
+          'X-CSRF-Token': csrfToken,
+        }
+      };
+
+      if (method.toLowerCase() == "get") {
+        const data = Object.fromEntries(new FormData(this.form));
+
+        const params = new URLSearchParams(data);
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+
+        config.params = data;
+      } else if(method.toLowerCase() == "post") {
+        const hasQueryParams = window.location.search.length > 0;
+
+        if (hasQueryParams) {
+          const params = new URLSearchParams(window.location.search);
+          config.url += '?' + params.toString();
+        }
+
+        config.data = new FormData(this.form);
+      }
+
       try {
-        const response = await axios({
-          method,
-          url,
-          data,
-          headers: {
-            'X-Request-With': 'XMLHttpRequest',
-            'X-CSRF-Token': csrfToken,
-          }
-        })
+        const response = await axios(config)
+        console.log(response);
 
         if (this.onSuccessCallback && typeof this.onSuccessCallback === 'function') {
           this.onSuccessCallback(response.data);
         }
-        this.toggleFormModal()
+
+        if (this.hasModal()) this.toggleModal()
+
         this.form.querySelector('svg').classList.add('hidden');
       } catch (err) {
+        this.form.querySelector('svg').classList.add('hidden');
         const errors = err.response.data.errors;
         for (const [field, msg] of Object.entries(errors)) {
           this.setError(field, msg);
@@ -85,7 +107,13 @@ export default class Form {
           .addEventListener('keydown', e => errorField.innerHTML = '');
     }
 
-    toggleFormModal() {
+    // UI related
+    hasModal() {
+        const modal = document.querySelector(`div#${this.name}Modal`);
+        return modal !== null;
+    }
+
+    toggleModal() {
         const modal = document.querySelector(`div#${this.name}Modal`);
         modal.classList.toggle('hidden');
     }

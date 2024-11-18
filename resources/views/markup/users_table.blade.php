@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($users as $key => $user)
+        @foreach ($users->items() as $key => $user)
         <tr
           class="hover:bg-gray-100 hover:cursor-pointer"
           data-index="{{ $key }}"
@@ -17,7 +17,7 @@
             <td scope="row" class="px-6 py-4 text-left">{{ $user->name }}</td>
             <td scope="row" class="px-6 py-4 text-left">{{ $user->details->uni_start_year }}</td>
             <td scope="row" class="px-6 py-4 text-right">
-                <a href="#" data-user="{{ $user }}" class="edit-button | inline-flex items-center font-medium text-sm text-yellow-500">
+                <a data-user="{{ $user }}" class="edit-button | inline-flex items-center font-medium text-sm text-yellow-500">
                     @svg('far-edit', 'w-4 h-4 text-yellow-500 mr-1')
                     Izmeni
                 </a>
