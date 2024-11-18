@@ -68,6 +68,7 @@ class FormBuilder
      */
     public function render(): string
     {
+        // Disable form caching in development environment.
         if (app()->environment('local')) {
             Cache::forget($this->getCacheKey());
         }
