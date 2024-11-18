@@ -83,6 +83,31 @@ class FormBuilder
         });
     }
 
+    /**
+     * Builds a form with the specified parameters and fields.
+     *
+     * @return string rendered form HTML.
+     */
+    public static function build(
+        string $name,
+        string $method,
+        string $route,
+        array $fields,
+        string $btnText = 'Obradi'
+    ): string {
+        $formBuilder = new self(name: $name, method: $method, route: $route);
+
+        foreach ($fields as $key => $options) {
+            $formBuilder->addField(
+                name: $key,
+                type: $options['type'] ?? 'text',
+                options: $options,
+            );
+        }
+
+        return $formBuilder->withButtonText(text: $btnText)->render();
+    }
+
     protected function getCacheKey(): string
     {
         return 'form_builder:'.md5(serialize($this->fields).$this->buttonText);
