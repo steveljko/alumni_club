@@ -28,5 +28,8 @@ Route::name('web.')->group(function () {
 
             Route::post('updateUser', [DashboardUsersController::class, 'updateUser'])
                 ->name('updateUser');
+
+            Route::get('searchUser', [DashboardUsersController::class, 'searchUser'])
+                ->name('searchUser');
         });
 });
