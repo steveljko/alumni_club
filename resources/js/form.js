@@ -102,9 +102,17 @@ export default class Form {
     setError(field, msg) {
         const errorField = document.querySelector(`#error-${field}`);
         errorField.innerHTML = msg;
-        document
-          .querySelector(`form#${this.name}Form *[name="${field}"]`)
-          .addEventListener('keydown', e => errorField.innerHTML = '');
+
+        const el = document.querySelector(`form#${this.name}Form *[name="${field}"]`);
+
+        switch (el.tagName.toLowerCase()) {
+            case "input":
+                el.addEventListener('keydown', e => errorField.innerHTML = '')
+                break;
+            case "select":
+                el.addEventListener('change', e => errorField.innerHTML = '')
+                break;
+        }
     }
 
     // UI related
