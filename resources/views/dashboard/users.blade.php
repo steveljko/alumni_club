@@ -47,7 +47,7 @@
 @stop
 
 @section('js')
-const updateForm = window.Form.getByName('updateUser');
+const updateForm = window.Form.get('updateUser');
 
 function load() {
     document.querySelectorAll('.edit-button').forEach(button => {
@@ -72,6 +72,13 @@ function load() {
 load();
 
 updateForm.setOnSuccess(data => {
+  document.querySelector('#users_table').innerHTML = data;
+  load();
+})
+
+const searchForm = window.Form.get('searchForm');
+
+searchForm.setOnSuccess(data => {
   document.querySelector('#users_table').innerHTML = data;
   load();
 })
