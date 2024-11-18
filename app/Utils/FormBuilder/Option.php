@@ -38,4 +38,19 @@ class Option
 
         return $options;
     }
+
+    /**
+     * Generate options from a range of years,
+     * used for generating a year range.
+     */
+    public static function fromYearRange(int $from, ?int $to = null): array
+    {
+        if ($to === null) {
+            $to = (int) date('Y');
+        }
+
+        return array_map(function ($year) {
+            return new Option(value: (string) $year, name: (string) $year);
+        }, range($from, $to));
+    }
 }
