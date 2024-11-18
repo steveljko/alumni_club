@@ -118,3 +118,24 @@ export default class Form {
         modal.classList.toggle('hidden');
     }
 }
+
+// initilize forms
+window.Form = {
+    instances: {},
+
+    init(name) {
+        const names = Array.isArray(name) ? name : [name];
+        names.forEach(formName => this.instances[formName] = new Form(formName));
+    },
+
+    get(name) {
+        return this.instances[name];
+    }
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+    const forms = document.querySelectorAll('form');
+    const formNames = Array.from(forms).map(form => form.getAttribute('id').replace(/Form$/, ''));
+    window.Form.init(formNames);
+});
+
