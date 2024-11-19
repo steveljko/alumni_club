@@ -21,11 +21,11 @@ enum FilterOperators
 
     #[UrlParam('gt')]
     #[QueryParam('>')]
-    case GRATER_THAN;
+    case GREATER_THAN;
 
     #[UrlParam('gte')]
     #[QueryParam('>=')]
-    case GRATER_THAN_EQUALS;
+    case GREATER_THAN_EQUALS;
 
     #[UrlParam('lk')]
     #[QueryParam('like')]

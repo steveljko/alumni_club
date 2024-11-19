@@ -62,13 +62,16 @@ class UserFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (User $user) {
+            $startYear = fake()->numberBetween(2000, date('Y'));
+            $finishYear = fake()->numberBetween($startYear, date('Y'));
+
             $user->details()->update([
                 'date_of_birth' => fake()->dateTimeBetween('-100 years', '-18 years'),
                 'gender' => fake()->randomElement(['male', 'female']),
                 'phone_number' => fake()->phoneNumber(),
                 'phone_number_visible' => fake()->boolean(),
-                'uni_start_year' => fake()->year(max: 'now'),
-                'uni_finish_year' => fake()->year(max: 'now'),
+                'uni_start_year' => $startYear,
+                'uni_finish_year' => $finishYear,
                 'bio' => fake()->paragraph(),
                 'changed' => false,
             ]);
