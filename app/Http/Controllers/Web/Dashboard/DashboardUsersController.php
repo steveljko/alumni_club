@@ -16,6 +16,12 @@ class DashboardUsersController
 {
     public function __invoke(Request $request): View
     {
+        if ($request->ajax()) {
+            return view('markup/users_table', [
+                'users' => $this->getUsers($request),
+            ]);
+        }
+
         return view('dashboard/users', [
             'users' => $this->getUsers(request: $request),
             'searchForm' => $this->getSearchForm(),
@@ -23,19 +29,19 @@ class DashboardUsersController
         ]);
     }
 
-    public function updateUser(UpdateUserRequest $request)
+    public function updateUser(UpdateUserRequest $request): View
     {
         $user = User::find($request->id);
 
         $user->update($request->only(['name']));
         $user->details->update($request->only(['uni_start_year', 'uni_finish_year']));
 
-        return view('markup/users_table')->with('users', $this->getUsers($request));
+        return view('markup/users_table', ['users' => $this->getUsers($request)]);
     }
 
-    public function searchUser(Request $request)
+    public function searchUser(Request $request): View
     {
-        return view('markup/users_table')->with('users', $this->getUsers($request));
+        return view('markup/users_table', ['users' => $this->getUsers($request)]);
     }
 
     protected function getSearchForm(): string
@@ -49,8 +55,13 @@ class DashboardUsersController
                     'label' => 'Ime i Prezime',
                     'placeholder' => 'Unesite ime i prezime',
                 ],
-                'details_uni_start_year[eq]' => [
+                'details_uni_start_year[gte]' => [
                     'label' => 'Odaberite godinu upisa faksa',
+                    'type' => 'select',
+                    'options' => Option::fromYearRange(from: 2000),
+                ],
+                'details_uni_finish_year[lte]' => [
+                    'label' => 'Odaberite godinu zavrsetka faksa',
                     'type' => 'select',
                     'options' => Option::fromYearRange(from: 2000),
                 ],
@@ -65,7 +76,7 @@ class DashboardUsersController
             method: Request::METHOD_POST,
             route: route('web.dashboard.updateUser'),
             fields: [
-                'id' => ['placeholder' => 'id'],
+                'id' => ['type' => 'hidden'],
                 'name' => [
                     'label' => 'Ime i Prezime',
                     'placeholder' => 'Unesite ime i prezime',
@@ -100,8 +111,8 @@ class DashboardUsersController
             allowedParams: [
                 'name' => [FilterOperators::LIKE],
                 'details' => [
-                    'uni_start_year' => [FilterOperators::EQUALS],
-                    'uni_finish_year' => [FilterOperators::EQUALS],
+                    'uni_start_year' => [FilterOperators::GREATER_THAN_EQUALS],
+                    'uni_finish_year' => [FilterOperators::LESS_THAN_EQUALS],
                 ],
             ],
             with: ['details'],

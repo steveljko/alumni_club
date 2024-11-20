@@ -51,7 +51,7 @@
                     @break
 
                 @case('hidden')
-                    <input type="hidden" name="{{ $field['name'] }}" value="{{ old($field['name']) }}">
+                    <input class="hidden" type="hidden" name="{{ $field['name'] }}" value="{{ old($field['name']) }}">
                     @break
             @endswitch
 
