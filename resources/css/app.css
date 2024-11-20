@@ -16,3 +16,14 @@ select {
   @apply w-full px-3 py-2 border border-gray-300 rounded bg-transparent;
 }
 
+#pagination a {
+  @apply w-8 h-8 flex items-center justify-center text-center text-gray-700 bg-gray-50 shadow rounded hover:bg-gray-200 transition cursor-pointer;
+}
+
+#pagination a.active {
+  @apply w-8 h-8 flex items-center justify-center text-center text-white bg-blue-700 rounded hover:bg-blue-900 transition cursor-pointer;
+}
+
+#pagination a.control {
+  @apply w-8 h-8 flex items-center justify-center text-center text-white bg-blue-700 rounded hover:bg-blue-900 transition cursor-pointer;
+}
