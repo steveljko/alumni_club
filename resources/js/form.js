@@ -49,7 +49,7 @@ export default class Form {
         method,
         url,
         headers: {
-          'X-Request-With': 'XMLHttpRequest',
+          'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-Token': csrfToken,
         }
       };
@@ -74,8 +74,7 @@ export default class Form {
       }
 
       try {
-        const response = await axios(config)
-        console.log(response);
+        const response = await axios(config);
 
         if (this.onSuccessCallback && typeof this.onSuccessCallback === 'function') {
           this.onSuccessCallback(response.data);
