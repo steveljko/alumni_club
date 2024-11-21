@@ -1,4 +1,8 @@
-<form id="{{ $name }}" data-method="{{ $method }}" data-action="{{ $route }}">
+<form
+  id="{{ $name }}"
+  data-method="{{ $method }}"
+  data-action="{{ $route }}"
+>
     <div id="errors"></div>
 
     @foreach ($fields as $field)

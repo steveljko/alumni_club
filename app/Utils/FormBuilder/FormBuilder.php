@@ -2,6 +2,7 @@
 
 namespace App\Utils\FormBuilder;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
 
@@ -91,11 +92,19 @@ class FormBuilder
      */
     public static function build(
         string $name,
-        string $method,
-        string $route,
         array $fields,
-        string $btnText = 'Obradi'
+        string $btnText,
+        ?string $method = null,
+        ?string $route = null,
     ): string {
+        if (! $route) {
+            $route = url()->current();
+        }
+
+        if (! $method) {
+            $method = Request::METHOD_GET;
+        }
+
         $formBuilder = new self(name: $name, method: $method, route: $route);
 
         foreach ($fields as $key => $options) {

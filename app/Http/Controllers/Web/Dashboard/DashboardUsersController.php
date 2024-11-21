@@ -39,17 +39,10 @@ class DashboardUsersController
         return view('markup/users_table', ['users' => $this->getUsers($request)]);
     }
 
-    public function searchUser(Request $request): View
-    {
-        return view('markup/users_table', ['users' => $this->getUsers($request)]);
-    }
-
     protected function getSearchForm(): string
     {
         return FormBuilder::build(
             name: 'searchForm',
-            method: Request::METHOD_GET,
-            route: route('web.dashboard.searchUser'),
             fields: [
                 'name[lk]' => [
                     'label' => 'Ime i Prezime',
@@ -66,7 +59,8 @@ class DashboardUsersController
                     'options' => Option::fromYearRange(from: 2000),
                 ],
             ],
-            btnText: 'Pretraži');
+            btnText: 'Pretraži'
+        );
     }
 
     protected function getUpdateForm(): string
@@ -102,7 +96,8 @@ class DashboardUsersController
                     'options' => Option::fromYearRange(from: 2000),
                 ],
             ],
-            btnText: 'Izmeni');
+            btnText: 'Izmeni'
+        );
     }
 
     protected function getUsers(Request $request)
