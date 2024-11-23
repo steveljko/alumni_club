@@ -1,17 +1,25 @@
 import axios from 'axios';
 
-document.addEventListener('DOMContentLoaded', function () {
-    const links = document.querySelectorAll('#pagination a.control');
+// TODO: When DOM loaded
+document.addEventListener('DOMContentLoaded', function (e) { handlePagination(e); });
 
-    links.forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            handleAction(this);
+function handlePagination(e) {
+    console.log('runed');
+    const pagination = document.querySelector('#pagination');
+
+    if (pagination) {
+        const links = pagination.querySelectorAll('#pagination a.control');
+
+        links.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                handleAction(this);
+            });
         });
-    });
 
-    renderPaginationLinks();
-});
+        renderPaginationLinks();
+    }
+}
 
 function handleAction(link) {
     const currentUrl = new URL(window.location.href);
@@ -34,7 +42,7 @@ function handleAction(link) {
             page = parseInt(link.getAttribute('data-page'));
             break;
         default:
-            console.error(`"${action}" is not a valid action descriptor`);
+            console.error(`"${action}" is not a valid action.`);
             return;
     }
 
@@ -47,7 +55,7 @@ function handleAction(link) {
 async function changeContent(url) {
     try {
         const response = await axios.get(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
-        document.getElementById('users_table').innerHTML = response.data;
+        document.getElementById('usersTable').innerHTML = response.data;
     } catch (error) {
         console.error('Error fetching page:', error);
     }

@@ -12,10 +12,7 @@
 
 <h2 class="text-xl my-8">{{ __('additional.dashboard.users') }}</h2>
 
-<div class="border border-gray-200 rounded mb-6">
-    @include('markup/users_table')
-    <x-pagination :model="$users"/>
-</div>
+<div class="border border-gray-200">{!! $usersTable !!}</div>
 @stop
 
 @section('js')
@@ -44,14 +41,14 @@ function load() {
 load();
 
 updateForm.setOnSuccess(data => {
-  document.querySelector('#users_table').innerHTML = data;
+  document.querySelector('#usersTable').innerHTML = data;
   load();
 })
 
 const searchForm = window.Form.get('searchForm');
 
 searchForm.setOnSuccess(data => {
-  document.querySelector('#users_table').innerHTML = data;
+  document.querySelector('#usersTable').innerHTML = data;
   load();
 })
 @endsection

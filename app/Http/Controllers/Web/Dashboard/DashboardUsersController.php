@@ -4,39 +4,39 @@ namespace App\Http\Controllers\Web\Dashboard;
 
 use App\Models\User;
 use App\Enums\UserRole;
-use Illuminate\View\View;
+use App\Utils\TableBuilder;
 use Illuminate\Http\Request;
 use App\Utils\FormBuilder\Option;
 use App\Utils\FormBuilder\FormBuilder;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\PaginateResource;
 use App\Http\Resources\User\UserResource;
 use App\Traits\Concerns\Enums\FilterOperators;
 
 class DashboardUsersController
 {
-    public function __invoke(Request $request): View
+    public function __invoke(Request $request)
     {
         if ($request->ajax()) {
-            return view('markup/users_table', [
-                'users' => $this->getUsers($request),
-            ]);
+            return $this->getTable(withoutPagination: true);
         }
 
         return view('dashboard/users', [
-            'users' => $this->getUsers(request: $request),
+            'users' => $this->getUsers(),
             'searchForm' => $this->getSearchForm(),
             'updateForm' => $this->getUpdateForm(),
+            'usersTable' => $this->getTable(),
         ]);
     }
 
-    public function updateUser(UpdateUserRequest $request): View
+    public function updateUser(UpdateUserRequest $request): string
     {
         $user = User::find($request->id);
 
         $user->update($request->only(['name']));
         $user->details->update($request->only(['uni_start_year', 'uni_finish_year']));
 
-        return view('markup/users_table', ['users' => $this->getUsers($request)]);
+        return $this->getTable();
     }
 
     protected function getSearchForm(): string
@@ -100,7 +100,7 @@ class DashboardUsersController
         );
     }
 
-    protected function getUsers(Request $request)
+    protected function getUsers(): PaginateResource
     {
         $users = User::filterWithPagination(
             allowedParams: [
@@ -115,5 +115,18 @@ class DashboardUsersController
         );
 
         return $users->getData();
+    }
+
+    protected function getTable(bool $withoutPagination = false): string
+    {
+        return TableBuilder::build(
+            name: 'users',
+            columns: [
+                ['header' => 'Ime i prezime', 'field' => 'name'],
+                ['header' => 'Godina upisa', 'field' => 'details.uni_start_year'],
+            ],
+            withoutPagination: $withoutPagination,
+            data: $this->getUsers(),
+        );
     }
 }
