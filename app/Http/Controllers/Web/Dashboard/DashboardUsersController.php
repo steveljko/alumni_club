@@ -18,7 +18,7 @@ class DashboardUsersController
     public function __invoke(Request $request)
     {
         if ($request->ajax()) {
-            return $this->getTable(withoutPagination: true);
+            return $this->getTable(pagination: false);
         }
 
         return view('dashboard/users', [
@@ -36,7 +36,7 @@ class DashboardUsersController
         $user->update($request->only(['name']));
         $user->details->update($request->only(['uni_start_year', 'uni_finish_year']));
 
-        return $this->getTable();
+        return $this->getTable(pagination: false);
     }
 
     protected function getSearchForm(): string
@@ -117,7 +117,7 @@ class DashboardUsersController
         return $users->getData();
     }
 
-    protected function getTable(bool $withoutPagination = false): string
+    protected function getTable(bool $pagination = true): string
     {
         return TableBuilder::build(
             name: 'users',
@@ -125,8 +125,8 @@ class DashboardUsersController
                 ['header' => 'Ime i prezime', 'field' => 'name'],
                 ['header' => 'Godina upisa', 'field' => 'details.uni_start_year'],
             ],
-            withoutPagination: $withoutPagination,
             data: $this->getUsers(),
+            pagination: $pagination,
         );
     }
 }

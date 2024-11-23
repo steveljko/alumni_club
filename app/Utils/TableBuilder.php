@@ -11,7 +11,7 @@ class TableBuilder
 {
     protected array $columns = [];
 
-    protected bool $withoutPagination = false;
+    protected bool $pagination = true;
 
     public function __construct(
         public string $name
@@ -53,9 +53,9 @@ class TableBuilder
         );
     }
 
-    public function withoutPagination(): void
+    public function setPagination(bool $show = true): void
     {
-        $this->withoutPagination = true;
+        $this->pagination = $show;
     }
 
     public function setData(PaginateResource $data): self
@@ -71,7 +71,7 @@ class TableBuilder
             'name' => $this->name,
             'columns' => $this->columns,
             'data' => $this->data,
-            'withoutPagination' => $this->withoutPagination ?? false,
+            'pagination' => $this->pagination,
         ])->render();
     }
 
@@ -80,7 +80,7 @@ class TableBuilder
         array $columns,
         PaginateResource $data,
         bool $withRowIndex = true,
-        bool $withoutPagination = false
+        bool $pagination = true
     ): string {
         // TODO: Implement caching
         // NOTE: Try making property for, and than pass form
@@ -99,11 +99,9 @@ class TableBuilder
             );
         }
 
-        $tableBuilder->setData($data);
-
-        if ($withoutPagination) {
-            $tableBuilder->withoutPagination();
-        }
+        $tableBuilder
+            ->setData($data)
+            ->setPagination($pagination);
 
         return $tableBuilder->render();
     }

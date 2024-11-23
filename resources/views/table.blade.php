@@ -35,7 +35,7 @@
             @endforeach
         </tbody>
     </table>
-    @if (!$withoutPagination)
+    @if ($pagination)
         <x-pagination :model="$data" />
     @endif
 </div>

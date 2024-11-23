@@ -19,6 +19,6 @@
     <a
       class="control control-next-page-full"
       data-action="last-page"
-      :data-page="$model->lastPage()"
+      data-page="{{ $model->lastPage() }}"
     >@svg('heroicon-s-chevron-double-right', 'w-5 h-5 text-white')</a>
 </div>
