@@ -8,9 +8,12 @@ use App\Utils\TableBuilder;
 use Illuminate\Http\Request;
 use App\Utils\FormBuilder\Option;
 use App\Utils\FormBuilder\FormBuilder;
+use App\Utils\FormBuilder\Fields\Input;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\PaginateResource;
+use App\Utils\FormBuilder\Fields\Select;
 use App\Http\Resources\User\UserResource;
+use App\Utils\FormBuilder\Fields\Primary;
 use App\Traits\Concerns\Enums\FilterOperators;
 
 class DashboardUsersController
@@ -44,20 +47,9 @@ class DashboardUsersController
         return FormBuilder::build(
             name: 'searchForm',
             fields: [
-                'name[lk]' => [
-                    'label' => 'Ime i Prezime',
-                    'placeholder' => 'Unesite ime i prezime',
-                ],
-                'details_uni_start_year[gte]' => [
-                    'label' => 'Odaberite godinu upisa faksa',
-                    'type' => 'select',
-                    'options' => Option::fromYearRange(from: 2000),
-                ],
-                'details_uni_finish_year[lte]' => [
-                    'label' => 'Odaberite godinu zavrsetka faksa',
-                    'type' => 'select',
-                    'options' => Option::fromYearRange(from: 2000),
-                ],
+                new Input(name: 'name[lk]', label: 'Ime i Prezime', placeholder: 'Unesite Ime i Prezime', inputType: 'text'),
+                new Select(name: 'details_uni_start_year[gte]', label: 'Odaberite godinu upisa faksa', placeholder: 'Godina upisa', options: Option::fromYearRange(from: 2000)),
+                new Select(name: 'details_uni_finish_year[lte]', label: 'Odaberite godinu zavšetka faksa', placeholder: 'Godina završetka', options: Option::fromYearRange(from: 2000)),
             ],
             btnText: 'Pretraži'
         );
@@ -70,31 +62,12 @@ class DashboardUsersController
             method: Request::METHOD_POST,
             route: route('web.dashboard.updateUser'),
             fields: [
-                'id' => ['type' => 'hidden'],
-                'name' => [
-                    'label' => 'Ime i Prezime',
-                    'placeholder' => 'Unesite ime i prezime',
-                ],
-                'email' => [
-                    'inputType' => 'email',
-                    'label' => 'Email adresa',
-                    'placeholder' => 'Unesite email adresu',
-                ],
-                'role' => [
-                    'label' => 'Odaberite ulogu',
-                    'type' => 'select',
-                    'options' => Option::fromEnum(UserRole::class),
-                ],
-                'uni_start_year' => [
-                    'label' => 'Odaberite godinu upisa faksa',
-                    'type' => 'select',
-                    'options' => Option::fromYearRange(from: 2000),
-                ],
-                'uni_finish_year' => [
-                    'label' => 'Odaberite godinu završetka faksa',
-                    'type' => 'select',
-                    'options' => Option::fromYearRange(from: 2000),
-                ],
+                new Primary(name: 'id'),
+                new Input(name: 'name', label: 'Ime i Prezime', placeholder: 'Unesite ime i prezime', inputType: 'text'),
+                new Input(name: 'email', label: 'Email adresa', placeholder: 'Unesite email adresu', inputType: 'email'),
+                new Select(name: 'role', label: 'Odaberite ulogu', placeholder: 'Uloga', options: Option::fromEnum(UserRole::class)),
+                new Select(name: 'uni_start_year', label: 'Odaberite godinu upisa faksa', placeholder: 'Upis faks', options: Option::fromYearRange(from: 2000)),
+                new Select(name: 'uni_finish_year', label: 'Odaberite godinu završetka faksa', placeholder: 'Završetak faks', options: Option::fromYearRange(from: 2000)),
             ],
             btnText: 'Izmeni'
         );

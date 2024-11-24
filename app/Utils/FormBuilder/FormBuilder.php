@@ -5,6 +5,7 @@ namespace App\Utils\FormBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
+use App\Utils\FormBuilder\Fields\Field;
 
 class FormBuilder
 {
@@ -25,16 +26,9 @@ class FormBuilder
     /**
      * @param  array<int,mixed>  $options
      */
-    public function addField(
-        string $name,
-        string $type = 'text',
-        array $options = [],
-    ): self {
-        $this->fields[] = [
-            'name' => $name,
-            'type' => $type,
-            'options' => $options,
-        ];
+    public function addField(Field $field): self
+    {
+        $this->fields[] = $field;
 
         return $this;
     }
@@ -107,13 +101,17 @@ class FormBuilder
 
         $formBuilder = new self(name: $name, method: $method, route: $route);
 
-        foreach ($fields as $key => $options) {
-            $formBuilder->addField(
-                name: $key,
-                type: $options['type'] ?? 'text',
-                options: $options,
-            );
+        foreach ($fields as $field) {
+            $formBuilder->addField($field);
         }
+
+        // foreach ($fields as $key => $options) {
+        //     $formBuilder->addField(
+        //         name: $key,
+        //         type: $options['type'] ?? 'text',
+        //         options: $options,
+        //     );
+        // }
 
         return $formBuilder->withButtonText(text: $btnText)->render();
     }

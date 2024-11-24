@@ -7,60 +7,43 @@
 
     @foreach ($fields as $field)
         <div class="mb-4">
-            @if (!empty($field['options']['label']))
-                <label class="uppercase text-sm font-semibold" for="{{ $field['name'] }}">{{ $field['options']['label'] }}</label>
+            @if ($field->hasLabel())
+                <label
+                  class="uppercase text-sm font-semibold"
+                  for="{{ $field->getName() }}"
+                >{{ $field->getLabel() }}</label>
             @endif
 
-            @php
-              $query = $field['name'];
-              $parts = explode('[', $query);
-
-              $name = '';
-              $ft = '';
-
-              if (count($parts) > 0) {
-                  $name = trim($parts[0]);
-
-                  if (count($parts) > 1) {
-                      $ft = trim(rtrim($parts[1], ']'));
-                  }
-              }
-
-              $prevValue = request()->query($name)[$ft] ?? null;
-            @endphp
-
-            @switch($field['type'])
-                @case('text')
+            @switch($field->getType())
+                @case('input')
                     <input
-                        name="{{ $field['name'] }}"
-                        type="{{ $field['options']['inputType'] ?? 'text' }}"
-                        placeholder="{{ $field['options']['placeholder'] ?? '' }}"
-                        value="{{ $prevValue }}"
+                        name="{{ $field->getName() }}"
+                        type="{{ $field->getInputType() ?? 'text' }}"
+                        placeholder="{{ $field->getPlaceholder() }}"
+                        value="{{ $field->getPreviousValue() }}"
                         class="block"
                     />
                 @break
 
                 @case('select')
-                    <select name="{{ $field['name'] }}" class="block">
-                        @if (!empty($field['options']['label']))
-                            <option selected value="">{{ $field['options']['label'] }}</option>
-                        @endif
-                        @foreach ($field['options']['options'] as $option)
-                            <option
-                              value="{{ $option->getValue() }}"
-                              {{ $prevValue == $option->getValue() ? 'selected' : '' }}
-                            >{{ $option->getName() }}</option>
-                        @endforeach
-                    </select>
-                    @break
+                  <select name="{{ $field->getName() }}" class="block">
+                    <option selected value="">{{ $field->getPlaceholder() }}</option>
+                    @foreach ($field->getOptions() as $option)
+                        <option
+                          value="{{ $option->getValue() }}"
+                          {{ $field->getPreviousValue() == $option->getValue() ? 'selected' : '' }}
+                        >{{ $option->getValue() }}</option>
+                    @endforeach
+                  </select>
+                @break
 
-                @case('hidden')
-                    <input class="hidden" type="hidden" name="{{ $field['name'] }}" value="{{ old($field['name']) }}">
-                    @break
+                @case('primary')
+                    <input class="hidden" type="text" name="{{ $field->getName() }}">
+                @break
             @endswitch
 
-            @if ($field['name'] !== 'id')
-                <div id="error-{{ $field['name'] }}" class="block mt-2 text-sm text-red-500"></div>
+            @if ($field->getName() !== 'id')
+                <div id="error-{{ $field->getName() }}" class="block mt-2 text-sm text-red-500"></div>
             @endif
         </div>
     @endforeach
