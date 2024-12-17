@@ -45,4 +45,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Determine if the initial password has been changed.
+     */
+    public function isInitialPasswordChanged(): bool
+    {
+        return $this->initial_password_changed_at != null;
+    }
 }
