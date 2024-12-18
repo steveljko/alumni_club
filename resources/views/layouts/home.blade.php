@@ -10,6 +10,12 @@
     <body class="bg-[#edeefe]">
         <x-htmx-error-handler />
 
-        @yield('content')
+        <div class="flex">
+            <x-sidebar />
+
+            <div class="mt-4 h-screen w-full">
+                @yield('content')
+            </div>
+        </div>
     </body>
 </html>
