@@ -13,7 +13,7 @@
                 <div class="inline-flex w-full items-center justify-between text-gray-600">
                     <button type="submit"
                         class="rounded-md bg-[#4D5BFC] px-3 py-1 text-white">Sign In</button>
-                    <a href=""
+                    <a href="{{ route('forgot_password') }}"
                         class="text-sm hover:underline">Forgot Password?</a>
                 </div>
             </form>
