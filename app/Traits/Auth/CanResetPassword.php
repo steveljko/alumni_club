@@ -2,6 +2,7 @@
 
 namespace App\Traits\Auth;
 
+use App\Exceptions\ToastExpcetion;
 use App\Mail\Auth\SendPasswordReset;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -26,11 +27,10 @@ trait CanResetPassword
     /**
      * Generates token and sends mail to user.
      */
-    public function getPasswordRecoveryMail(): void
+    public function getPasswordRecoveryMail()
     {
         if ($this->isTokenRecentlyGenerated()) {
-            // TODO: Implement user-friendly error handling for password reset requests limit.
-            throw new \Exception('You can only request a password reset email once every 10 minutes.');
+            throw new ToastExpcetion('You can only request a password reset once every 10 minutes.');
         }
 
         $token = $this->generateRecoveryToken();
