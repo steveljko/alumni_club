@@ -27,7 +27,7 @@ trait CanResetPassword
     /**
      * Generates token and sends mail to user.
      */
-    public function getPasswordRecoveryMail()
+    public function sendPasswordRecoveryMail()
     {
         if ($this->isTokenRecentlyGenerated()) {
             throw new ToastExpcetion('You can only request a password reset once every 10 minutes.');

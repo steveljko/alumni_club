@@ -15,6 +15,6 @@ final class ForgotPassword
     ): void {
         $user = User::where('email', $request->email)->first();
 
-        $user->getPasswordRecoveryMail();
+        $user->sendPasswordRecoveryMail();
     }
 }
