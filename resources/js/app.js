@@ -12,5 +12,13 @@ function showToast(message) {
     }, 3500);
 }
 
+if (sessionStorage.getItem('toast')) {
+    showToast(sessionStorage.getItem('toast'));
+    sessionStorage.removeItem('toast');
+}
 
 htmx.on("toast", (e) => showToast(e.detail.value));
+
+htmx.on("toast-after-redirect", (e) => {
+    sessionStorage.setItem('toast', e.detail.value);
+});
