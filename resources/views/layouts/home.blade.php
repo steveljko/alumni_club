@@ -10,6 +10,8 @@
     <body class="bg-[#edeefe]">
         <x-htmx-error-handler />
 
+        <x-toast />
+
         <div class="flex">
             <x-sidebar />
 
