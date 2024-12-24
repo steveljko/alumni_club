@@ -5,10 +5,10 @@ namespace App\Traits\Auth;
 use App\Exceptions\ToastExpcetion;
 use App\Mail\Auth\SendPasswordReset;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-// TODO: Test this trait
 trait CanResetPassword
 {
     /**
@@ -16,67 +16,82 @@ trait CanResetPassword
      * After this period, the token will be considered expired and
      * cannot be used for password reset.
      */
-    const TOKEN_EXPIRATION_MINUTES = 15;
+    const TOKEN_TTL = 15;
 
     /**
      * The minimum duration (in minutes) that must pass after a password
      * reset request before another request can be made.
      */
-    const MINUTES_AFTER_NEXT_REQUEST = 10;
+    const MINUTES_BEFORE_NEXT_REQUEST = 10;
 
     /**
-     * Generates token and sends mail to user.
+     * Generates a password recovery token and sends a reset email to the user.
      */
     public function sendPasswordRecoveryMail()
     {
-        if ($this->isTokenRecentlyGenerated()) {
+        if ($this->canSubmitReqeust()) {
             throw new ToastExpcetion('You can only request a password reset once every 10 minutes.');
         }
 
         $token = $this->generateRecoveryToken();
         $link = route('reset_password', ['token' => $token]);
 
-        Mail::to($this->email)->send(new SendPasswordReset($link));
+        Mail::to($this->email)
+            ->send(new SendPasswordReset($link));
+    }
+
+    /*
+     * Sets a new password for the user if the provided token is valid.
+     */
+    public function setNewPassword(string $password): bool
+    {
+        if (! $this->isTokenValid()) {
+            throw new ToastExpcetion('Provided token is invalid!');
+        }
+
+        $this->password = Hash::make($password);
+
+        $this->resetPasswordRecoveryFields();
+
+        return $this->save();
     }
 
     /**
-     * Checks if the recovery token for password reset is expired.
+     * Verifies if the recovery token for password reset is expired.
      */
-    public function isRecoveryTokenExpired(): bool
+    public function isTokenValid(): bool
     {
         if (! $this->password_reset_token_generated_at) {
             return true;
         }
 
         $expirationTime = Carbon::parse($this->password_reset_token_generated_at)
-            ->addMinutes(self::TOKEN_EXPIRATION_MINUTES);
+            ->addMinutes(self::TOKEN_TTL);
 
-        return now()->greaterThan($expirationTime);
+        return now()->lessThanOrEqualTo($expirationTime);
     }
 
     /**
-     * Used for reseting token and generation time
-     * for testing purposes.
+     * Checks if a new password reset request can be submitted.
+     * This helps to avoid sending multiple reset emails in a short period of time.
      */
-    public function resetPasswordRecovery(): void
+    private function canSubmitReqeust(): bool
+    {
+        return $this->password_reset_token_generated_at &&
+          Carbon::parse($this->password_reset_token_generated_at)->greaterThan(now()->subMinutes(self::MINUTES_BEFORE_NEXT_REQUEST));
+    }
+
+    /**
+     * Clears all fields related to the password reset process.
+     */
+    public function resetPasswordRecoveryFields(): void
     {
         $this->password_reset_token = null;
         $this->password_reset_token_generated_at = null;
-        $this->save();
     }
 
     /**
-     * Check if the password reset token was generated recently,
-     * based on 'password_reset_token_generated_at' field.
-     */
-    private function isTokenRecentlyGenerated(): bool
-    {
-        return $this->password_reset_token_generated_at &&
-          Carbon::parse($this->password_reset_token_generated_at)->greaterThan(now()->subMinutes(self::MINUTES_AFTER_NEXT_REQUEST));
-    }
-
-    /**
-     * Generate recovery token and saves into row.
+     * Creates a new recovery token and saves it to the database.
      */
     private function generateRecoveryToken(): string
     {
