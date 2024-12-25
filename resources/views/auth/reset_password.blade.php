@@ -8,7 +8,7 @@
                 <p class="text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam magni ut nulla sed fugit, vitae consequuntur
                     rem blanditiis ipsum a, optio incidunt corrupti rerum repellat earum reiciendis deserunt obcaecati impedit?</p>
             </div>
-            <form hx-put="{{ route('reset_password.execute', ['token' => request()->token]) }}"
+            <form hx-put="{{ route('auth.password.reset.execute', ['token' => request()->token]) }}"
                 hx-swap="none">
                 @csrf
                 <x-form-input label="Password"

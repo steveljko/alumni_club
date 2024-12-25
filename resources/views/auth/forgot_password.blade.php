@@ -10,7 +10,7 @@
                     Check your inbox for the email and follow the instructions to create a new password.
                 </p>
             </div>
-            <form hx-put="{{ route('forgot_password.execute') }}"
+            <form hx-put="{{ route('auth.password.forgot.execute') }}"
                 hx-swap="none">
                 @csrf
                 <x-form-input label="Email address"

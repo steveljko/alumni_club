@@ -34,7 +34,7 @@ trait CanResetPassword
         }
 
         $token = $this->generateRecoveryToken();
-        $link = route('reset_password', ['token' => $token]);
+        $link = route('auth.password.reset', ['token' => $token]);
 
         Mail::to($this->email)
             ->send(new SendPasswordReset($link));

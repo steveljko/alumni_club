@@ -3,7 +3,7 @@
 @section('content')
     <div class="h-screen w-full md:flex md:items-center md:justify-center">
         <div class="h-screen w-full rounded-xl bg-white p-4 shadow md:h-auto md:w-[30%]">
-            <form hx-post="{{ route('login.execute') }}">
+            <form hx-post="{{ route('auth.login.execute') }}">
                 @csrf
                 <x-form-input label="Email Address"
                     name="email" />
@@ -13,7 +13,7 @@
                 <div class="inline-flex w-full items-center justify-between text-gray-600">
                     <button type="submit"
                         class="rounded-md bg-[#4D5BFC] px-3 py-1 text-white">Sign In</button>
-                    <a href="{{ route('forgot_password') }}"
+                    <a href="{{ route('auth.password.forgot') }}"
                         class="text-sm hover:underline">Forgot Password?</a>
                 </div>
             </form>
