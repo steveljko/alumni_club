@@ -1,6 +1,10 @@
 import htmx from "htmx.org";
+import toast from './toast';
 
 window.htmx = htmx;
+
+htmx.on("toast", (e) => toast.message(e.detail.value));
+htmx.on("toast-after-redirect", (e) => toast.setDelayedMessage(e.detail.value));
 
 document.addEventListener('htmx:responseError', function (event) {
     const errors = JSON.parse(event.detail.xhr.response).errors;
