@@ -50,3 +50,11 @@ it('should display a toast notification on homepage after password change succes
             ->waitForText('Successfully reseted password!');
     });
 });
+
+it('should display a toast notification when invalid token is provided', function () {
+    $this->browse(function (Browser $browser) {
+        $browser->visitRoute('reset_password', ['token' => 'asd'])
+            ->waitForRoute('login')
+            ->waitForText('Invalid token is provided!');
+    });
+});

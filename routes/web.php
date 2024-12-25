@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UserLoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,7 @@ Route::group(['prefix' => 'forgot_password', 'as' => 'forgot_password'], functio
 });
 
 Route::group(['prefix' => 'reset_password', 'as' => 'reset_password'], function () {
-    Route::view('/{token}', 'auth.reset_password');
+    Route::get('/{token}', ShowResetPasswordController::class);
     Route::put('/{token}', ResetPasswordController::class)->name('.execute');
 });
 
