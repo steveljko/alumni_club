@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auth\CanChangePassword;
 use App\Traits\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,8 +10,10 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use CanResetPassword, HasFactory, Notifiable;
+    use CanChangePassword,
+        CanResetPassword,
+        HasFactory,
+        Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -31,6 +34,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'password_reset_token',
     ];
 
     /**
@@ -41,17 +45,10 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'email_verified_at' => 'datetime',
             'initial_password_changed_at' => 'datetime',
+            'password_reset_token_generated_at' => 'datetime',
         ];
-    }
-
-    /**
-     * Determine if the initial password has been changed.
-     */
-    public function isInitialPasswordChanged(): bool
-    {
-        return $this->initial_password_changed_at != null;
     }
 }
