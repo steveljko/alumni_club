@@ -2,13 +2,13 @@
 
 namespace App\Http\Actions\Auth;
 
-use App\Http\Requests\ResetPasswordRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 final class ResetPassword
 {
-    public function execute(ResetPasswordRequest $request): bool
+    public function execute(ChangePasswordRequest $request): bool
     {
         $user = User::where('password_reset_token', $request->token)->firstOrFail();
 
