@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\HtmxResponse;
 use App\Http\Actions\Auth\ForgotPassword;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ForgotPasswordRequest;
-use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Response;
 
 final class ForgotPasswordController extends Controller
@@ -16,8 +16,8 @@ final class ForgotPasswordController extends Controller
     ): Response {
         $forgotPassword->execute($request);
 
-        return response(Response::HTTP_NO_CONTENT)
-            ->header('HX-Trigger',
-                Json::encode(['toast' => 'A reset link has been sent to your email.']));
+        return (new HtmxResponse)
+            ->toast('A reset link has been sent to your email.')
+            ->send();
     }
 }

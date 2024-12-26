@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\HtmxResponse;
 use App\Http\Actions\Auth\UserLogin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserLoginRequest;
@@ -24,7 +25,9 @@ final class UserLoginController extends Controller
             return $result;
         }
 
-        return response(Response::HTTP_NO_CONTENT)
-            ->header('HX-Redirect', route(self::REDIRECT_TO));
+        return (new HtmxResponse)
+            ->redirectTo(self::REDIRECT_TO)
+            ->toast('Successfully logged in!')
+            ->send();
     }
 }

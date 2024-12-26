@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\HtmxResponse;
 use App\Http\Actions\Auth\ChangeInitialPassword;
 use App\Http\Requests\ChangePasswordRequest;
-use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Response;
 
 final class ChangePasswordController
@@ -16,8 +16,9 @@ final class ChangePasswordController
         $ok = $changeInitialPassword->execute($request);
 
         if ($ok) {
-            return response(Response::HTTP_NO_CONTENT)
-                ->header('HX-Trigger', Json::encode(['toast' => 'Password changed successfully!']));
+            return (new HtmxResponse)
+                ->toast('Password changed successfully!')
+                ->send();
         }
     }
 }
