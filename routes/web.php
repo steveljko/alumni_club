@@ -34,12 +34,12 @@ Route::as('auth.')->group(function () {
         'middleware' => ['auth', CheckAccountSetupProgress::class],
     ], function () {
         Route::group(['prefix' => '/step/1', 'as' => 'step.1'], function () {
-            Route::view('/', 'auth.initial_password_change');
+            Route::view('/', 'auth.setup.initial_password_change');
             Route::put('/', ChangeInitialPasswordController::class);
         });
 
         Route::group(['prefix' => '/step/2', 'as' => 'step.2'], function () {
-            Route::view('/', 'auth.add_details');
+            Route::view('/', 'auth.setup.add_details');
             Route::put('/', SetDetailsController::class);
         });
     });
