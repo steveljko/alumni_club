@@ -7,7 +7,7 @@ use App\Http\Actions\Auth\ChangeInitialPassword;
 use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Http\Response;
 
-final class ChangePasswordController
+final class ChangeInitialPasswordController
 {
     public function __invoke(
         ChangePasswordRequest $request,
@@ -17,7 +17,8 @@ final class ChangePasswordController
 
         if ($ok) {
             return (new HtmxResponse)
-                ->toast('Password changed successfully!')
+                ->redirectTo('auth.setup.step.2')
+                ->toast("Now let's add more details about you!")
                 ->send();
         }
     }
