@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Auth\CanChangePassword;
 use App\Traits\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -77,5 +78,10 @@ class User extends Authenticatable
     public function isSetupComplete(): bool
     {
         return $this->isInitialPasswordChanged() && $this->areDetailsChanged();
+    }
+
+    public function workHistory(): HasMany
+    {
+        return $this->hasMany(WorkHistory::class);
     }
 }
