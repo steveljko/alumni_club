@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Auth\ChangeInitialPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\SetDetailsController;
 use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UserLoginController;
-use App\Http\Middleware\FirstTimeLoginMiddleware;
+use App\Http\Middleware\AccountSetupCompleted;
+use App\Http\Middleware\CheckAccountSetupProgress;
 use Illuminate\Support\Facades\Route;
 
 Route::as('auth.')->group(function () {
@@ -29,17 +31,20 @@ Route::as('auth.')->group(function () {
     Route::group([
         'prefix' => '/setup',
         'as' => 'setup.',
-        'middleware' => ['auth'],
+        'middleware' => ['auth', CheckAccountSetupProgress::class],
     ], function () {
-        Route::group([
-            'prefix' => '/initial-password-change',
-            'as' => 'initial_password_change',
-            'middleware' => FirstTimeLoginMiddleware::class,
-        ], function () {
+        Route::group(['prefix' => '/step/1', 'as' => 'step.1'], function () {
             Route::view('/', 'auth.initial_password_change');
-            Route::put('/', ChangePasswordController::class)->name('.execute');
+            Route::put('/', ChangeInitialPasswordController::class);
+        });
+
+        Route::group(['prefix' => '/step/2', 'as' => 'step.2'], function () {
+            Route::view('/', 'auth.add_details');
+            Route::put('/', SetDetailsController::class);
         });
     });
 });
 
-Route::view('/home', 'home.main')->middleware('auth', FirstTimeLoginMiddleware::class)->name('home');
+Route::view('/home', 'home.main')
+    ->middleware(['auth', AccountSetupCompleted::class])
+    ->name('home');

@@ -24,6 +24,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'uni_start_year',
+        'uni_finish_year',
+        'bio',
+        'finished_details',
     ];
 
     /**
@@ -50,5 +54,28 @@ class User extends Authenticatable
             'initial_password_changed_at' => 'datetime',
             'password_reset_token_generated_at' => 'datetime',
         ];
+    }
+
+    public function areDetailsChanged(): bool
+    {
+        return $this->finished_details;
+    }
+
+    public function setDetails(array $details): bool
+    {
+        return $this->update([
+            'uni_start_year' => $details['uni_start_year'],
+            'uni_finish_year' => $details['uni_finish_year'],
+            'bio' => $details['bio'],
+            'finished_details' => true,
+        ]);
+    }
+
+    /**
+     * Check if user has finished any of their setup steps.
+     */
+    public function isSetupComplete(): bool
+    {
+        return $this->isInitialPasswordChanged() && $this->areDetailsChanged();
     }
 }

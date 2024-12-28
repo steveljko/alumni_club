@@ -10,7 +10,7 @@
                         consequuntur
                         rem blanditiis ipsum a, optio incidunt corrupti rerum repellat earum reiciendis deserunt obcaecati impedit?</p>
                 </div>
-                <form hx-put="{{ route('auth.setup.initial_password_change.execute') }}"
+                <form hx-put="{{ route('auth.setup.step.1') }}"
                     hx-swap="none">
                     @csrf
                     <x-form-input label="Password"
