@@ -16,8 +16,8 @@ trait CanChangePassword
         }
 
         $this->password = Hash::make($password);
-
         $this->initial_password_changed_at = now();
+        $this->setup_progress = 'step.2';
 
         return $this->save();
     }

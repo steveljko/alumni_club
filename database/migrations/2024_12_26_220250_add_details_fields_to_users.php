@@ -15,7 +15,6 @@ return new class extends Migration
             $table->string('uni_start_year')->nullable();
             $table->string('uni_finish_year')->nullable();
             $table->text('bio')->nullable();
-            $table->boolean('finished_details')->default(false);
         });
     }
 

@@ -28,7 +28,7 @@ class User extends Authenticatable
         'uni_start_year',
         'uni_finish_year',
         'bio',
-        'finished_details',
+        'setup_progress',
     ];
 
     /**
@@ -57,29 +57,30 @@ class User extends Authenticatable
         ];
     }
 
-    public function areDetailsChanged(): bool
-    {
-        return $this->finished_details;
-    }
-
+    /**
+     * Set account details for setup wizard
+     */
     public function setDetails(array $details): bool
     {
         return $this->update([
             'uni_start_year' => $details['uni_start_year'],
             'uni_finish_year' => $details['uni_finish_year'],
             'bio' => $details['bio'],
-            'finished_details' => true,
+            'setup_progress' => 'step.3',
         ]);
     }
 
     /**
-     * Check if user has finished any of their setup steps.
+     * Checks if setup is completed.
      */
     public function isSetupComplete(): bool
     {
-        return $this->isInitialPasswordChanged() && $this->areDetailsChanged();
+        return $this->setup_progress == 'completed';
     }
 
+    /**
+     * User's previous work history
+     */
     public function workHistory(): HasMany
     {
         return $this->hasMany(WorkHistory::class);

@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\SetDetailsController;
 use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Middleware\AccountSetupCompleted;
-use App\Http\Middleware\CheckAccountSetupProgress;
+use App\Http\Middleware\CanAccessSetupStep;
 use Illuminate\Support\Facades\Route;
 
 Route::as('auth.')->group(function () {
@@ -31,16 +31,20 @@ Route::as('auth.')->group(function () {
     Route::group([
         'prefix' => '/setup',
         'as' => 'setup.',
-        'middleware' => ['auth', CheckAccountSetupProgress::class],
+        'middleware' => 'auth',
     ], function () {
-        Route::group(['prefix' => '/step/1', 'as' => 'step.1'], function () {
+        Route::group(['prefix' => '/step/1', 'as' => 'step.1', 'middleware' => CanAccessSetupStep::class.':1'], function () {
             Route::view('/', 'auth.setup.initial_password_change');
             Route::put('/', ChangeInitialPasswordController::class);
         });
 
-        Route::group(['prefix' => '/step/2', 'as' => 'step.2'], function () {
+        Route::group(['prefix' => '/step/2', 'as' => 'step.2', 'middleware' => CanAccessSetupStep::class.':2'], function () {
             Route::view('/', 'auth.setup.add_details');
             Route::put('/', SetDetailsController::class);
+        });
+
+        Route::group(['prefix' => '/step/3', 'as' => 'step.3', 'middleware' => CanAccessSetupStep::class.':3'], function () {
+            Route::view('/', 'auth.setup.add_work_history');
         });
     });
 });

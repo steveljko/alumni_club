@@ -17,7 +17,7 @@ class AccountSetupCompleted
     public function handle(Request $request, Closure $next): Response
     {
         if (! $request->user()->isSetupComplete()) {
-            return redirect()->route('auth.setup.step.1');
+            return redirect()->route("auth.setup.{$request->user()->setup_progress}");
         }
 
         return $next($request);
