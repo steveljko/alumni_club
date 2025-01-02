@@ -16,6 +16,11 @@ class CanAccessSetupStep
     public function handle(Request $request, Closure $next, string $step): Response
     {
         $userStep = $request->user()->setup_progress;
+
+        if ($userStep == 'completed') {
+            return redirect()->route('home');
+        }
+
         $routeStep = "step.$step";
 
         if ($userStep != $routeStep) {
