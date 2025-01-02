@@ -15,6 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)
             ->has(WorkHistory::factory(3))
-            ->create();
+            ->create(['setup_progress' => 'completed']);
     }
 }

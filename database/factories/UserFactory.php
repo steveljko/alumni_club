@@ -29,6 +29,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'initial_password_changed_at' => now(),
+            'setup_progress' => 'step.2',
             'remember_token' => Str::random(10),
         ];
     }
@@ -45,6 +46,9 @@ class UserFactory extends Factory
 
     public function withUnchangedInitialPassword(): static
     {
-        return $this->state(fn () => ['initial_password_changed_at' => null]);
+        return $this->state(fn () => [
+            'initial_password_changed_at' => null,
+            'setup_progress' => 'step.1',
+        ]);
     }
 }
