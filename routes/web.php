@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\SetDetailsController;
 use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Work\AddWorkController;
+use App\Http\Controllers\Work\PublishWorkHistoryController;
 use App\Http\Controllers\Work\ShowWorkHistoryController;
 use App\Http\Middleware\AccountSetupCompleted;
 use App\Http\Middleware\CanAccessSetupStep;
@@ -48,6 +49,7 @@ Route::as('auth.')->group(function () {
         Route::group(['prefix' => '/step/3', 'as' => 'step.3', 'middleware' => CanAccessSetupStep::class.':3'], function () {
             Route::get('/', ShowWorkHistoryController::class);
             Route::post('/add_work', AddWorkController::class)->name('.add_work');
+            Route::patch('/', PublishWorkHistoryController::class);
         });
     });
 });

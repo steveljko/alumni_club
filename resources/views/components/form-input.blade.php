@@ -1,4 +1,4 @@
-<div class="mb-3">
+<div class="mb-3 w-full">
     <label for="{{ $name }}"
         class="mb-2 block text-gray-600">{{ $label }}</label>
     <input type="{{ $type }}"
