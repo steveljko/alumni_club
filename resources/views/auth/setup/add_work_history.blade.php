@@ -52,8 +52,9 @@
                     </div>
                 @endfragment
                 <div class="flex w-full items-center justify-end">
-                    <a class="mr-3 font-bold uppercase"
-                        href="#">Skip</a>
+                    <a class="mr-3 cursor-pointer font-bold uppercase text-gray-700"
+                        hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                        hx-patch="{{ route('auth.setup.step.3.skip') }}">Skip</a>
                     <button hx-patch="{{ route('auth.setup.step.3') }}"
                         hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
                         type="submit"

@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Work\AddWorkHistoryController;
 use App\Http\Controllers\Work\PublishWorkHistoryController;
 use App\Http\Controllers\Work\ShowWorkHistoryController;
+use App\Http\Controllers\Work\SkipAddingWorkHistoryController;
 use App\Http\Middleware\AccountSetupCompleted;
 use App\Http\Middleware\CanAccessSetupStep;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,7 @@ Route::as('auth.')->group(function () {
         Route::group(['prefix' => '/step/3', 'as' => 'step.3', 'middleware' => CanAccessSetupStep::class.':3'], function () {
             Route::get('/', ShowWorkHistoryController::class);
             Route::post('/add_work', AddWorkHistoryController::class)->name('.add_work');
+            Route::patch('/skip', SkipAddingWorkHistoryController::class)->name('.skip');
             Route::patch('/', PublishWorkHistoryController::class);
         });
     });
