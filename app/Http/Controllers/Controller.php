@@ -18,6 +18,16 @@ abstract class Controller
     }
 
     /**
+     * Trigger event using HTMX
+     */
+    public function trigger(string $event): Response
+    {
+        return (new HtmxResponse)
+            ->trigger(event: $event)
+            ->send();
+    }
+
+    /**
      * Send toast message using HTMX
      */
     public function toast(string $message): Response

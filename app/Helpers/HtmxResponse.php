@@ -19,6 +19,16 @@ final class HtmxResponse
     }
 
     /**
+     * Send trigger response
+     */
+    public function trigger(string $event): self
+    {
+        $this->headers['HX-Trigger'] = $event;
+
+        return $this;
+    }
+
+    /**
      * Send toast notification
      */
     public function toast(string $message): self
