@@ -10,6 +10,7 @@ htmx.on("htmx:afterSwap", (e) => {
   if (e.detail.target.id == "modal") {
         const modal = document.getElementById("modal");
         modal.classList.toggle('hidden');
+        modal.querySelector('form').reset();
   }
 });
 
