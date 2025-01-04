@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Actions\Auth\UserLogout;
 use App\Http\Controllers\Auth\ChangeInitialPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -19,6 +20,8 @@ Route::as('auth.')->group(function () {
         Route::view('/', 'auth.login');
         Route::post('/', UserLoginController::class)->name('.execute');
     });
+
+    Route::delete('/logout', UserLogout::class)->middleware('auth')->name('logout');
 
     Route::group(['prefix' => '/password', 'as' => 'password.'], function () {
         Route::group(['prefix' => '/forgot', 'as' => 'forgot'], function () {
