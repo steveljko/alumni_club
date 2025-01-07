@@ -11,6 +11,7 @@ htmx.on("htmx:afterSwap", (e) => {
         const modal = document.getElementById("modal");
         modal.classList.toggle('hidden');
         modal.querySelector('form').reset();
+        modal.focus();
   }
 });
 

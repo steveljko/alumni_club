@@ -22,4 +22,22 @@ document.addEventListener("DOMContentLoaded", () => {
         textarea.addEventListener('input', updateLetterCount);
         updateLetterCount();
     }
+
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modal-content');
+
+    if (modal) {
+        document.addEventListener('click', (event) => {
+            if (modal.classList.contains('hidden') === false && !modalContent.contains(event.target)) {
+                modal.classList.toggle('hidden');
+            }
+        });
+
+       modal.addEventListener('keydown', (event) => {
+            if (event.key == 'Escape') {
+                const modal = document.getElementById("modal");
+                modal.classList.toggle('hidden');
+            }
+       });
+    }
 });

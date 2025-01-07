@@ -1,3 +1,4 @@
+// TODO: Refector this code to support
 class Toast {
     constructor(toast) {
       this.toast = toast;
