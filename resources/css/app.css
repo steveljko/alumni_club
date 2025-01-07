@@ -12,7 +12,20 @@
   to { opacity: 0; }
 }
 
-.toast.show {
+#toast {
   visibility: visible;
   animation: fadein 0.5s, fadeout 0.5s 2.5s forwards;
+}
+
+@keyframes shrink {
+    0% {
+        width: 100%;
+    }
+    100% {
+        width: 0;
+    }
+}
+
+.animate-shrink {
+    animation: shrink 4s forwards;
 }
