@@ -1,4 +1,3 @@
-// TODO: Refector this code to support
 class Toast {
     constructor(toast) {
       this.toast = toast;
@@ -26,7 +25,7 @@ class Toast {
     }
 
     setMessage(message) {
-        this.toast.innerHTML = message;
+        this.toast.querySelector('#toast_msg').innerHTML = message;
     }
 
     show() {
@@ -41,7 +40,7 @@ class Toast {
             setTimeout(() => {
                 this.toast.classList.remove('show');
                 this.toast.classList.add('hidden');
-                this.toast.innerHTML = '';
+                this.toast.querySelector('#toast_msg').innerHTML = '';
             }, 3500);
         }
     }
