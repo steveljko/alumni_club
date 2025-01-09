@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\HtmxResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 
 abstract class Controller
@@ -40,12 +41,18 @@ abstract class Controller
     /**
      * Send toast message along with redirect request using HTMX
      */
-    public function redirectWithToast(string $route, string $message): Response
+    public function redirectWithToast(string $route, string $message): Response|RedirectResponse
     {
-        return (new HtmxResponse)
-            ->redirectTo(routeName: $route)
-            ->toast(message: $message)
-            ->send();
+        if (request()->hasHeader('HX-Request')) {
+            return (new HtmxResponse)
+                ->redirectTo(routeName: $route)
+                ->toast(message: $message)
+                ->send();
+        }
+
+        return redirect(route($route))
+            ->with('toast', $message);
+
     }
 
     /**
