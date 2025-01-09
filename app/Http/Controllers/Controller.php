@@ -47,4 +47,15 @@ abstract class Controller
             ->toast(message: $message)
             ->send();
     }
+
+    /**
+     * Send toast message along with triggering event using HTMX
+     */
+    public function triggerWithToast(string $event, string $message): Response
+    {
+        return (new HtmxResponse)
+            ->trigger(event: $event)
+            ->toast(message: $message)
+            ->send();
+    }
 }
