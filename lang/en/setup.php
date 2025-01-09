@@ -3,6 +3,16 @@
 return [
     'logged_in_as' => 'Logged in as',
 
+    'step1' => [
+        'success' => "Your password has been successfully changed! Now, let's add more details about you.",
+        'try_again' => 'Something went wrong, try again!',
+    ],
+
+    'step2' => [
+        'success' => "Great! Now let's move on to adding your previous work experiences.",
+        'try_again' => 'Something went wrong, try again!',
+    ],
+
     'step3' => [
         'title' => 'Work History',
         'desc' => 'If you have previous work history, add it. It will later generate a CV automatically for you.',

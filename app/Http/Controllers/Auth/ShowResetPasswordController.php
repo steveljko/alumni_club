@@ -12,8 +12,10 @@ final class ShowResetPasswordController extends Controller
     public function __invoke(string $token): View|RedirectResponse
     {
         if (! User::where('password_reset_token', $token)->exists()) {
-            return redirect(route('auth.login'))
-                ->with('toast', 'Invalid token is provided!');
+            return $this->redirectWithToast(
+                route: 'auth.login',
+                message: __('auth.invalid_password_reset_token'),
+            );
         }
 
         return view('auth.reset_password');

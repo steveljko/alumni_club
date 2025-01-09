@@ -21,6 +21,9 @@ final class DeleteWorkHistoryController extends Controller
             return $this->toast(__('setup.step3.try_again'));
         }
 
-        return $this->triggerWithToast(event: 'loadWorkHistories', message: __('setup.step3.can_delete'));
+        return $this->triggerWithToast(
+            event: 'loadWorkHistories',
+            message: __('setup.step3.can_delete')
+        );
     }
 }

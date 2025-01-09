@@ -16,6 +16,12 @@ return [
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    // password reset
+    'invalid_password_reset_token' => 'An invalid password reset token has been provided!',
+    'successful_password_reset' => 'Your password has been successfully reset!',
+    // forgot password
+    'successful_forgot_password' => 'A reset link has been sent to your email.',
+    // login & logout
+    'successful_login' => 'Successfully logged in!',
     'logout' => 'You have successfully logged out.',
 ];

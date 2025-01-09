@@ -13,12 +13,12 @@ final class SkipAddingWorkHistoryController extends Controller
         $ok = $skipAddingWorkHistory->execute(user: auth()->user());
 
         if (! $ok) {
-            return $this->toast('Something bad happend!');
+            return $this->toast(__('setup.step3.try_again'));
         }
 
         return $this->redirectWithToast(
             route: 'home',
-            message: 'You are good to go!'
+            message: __('setup.step3.finish')
         );
     }
 }

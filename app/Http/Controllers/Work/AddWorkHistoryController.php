@@ -14,7 +14,7 @@ final class AddWorkHistoryController extends Controller
         $ok = $addWorkHistory->execute(request: $request, user: auth()->user());
 
         if (! $ok) {
-            return $this->toast('Something bad happend!');
+            return $this->toast(__('setup.step3.try_again'));
         }
 
         return $this->trigger(event: 'loadWorkHistories');

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Helpers\HtmxResponse;
 use App\Http\Actions\Auth\ChangeInitialPassword;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Http\Response;
 
-final class ChangeInitialPasswordController
+final class ChangeInitialPasswordController extends Controller
 {
     public function __invoke(
         ChangePasswordRequest $request,
@@ -15,11 +15,12 @@ final class ChangeInitialPasswordController
     ): Response {
         $ok = $changeInitialPassword->execute($request);
 
-        if ($ok) {
-            return (new HtmxResponse)
-                ->redirectTo('auth.setup.step.2')
-                ->toast("Now let's add more details about you!")
-                ->send();
+        if (! $ok) {
+            return $this->toast(__('setup.step1.try_again'));
         }
+
+        return $this->redirectWithToast(
+            route: 'auth.setup.step.2', message: __('setup.step1.success')
+        );
     }
 }
