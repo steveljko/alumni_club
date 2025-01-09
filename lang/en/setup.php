@@ -11,5 +11,7 @@ return [
         'add' => 'Add',
         'try_again' => 'Something went wrong, try again!',
         'finish' => 'Successfully finished the account wizard. You can now use the app!',
+        'can_delete' => 'Successfully deleted the job.',
+        'cant_delete' => "You can't delete the job.",
     ],
 ];

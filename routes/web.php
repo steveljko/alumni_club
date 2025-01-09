@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\SetDetailsController;
 use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Work\AddWorkHistoryController;
+use App\Http\Controllers\Work\DeleteWorkHistoryController;
 use App\Http\Controllers\Work\PublishWorkHistoryController;
 use App\Http\Controllers\Work\ShowWorkHistoryController;
 use App\Http\Controllers\Work\SkipAddingWorkHistoryController;
@@ -55,6 +56,7 @@ Route::as('auth.')->group(function () {
             Route::post('/add_work', AddWorkHistoryController::class)->name('.add_work');
             Route::patch('/skip', SkipAddingWorkHistoryController::class)->name('.skip');
             Route::patch('/', PublishWorkHistoryController::class);
+            Route::delete('/{workHistory}', DeleteWorkHistoryController::class)->name('.delete');
         });
     });
 });

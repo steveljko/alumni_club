@@ -43,7 +43,12 @@
                                         </span>
                                     </p>
 
-                                    <p>{{ $job->company_name }}</p>
+                                    <div class="flex justify-between">
+                                        <p>{{ $job->company_name }}</p>
+                                        <a hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                            hx-delete="{{ route('auth.setup.step.3.delete', $job) }}"
+                                            class="cursor-pointer font-bold uppercase text-red-500">Delete</a>
+                                    </div>
                                 </div>
                             @endforeach
                         @else
