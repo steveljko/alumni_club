@@ -26,7 +26,7 @@ final class UserLoginController extends Controller
 
         return $this->redirectWithToast(
             route: self::REDIRECT_TO,
-            message: __('successful_login'),
+            message: __('auth.successful_login'),
         );
     }
 }

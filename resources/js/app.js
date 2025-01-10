@@ -2,11 +2,26 @@ import './htmx';
 import toast from './toast';
 
 document.addEventListener("DOMContentLoaded", () => {
-    const textarea = document.querySelector("textarea");
+    // Home navigation bar
+    const accountDropdownToggle = document.querySelector('#account button');
+    const accountDropdown = document.getElementById('account_dropdown');
+    const accountDropdownMobile = document.getElementById('account_dropdown_mobile');
+
+    accountDropdownToggle.addEventListener('click', () => {
+        const isMobile = window.innerWidth <= 768;
+
+        if (isMobile) {
+            accountDropdownMobile.classList.toggle('hidden');
+        } else {
+            accountDropdown.classList.toggle('hidden');
+        }
+    });
+
+    const textarea = document.querySelector('textarea');
 
     if (textarea) {
         const limit = parseInt(textarea.getAttribute('data-limit'), 10);
-        const limitSpan = document.getElementById("current-letter-count");
+        const limitSpan = document.getElementById('current-letter-count');
         const label = document.querySelector(`label[for=${textarea.getAttribute('name')}]`);
         const validationMessage = document.getElementById(`${textarea.getAttribute('name')}-validation-message`);
 
@@ -35,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
        modal.addEventListener('keydown', (event) => {
             if (event.key == 'Escape') {
-                const modal = document.getElementById("modal");
+                const modal = document.getElementById('modal');
                 modal.classList.toggle('hidden');
             }
        });
