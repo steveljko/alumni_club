@@ -20,4 +20,12 @@ class PostEvent extends Model
     {
         return $this->belongsTo(Post::class);
     }
+
+    protected function casts(): array
+    {
+        return [
+            'start_time' => 'datetime',
+            'end_time' => 'datetime',
+        ];
+    }
 }

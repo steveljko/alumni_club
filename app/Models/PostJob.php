@@ -20,4 +20,12 @@ class PostJob extends Model
     {
         return $this->belongsTo(Post::class);
     }
+
+    protected function casts(): array
+    {
+        return [
+            'opening_start' => 'datetime',
+            'opening_end' => 'datetime',
+        ];
+    }
 }

@@ -6,6 +6,7 @@
         tabindex="-1">
         <div class="p-4">
             <h2 class="text-lg font-semibold">{{ $title }}</h2>
+
         </div>
 
         {{ $slot }}

@@ -7,6 +7,9 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\SetDetailsController;
 use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UserLoginController;
+use App\Http\Controllers\Home\ShowHomeController;
+use App\Http\Controllers\Post\CreatePostController;
+use App\Http\Controllers\Post\GetPostFormController;
 use App\Http\Controllers\Work\AddWorkHistoryController;
 use App\Http\Controllers\Work\DeleteWorkHistoryController;
 use App\Http\Controllers\Work\PublishWorkHistoryController;
@@ -61,6 +64,12 @@ Route::as('auth.')->group(function () {
     });
 });
 
-Route::view('/home', 'home.main')
+Route::get('/home', ShowHomeController::class)
     ->middleware(['auth', AccountSetupCompleted::class])
     ->name('home');
+
+Route::group(['prefix' => 'posts/create', 'as' => 'post.create'], function () {
+    Route::view('/', 'posts/create');
+    Route::get('/form/{type}', GetPostFormController::class)->name('.form');
+    Route::post('/{type}', CreatePostController::class)->name('.execute');
+});

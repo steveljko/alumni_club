@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('event_page_url');
             $table->timestamp('start_time');
-            $table->timestamp('end_time')->nullable();
+            $table->timestamp('end_time');
             $table->string('address');
             $table->string('city');
             $table->foreignId('post_id')
