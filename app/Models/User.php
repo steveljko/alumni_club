@@ -85,4 +85,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(WorkHistory::class);
     }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
 }

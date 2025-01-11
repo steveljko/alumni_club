@@ -1,7 +1,7 @@
 <nav class="w-full border-b border-gray-200 bg-white">
     <div class="container mx-auto w-full py-3">
         <div class="flex items-center justify-between">
-            <span>App name</span>
+            <a href="{{ route('home') }}">App name</a>
             <div id="account"
                 class="relative">
                 <button type="button"
@@ -23,6 +23,9 @@
                             <p class="truncate text-sm font-medium leading-5 text-gray-900">{{ auth()->user()->name }}</p>
                         </div>
                         <div class="py-1">
+                            <a class="flex w-full cursor-pointer justify-between px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
+                                role="menuitem"
+                                href="{{ route('profile', auth()->user()) }}">Profile</a>
                             <a class="flex w-full cursor-pointer justify-between px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
                                 role="menuitem">Account settings</a>
                             <a class="flex w-full cursor-pointer justify-between px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"

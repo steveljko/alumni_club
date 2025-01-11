@@ -5,7 +5,8 @@
             <img class="mr-2 h-6 w-6 rounded-full"
                 src="https://ui-avatars.com/api/?name=John+Doe"
                 alt="user photo">
-            <span class="text-sm">{{ $post->user->name }}</span>
+            <a href="{{ route('profile', $post->user) }}"
+                class="text-sm">{{ $post->user->name }}</a>
         </div>
         <span class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</span>
     </div>

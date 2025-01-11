@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Actions\Auth\UserLogout;
+use App\Http\Actions\Profile\ShowProfileController;
 use App\Http\Controllers\Auth\ChangeInitialPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -67,6 +68,10 @@ Route::as('auth.')->group(function () {
 Route::get('/home', ShowHomeController::class)
     ->middleware(['auth', AccountSetupCompleted::class])
     ->name('home');
+
+Route::get('/profile/{user}', ShowProfileController::class)
+    ->middleware(['auth', AccountSetupCompleted::class])
+    ->name('profile');
 
 Route::group(['prefix' => 'posts/create', 'as' => 'post.create'], function () {
     Route::view('/', 'posts/create');
