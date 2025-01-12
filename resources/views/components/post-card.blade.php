@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between border-b border-gray-300 p-2">
         <div class="flex items-center">
             <img class="mr-2 h-6 w-6 rounded-full"
-                src="https://ui-avatars.com/api/?name=John+Doe"
+                src="{{ asset('storage/images/' . $post->user->avatar) }}"
                 alt="user photo">
             <a href="{{ route('profile', $post->user) }}"
                 class="text-sm">{{ $post->user->name }}</a>

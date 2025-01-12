@@ -5,7 +5,7 @@
         <div class="flex w-full items-start space-x-4">
             <div class="flex h-auto w-2/6 flex-col items-center space-y-[32px] rounded-md bg-white p-4 shadow">
                 <img class="h-[200px] w-[200px] rounded-full"
-                    src="https://ui-avatars.com/api/?name=John+Doe"
+                    src="{{ asset('storage/images/' . $user->avatar) }}"
                     alt="user photo">
                 <h3 class="text-xl">{{ $user->name }}</h3>
                 <div class="w-full border border-gray-200">

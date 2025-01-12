@@ -15,6 +15,7 @@
         "vite": "^6.0"
     },
     "dependencies": {
+        "cropt": "^1.0.0",
         "htmx.org": "^1.9.12"
     }
 }

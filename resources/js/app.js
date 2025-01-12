@@ -1,7 +1,43 @@
 import './htmx';
 import toast from './toast';
+import { Cropt } from 'cropt';
 
 document.addEventListener("DOMContentLoaded", () => {
+    const croptAvatar = document.getElementById('cropt_avatar');
+
+    if (croptAvatar) {
+        let c = new Cropt(croptAvatar, {
+            "mouseWheelZoom": "on",
+            "zoomerInputClass": "form-range"
+        });
+
+        const avatarUpload = document.getElementById('avatar_upload');
+
+        if (avatarUpload) {
+            avatarUpload.addEventListener('change', (e) => {
+                const image = avatarUpload.files[0];
+
+                if (image) {
+                    const imageSrc = URL.createObjectURL(image);
+                    c.bind(imageSrc);
+                }
+
+                document.getElementById('modal').classList.toggle('hidden');
+            });
+
+            document.getElementById('crop').addEventListener('click', (e) => {
+                c.toCanvas(500).then((canvas) => {
+                    let url = canvas.toDataURL();
+                    document.getElementById('avatar').src = url;
+                    document.getElementById('crop_image_url').value = url;
+                });
+
+                document.getElementById('modal').classList.toggle('hidden');
+                document.getElementById('upload').classList.remove('hidden');
+            });
+        }
+    }
+
     // Home navigation bar
     const accountDropdownToggle = document.querySelector('#account button');
     const accountDropdown = document.getElementById('account_dropdown');

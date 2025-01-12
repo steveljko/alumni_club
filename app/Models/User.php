@@ -29,6 +29,7 @@ class User extends Authenticatable
         'uni_finish_year',
         'bio',
         'setup_progress',
+        'avatar',
     ];
 
     /**

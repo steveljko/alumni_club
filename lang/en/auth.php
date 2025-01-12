@@ -19,6 +19,9 @@ return [
     'try_again' => 'Something went wrong, try again!',
     // update user
     'successful_user_update' => 'Succesfully updated user!',
+    // avatar
+    'succesful_avatar_upload' => 'Avatar uploaded and successfully set!',
+    'succesful_avatar_reset' => 'Your avatar has been successfully reset!',
     // password reset
     'invalid_password_reset_token' => 'An invalid password reset token has been provided!',
     'successful_password_reset' => 'Your password has been successfully reset!',

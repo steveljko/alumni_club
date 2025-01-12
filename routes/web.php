@@ -4,7 +4,9 @@ use App\Http\Actions\Auth\UserLogout;
 use App\Http\Actions\Profile\ShowProfileController;
 use App\Http\Controllers\Auth\ChangeInitialPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetAvatarController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\SetAvatarController;
 use App\Http\Controllers\Auth\SetDetailsController;
 use App\Http\Controllers\Auth\ShowAccountSettingsController;
 use App\Http\Controllers\Auth\ShowResetPasswordController;
@@ -69,6 +71,8 @@ Route::as('auth.')->group(function () {
     Route::group(['prefix' => 'settings', 'as' => 'settings', 'middleware' => 'auth'], function () {
         Route::get('/', ShowAccountSettingsController::class);
         Route::put('/update', UpdateUserController::class)->name('.update');
+        Route::patch('/avatar', SetAvatarController::class)->name('.avatar');
+        Route::patch('/avatar/reset', ResetAvatarController::class)->name('.avatarReset');
     });
 });
 
