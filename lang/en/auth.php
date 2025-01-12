@@ -16,6 +16,9 @@ return [
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'try_again' => 'Something went wrong, try again!',
+    // update user
+    'successful_user_update' => 'Succesfully updated user!',
     // password reset
     'invalid_password_reset_token' => 'An invalid password reset token has been provided!',
     'successful_password_reset' => 'Your password has been successfully reset!',

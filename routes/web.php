@@ -6,7 +6,9 @@ use App\Http\Controllers\Auth\ChangeInitialPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\SetDetailsController;
+use App\Http\Controllers\Auth\ShowAccountSettingsController;
 use App\Http\Controllers\Auth\ShowResetPasswordController;
+use App\Http\Controllers\Auth\UpdateUserController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Home\ShowHomeController;
 use App\Http\Controllers\Post\CreatePostController;
@@ -62,6 +64,11 @@ Route::as('auth.')->group(function () {
             Route::patch('/', PublishWorkHistoryController::class);
             Route::delete('/{workHistory}', DeleteWorkHistoryController::class)->name('.delete');
         });
+    });
+
+    Route::group(['prefix' => 'settings', 'as' => 'settings', 'middleware' => 'auth'], function () {
+        Route::get('/', ShowAccountSettingsController::class);
+        Route::put('/update', UpdateUserController::class)->name('.update');
     });
 });
 

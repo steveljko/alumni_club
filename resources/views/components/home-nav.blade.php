@@ -27,7 +27,8 @@
                                 role="menuitem"
                                 href="{{ route('profile', auth()->user()) }}">Profile</a>
                             <a class="flex w-full cursor-pointer justify-between px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
-                                role="menuitem">Account settings</a>
+                                role="menuitem"
+                                href="{{ route('auth.settings') }}">Account settings</a>
                             <a class="flex w-full cursor-pointer justify-between px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
                                 role="menuitem"
                                 hx-delete="{{ route('auth.logout') }}"
