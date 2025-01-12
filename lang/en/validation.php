@@ -160,6 +160,8 @@ return [
     'url' => 'The :attribute field must be a valid URL.',
     'ulid' => 'The :attribute field must be a valid ULID.',
     'uuid' => 'The :attribute field must be a valid UUID.',
+    'base64_image_size' => 'The :attribute must not exceed :size kilobytes.',
+    'base64_image_type' => 'The :attribute must be a valid image type: :values.',
 
     /*
     |--------------------------------------------------------------------------
