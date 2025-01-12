@@ -13,17 +13,12 @@
                     @csrf
                     <div class="flex w-full space-x-4">
                         <x-form-select label="University Start Year"
-                            name="uni_start_year">
-                            @for ($year = 2000; $year <= date('Y'); $year++)
-                                <option value="{{ $year }}">{{ $year }}</option>
-                            @endfor
+                            name="uni_start_year"
+                            between="2000,current">
                         </x-form-select>
                         <x-form-select label="University Finish Year"
-                            name="uni_finish_year">
-                            @for ($year = 2000; $year <= date('Y'); $year++)
-                                <option value="{{ $year }}">{{ $year }}</option>
-                            @endfor
-                        </x-form-select>
+                            name="uni_finish_year"
+                            between="2000,current" />
                     </div>
                     <div>
                         <x-form-textarea label="Biography"
