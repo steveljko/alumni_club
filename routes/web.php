@@ -3,6 +3,7 @@
 use App\Http\Actions\Auth\UserLogout;
 use App\Http\Actions\Profile\ShowProfileController;
 use App\Http\Controllers\Auth\ChangeInitialPasswordController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetAvatarController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -73,6 +74,7 @@ Route::as('auth.')->group(function () {
         Route::put('/update', UpdateUserController::class)->name('.update');
         Route::patch('/avatar', SetAvatarController::class)->name('.avatar');
         Route::patch('/avatar/reset', ResetAvatarController::class)->name('.avatarReset');
+        Route::patch('/password', ChangePasswordController::class)->name('.changePassword');
     });
 });
 

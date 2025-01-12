@@ -22,6 +22,9 @@ return [
     // avatar
     'succesful_avatar_upload' => 'Avatar uploaded and successfully set!',
     'succesful_avatar_reset' => 'Your avatar has been successfully reset!',
+    // change password
+    'wrong_current_password' => 'The provided password does not match your current password!',
+    'successful_password_change' => 'Your password has been successfully updated.',
     // password reset
     'invalid_password_reset_token' => 'An invalid password reset token has been provided!',
     'successful_password_reset' => 'Your password has been successfully reset!',

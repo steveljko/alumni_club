@@ -77,6 +77,21 @@
 
         <div class="w-full rounded-md p-4 shadow">
             <h3 class="text-lg font-semibold">Change Password</h3>
+            <form hx-patch="{{ route('auth.settings.changePassword') }}"
+                hx-swap="none">
+                @csrf
+                <x-form-input label="Password"
+                    type="password"
+                    name="password" />
+                <x-form-input label="Confirm Password"
+                    type="password"
+                    name="password_confirmation" />
+                <x-form-input label="Current Password"
+                    type="password"
+                    name="current_password" />
+                <button type="submit"
+                    class="rounded-md bg-black px-3 py-1 text-white text-white">Change Password</button>
+            </form>
         </div>
 
         <div class="w-full rounded-md p-4 shadow">
