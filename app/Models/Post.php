@@ -26,6 +26,26 @@ class Post extends Model
         'type' => PostType::class,
     ];
 
+    public function isDefault(): bool
+    {
+        return $this->type == PostType::DEFAULT;
+    }
+
+    public function isEvent(): bool
+    {
+        return $this->type == PostType::EVENT;
+    }
+
+    public function isJob(): bool
+    {
+        return $this->type == PostType::JOB;
+    }
+
+    public function isEventOrJob(): bool
+    {
+        return $this->type == PostType::EVENT || $this->type == PostType::JOB;
+    }
+
     public function default(): HasOne
     {
         return $this->hasOne(PostDefault::class);

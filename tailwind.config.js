@@ -14,6 +14,14 @@ export default {
             fontFamily: {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
             },
+            fontSize: {
+                sm: ['0.9rem', '1rem'],
+                base: ['1rem', '1.188rem'],
+                lg: ['1.25rem', '1.375rem'],
+            },
+            padding: {
+                '0.75': '0.188rem',
+            },
         },
     },
     plugins: [],
