@@ -28,11 +28,10 @@ class CreateEventPostRequest extends BaseFormRequest
             'title' => ['required', 'string', 'min:6', 'max:128'],
             'description' => ['string', 'min:10', 'max:256'],
             'event_page_url' => ['url:https', 'min:6', 'max:64'],
-            'start_time' => ['required', 'date', 'date_format:Y-m-d H:i:s'],
-            'end_time' => ['required', 'date', 'date_format:Y-m-d H:i:s', 'after:start_time'],
+            'start_time' => ['required', 'date'],
+            'end_time' => ['required', 'date', 'after:start_time'],
             'address' => ['required', 'min:6', 'max:64'],
             'city' => ['required', 'min:6', 'max:64'],
-            // 'thumbnail_image' => ['nullable', 'file', 'mimes:jpeg,jpg', 'max:2048'],
         ];
     }
 
