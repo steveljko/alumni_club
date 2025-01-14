@@ -9,6 +9,8 @@
                 href="{{ route('post.create') }}">Create post</a>
         </div>
         <section class="w-full space-y-4 md:w-2/3">
+            <x-postbox />
+            <div class="my-6 h-[1px] w-full bg-gray-200"></div>
             @foreach ($posts as $post)
                 <x-post-card :post="$post" />
             @endforeach

@@ -53,6 +53,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    const pbTextarea = document.getElementById('postboxTextarea');
+
+    pbTextarea.addEventListener('input', (e) => {
+        const target = e.target;
+        target.style.height = 'auto';
+        target.style.height = `${target.scrollHeight}px`;
+    });
+
     const textarea = document.querySelector('textarea');
 
     if (textarea) {

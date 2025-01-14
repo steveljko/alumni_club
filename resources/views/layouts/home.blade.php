@@ -14,7 +14,7 @@
             rel="stylesheet">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body>
+    <body class="bg-[#fcfcfc]">
         <x-htmx-error-handler />
 
         <x-toast />
