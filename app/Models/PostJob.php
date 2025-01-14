@@ -10,10 +10,13 @@ class PostJob extends Model
         'position',
         'description',
         'company_name',
+        'company_website_url',
+        'company_address',
         'company_city',
-        'opening_start',
-        'opening_end',
+        'start_time',
+        'end_time',
         'job_page_url',
+        'is_remote',
     ];
 
     public function post(): BelongsTo
@@ -24,8 +27,8 @@ class PostJob extends Model
     protected function casts(): array
     {
         return [
-            'opening_start' => 'datetime',
-            'opening_end' => 'datetime',
+            'start_time' => 'datetime',
+            'end_time' => 'datetime',
         ];
     }
 }

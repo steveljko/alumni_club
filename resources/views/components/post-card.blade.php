@@ -42,14 +42,17 @@
             <div class="block lg:flex lg:items-center lg:justify-between">
                 <div class="mb-2">
                     <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ $post->job->position }}</h3>
-                    <p class="text-sm font-medium text-gray-500">{{ $post->job->company_name }}</p>
+                    <a href="{{ $post->job->company_website_url }}"
+                        class="cursor-pointer text-sm font-medium text-gray-500 hover:text-blue-500">{{ $post->job->company_name }}</a>
                 </div>
                 <div class="block space-y-2 md:flex md:space-x-2 md:space-y-0">
-                    <span class="block rounded-full border border-gray-200 px-1.5 py-0.75 text-xs font-medium">{{ $post->job->company_city }}</span>
-                    <x-date-badge :start="$post->job->opening_start"
-                        :end="$post->job->opening_end" />
-                    <x-time-badge :start="$post->job->opening_start"
-                        :end="$post->job->opening_end" />
+                    <span class="block rounded-full border border-gray-200 px-1.5 py-0.75 text-xs font-medium">
+                        {{ $post->job->company_address }}, {{ $post->job->company_city }}
+                    </span>
+                    <x-date-badge :start="$post->job->start_time"
+                        :end="$post->job->start_time" />
+                    <x-time-badge :start="$post->job->end_time"
+                        :end="$post->job->end_time" />
                 </div>
             </div>
             <p class="text-sm leading-8 text-gray-800">{{ $post->job->description }}</p>

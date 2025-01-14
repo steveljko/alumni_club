@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('post_jobs', function (Blueprint $table) {
             $table->id();
             $table->string('position');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('company_name');
+            $table->string('company_website_url');
+            $table->string('company_address');
             $table->string('company_city');
-            $table->timestamp('opening_start');
-            $table->timestamp('opening_end')->nullable();
+            $table->timestamp('start_time');
+            $table->timestamp('end_time')->nullable();
             $table->string('job_page_url');
             $table->foreignId('post_id')
                 ->constrained()

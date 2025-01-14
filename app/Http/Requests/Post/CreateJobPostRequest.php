@@ -28,10 +28,12 @@ class CreateJobPostRequest extends BaseFormRequest
             'position' => ['required', 'string', 'min:6', 'max:128'],
             'description' => ['string', 'min:10', 'max:256'],
             'company_name' => ['required', 'string', 'min:6', 'max:128'],
+            'company_website_url' => ['string', 'url:https', 'string', 'min:6', 'max:64'],
+            'company_address' => ['required', 'string', 'min:6', 'max:128'],
             'company_city' => ['required', 'string', 'min:6', 'max:128'],
-            'opening_start' => ['required', 'date'],
-            'opening_end' => ['required', 'date', 'after:start_time'],
-            'job_page_url' => ['url:https', 'min:6', 'max:64'],
+            'start_time' => ['required', 'date'],
+            'end_time' => ['required', 'date', 'after:start_time'],
+            'job_page_url' => ['string', 'url:https', 'min:6', 'max:64'],
         ];
     }
 
