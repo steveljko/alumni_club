@@ -11,29 +11,45 @@ document.addEventListener("DOMContentLoaded", () => {
             "zoomerInputClass": "form-range"
         });
 
+        const validationMessage = document.getElementById('avatar_url-validation-message');
+        const uploadButton = document.getElementById('uploadButton');
         const avatarUpload = document.getElementById('avatar_upload');
+        const cropImageUrl = document.getElementById('crop_image_url');
+        const avatar = document.getElementById('avatar');
+        const upload = document.getElementById('upload');
+        const modal = document.getElementById('modal');
+        const crop = document.getElementById('crop');
+
+        uploadButton.addEventListener('click', () => avatarUpload.click());
 
         if (avatarUpload) {
             avatarUpload.addEventListener('change', (e) => {
                 const image = avatarUpload.files[0];
 
-                if (image) {
-                    const imageSrc = URL.createObjectURL(image);
-                    c.bind(imageSrc);
+                if (!image) return;
+
+                const validTypes = ["image/png", "image/jpeg"];
+                if (!validTypes.includes(image.type)) {
+                    validationMessage.classList.remove('hidden');
+                    validationMessage.innerHTML = 'Only PNG and JPEG are allowed!';
+                    return;
                 }
 
-                document.getElementById('modal').classList.toggle('hidden');
+                const imageSrc = URL.createObjectURL(image);
+                c.bind(imageSrc);
+                modal.classList.remove('hidden');
             });
 
-            document.getElementById('crop').addEventListener('click', (e) => {
+            crop.addEventListener('click', (e) => {
                 c.toCanvas(500).then((canvas) => {
                     let url = canvas.toDataURL();
-                    document.getElementById('avatar').src = url;
-                    document.getElementById('crop_image_url').value = url;
+                    avatar.src = url;
+                    cropImageUrl.value = url;
                 });
 
-                document.getElementById('modal').classList.toggle('hidden');
-                document.getElementById('upload').classList.remove('hidden');
+                modal.classList.toggle('hidden');
+                uploadButton.classList.add('hidden');
+                upload.classList.remove('hidden');
             });
         }
     }
