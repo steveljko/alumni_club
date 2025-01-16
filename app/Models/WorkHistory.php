@@ -18,13 +18,29 @@ class WorkHistory extends Model
         'description',
     ];
 
-    public function getStartDateAttribute($value): string
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        return Carbon::parse($value)->format('d M Y');
+        return [
+            'start_date' => 'date',
+            'end_date' => 'date',
+        ];
     }
 
-    public function getEndDateAttribute($value): string
+    public function calcYearsInCompany(): string
     {
-        return Carbon::parse($value)->format('d M Y');
+        $diff = Carbon::parse($this->start_date)->diff($this->end_date);
+
+        if ($diff->y > 0) {
+            return $diff->y.' year'.($diff->y > 1 ? 's' : '');
+        } elseif ($diff->m > 0) {
+            return $diff->m.' month'.($diff->m > 1 ? 's' : '');
+        } else {
+            return $diff->d.' day'.($diff->d > 1 ? 's' : '');
+        }
     }
 }

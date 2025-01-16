@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const cropImageUrl = document.getElementById('crop_image_url');
         const avatar = document.getElementById('avatar');
         const upload = document.getElementById('upload');
-        const modal = document.getElementById('modal');
+        const modal = document.getElementById('changeAvatarModal');
         const crop = document.getElementById('crop');
 
         uploadButton.addEventListener('click', () => avatarUpload.click());
@@ -71,11 +71,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const pbTextarea = document.getElementById('postboxTextarea');
 
-    pbTextarea.addEventListener('input', (e) => {
-        const target = e.target;
-        target.style.height = 'auto';
-        target.style.height = `${target.scrollHeight}px`;
-    });
+    if (pbTextarea) {
+        pbTextarea.addEventListener('input', (e) => {
+            const target = e.target;
+            target.style.height = 'auto';
+            target.style.height = `${target.scrollHeight}px`;
+        });
+    }
 
     const textarea = document.querySelector('textarea');
 
@@ -96,23 +98,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
         textarea.addEventListener('input', updateLetterCount);
         updateLetterCount();
-    }
-
-    const modal = document.getElementById('modal');
-    const modalContent = document.getElementById('modal-content');
-
-    if (modal) {
-        document.addEventListener('click', (event) => {
-            if (modal.classList.contains('hidden') === false && !modalContent.contains(event.target)) {
-                modal.classList.toggle('hidden');
-            }
-        });
-
-       modal.addEventListener('keydown', (event) => {
-            if (event.key == 'Escape') {
-                const modal = document.getElementById('modal');
-                modal.classList.toggle('hidden');
-            }
-       });
     }
 });

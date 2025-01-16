@@ -2,6 +2,8 @@
 
 use App\Http\Actions\Auth\UserLogout;
 use App\Http\Actions\Profile\ShowProfileController;
+use App\Http\Actions\WorkHistory\AddWorkHistory;
+use App\Http\Actions\WorkHistory\DeleteWorkHistory;
 use App\Http\Controllers\Auth\ChangeInitialPasswordController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -21,8 +23,11 @@ use App\Http\Controllers\Work\DeleteWorkHistoryController;
 use App\Http\Controllers\Work\PublishWorkHistoryController;
 use App\Http\Controllers\Work\ShowWorkHistoryController;
 use App\Http\Controllers\Work\SkipAddingWorkHistoryController;
+use App\Http\Controllers\Work\UpdateWorkHistoryController;
 use App\Http\Middleware\AccountSetupCompleted;
 use App\Http\Middleware\CanAccessSetupStep;
+use App\Http\Requests\AddWorkHistoryRequest;
+use App\Models\WorkHistory;
 use Illuminate\Support\Facades\Route;
 
 Route::as('auth.')->group(function () {
@@ -75,6 +80,39 @@ Route::as('auth.')->group(function () {
         Route::patch('/avatar', SetAvatarController::class)->name('.avatar');
         Route::patch('/avatar/reset', ResetAvatarController::class)->name('.avatarReset');
         Route::patch('/password', ChangePasswordController::class)->name('.changePassword');
+    });
+});
+
+Route::group(['prefix' => 'workHistory', 'as' => 'workHistory'], function () {
+    Route::get('/show', function () {
+        $workHistory = auth()->user()->workHistory;
+
+        return view('workHistory.show', compact('workHistory'));
+    })->name('.show');
+
+    Route::group(['prefix' => 'create', 'as' => '.create'], function () {
+        Route::view('/', 'workHistory.create');
+        Route::post('/', function (AddWorkHistoryRequest $request, AddWorkHistory $addWorkHistory) {
+            $ok = $addWorkHistory->execute(request: $request, user: auth()->user());
+        });
+    });
+
+    Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
+        Route::get('/edit/{workHistory}', function (WorkHistory $workHistory) {
+            return view('workHistory.edit', compact('workHistory'));
+        });
+        Route::patch('/edit/{workHistory}', UpdateWorkHistoryController::class);
+    });
+
+    Route::group(['prefix' => 'delete', 'as' => '.delete'], function () {
+        Route::get('/delete/{workHistory}', function (WorkHistory $workHistory) {
+            return view('workHistory.edit', compact('workHistory'));
+        });
+        Route::delete('/delete/{workHistory}', function (WorkHistory $workHistory, DeleteWorkHistory $deleteWorkHistory) {
+            $ok = $deleteWorkHistory->execute($workHistory);
+
+            return response(204)->header('HX-Trigger', 'loadWorkHistories');
+        });
     });
 });
 

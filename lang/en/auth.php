@@ -33,4 +33,8 @@ return [
     // login & logout
     'successful_login' => 'Successfully logged in!',
     'logout' => 'You have successfully logged out.',
+    // work history
+    'workHistory' => [
+        'update_success' => 'Successfully edited work!',
+    ],
 ];

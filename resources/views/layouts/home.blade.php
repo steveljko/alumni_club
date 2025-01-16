@@ -19,6 +19,10 @@
 
         <x-toast />
 
+        <div id="modal"
+            hx-target="this"
+            class="hidden"></div>
+
         <div>
             <x-home-nav />
 

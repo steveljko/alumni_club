@@ -1,7 +1,9 @@
 @extends('layouts.home')
 
 @section('content')
-    <x-modal title="Upload Avatar">
+    <x-modal id="changeAvatarModal"
+        class="hidden"
+        title="Upload Avatar">
         <div class="p-4">
             <div id="cropt_avatar"></div>
             <input name="avatar_url"
@@ -104,16 +106,18 @@
                 </div>
             </div>
 
-            <!-- TODO: Finish work history part -->
             <div id="work-history"
                 class="w-full rounded-md bg-white p-6 shadow">
-                <h3 class="mb-4 text-lg font-semibold">Manage Work History</h3>
-                <div class="border border-gray-200 p-4">
-                    @foreach ($user->workHistory as $wh)
-                        <div class="bg-white shadow">
-                            <li class="list-none">{{ $wh->position }}</li>
-                        </div>
-                    @endforeach
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="text-lg font-semibold">
+                        Manage Work History
+                    </h3>
+                    <a class="cursor-pointer rounded bg-blue-500 px-2 py-2 text-sm font-medium text-white"
+                        hx-get="{{ route('workHistory.create') }}"
+                        hx-target="#modal">Add Previous Work</a>
+                </div>
+                <div class="p-4">
+                    @include('workHistory.show', ['workHistory' => $user->workHistory])
                 </div>
             </div>
 

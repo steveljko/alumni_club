@@ -1,8 +1,9 @@
-<div class="inline-flex w-full space-x-2 border-t border-gray-200 p-4">
-    <form class="w-full"
+<x-modal title="Create"
+    id="createWorkHistoryModal">
+    <form class="w-full p-4"
         hx-swap="none"
         hx-target="#modal"
-        hx-post="{{ route('auth.setup.step.3.add_work') }}">
+        hx-post="{{ route('workHistory.create') }}">
         @csrf
         <x-form-input label="Comapny Name"
             name="company_name" />
@@ -20,4 +21,4 @@
         <button type="submit"
             class="rounded-md bg-[#4D5BFC] px-3 py-1 text-white">Add</button>
     </form>
-</div>
+</x-modal>

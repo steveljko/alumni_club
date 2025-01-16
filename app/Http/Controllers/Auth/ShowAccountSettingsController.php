@@ -8,7 +8,7 @@ final class ShowAccountSettingsController
 {
     public function __invoke(): View
     {
-        $user = auth()->user();
+        $user = auth()->user()->load('workHistory');
 
         return view('auth.settings', compact('user'));
     }
