@@ -23,7 +23,7 @@ class FormSelect extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.form-select', [
+        return view('components.form.select', [
             'name' => $this->name,
             'options' => $this->generateDate(),
             'value' => $this->value,

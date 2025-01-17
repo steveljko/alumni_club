@@ -4,18 +4,17 @@ namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Carbon;
 use Illuminate\View\Component;
 
-class FormTextarea extends Component
+class BadgeDate extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public string $name,
-        public string $label,
-        public ?int $limit,
-        public ?string $value
+        public Carbon $start,
+        public Carbon $end,
     ) {}
 
     /**
@@ -23,11 +22,9 @@ class FormTextarea extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.form.textarea', [
-            'name' => $this->name,
-            'labe' => $this->label,
-            'limit' => $this->limit,
-            'value' => $this->value ?: '',
+        return view('components.badges.date', [
+            'start' => $this->start,
+            'end' => $this->end,
         ]);
     }
 }
