@@ -86,7 +86,7 @@
                         <x-form-input label="Name"
                             name="name"
                             :value="$user->name" />
-                        <x-form-inline>
+                        <x-form-input-group>
                             <x-form-select label="University Start Year"
                                 name="uni_start_year"
                                 between="2000,current"
@@ -95,7 +95,7 @@
                                 name="uni_finish_year"
                                 between="2000,current"
                                 :value="$user->uni_finish_year" />
-                        </x-form-inline>
+                        </x-form-input-group>
                         <x-form-textarea label="Biography"
                             name="bio"
                             :value="$user->bio"
@@ -112,9 +112,16 @@
                     <h3 class="text-lg font-semibold">
                         Manage Work History
                     </h3>
-                    <a class="cursor-pointer rounded bg-blue-500 px-2 py-2 text-sm font-medium text-white"
-                        hx-get="{{ route('workHistory.create') }}"
-                        hx-target="#modal">Add Previous Work</a>
+                    <div>
+                        @if (auth()->user()->hasUnpublishedWorkHistories())
+                            <a class="cursor-pointer rounded bg-green-600 px-2 py-2 text-sm font-medium text-white"
+                                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                hx-put="{{ route('workHistory.publish') }}">Publish All</a>
+                        @endif
+                        <a class="cursor-pointer rounded bg-blue-500 px-2 py-2 text-sm font-medium text-white"
+                            hx-get="{{ route('workHistory.create') }}"
+                            hx-target="#modal">Add Previous Work</a>
+                    </div>
                 </div>
                 <div class="p-4">
                     @include('workHistory.show', ['workHistory' => $user->workHistory])

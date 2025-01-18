@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Work;
+namespace App\Http\Controllers\WorkHistory;
 
 use App\Http\Actions\WorkHistory\SkipAddingWorkHistory;
 use App\Http\Controllers\Controller;

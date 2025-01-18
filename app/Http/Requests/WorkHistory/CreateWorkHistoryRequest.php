@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\WorkHistory;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Response;
 
-class AddWorkHistoryRequest extends FormRequest
+class CreateWorkHistoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

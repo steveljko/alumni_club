@@ -13,20 +13,20 @@
                 label="Description" />
             <x-form-input name="event_page_url"
                 label="Event Page Url" />
-            <x-form-inline>
+            <x-form-input-group>
                 <x-form-input name="start_time"
                     type="datetime-local"
                     label="Start Time" />
                 <x-form-input name="end_time"
                     type="datetime-local"
                     label="End Time" />
-            </x-form-inline>
-            <x-form-inline>
+            </x-form-input-group>
+            <x-form-input-group>
                 <x-form-input name="address"
                     label="Address" />
                 <x-form-input name="city"
                     label="City" />
-            </x-form-inline>
+            </x-form-input-group>
         </div>
     </div>
     <div class="mt-2 flex items-center justify-between">

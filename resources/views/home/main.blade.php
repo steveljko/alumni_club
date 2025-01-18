@@ -2,13 +2,7 @@
 
 @section('content')
     <div class="container mx-auto">
-        <div class="my-6 flex items-center justify-between">
-            <h3 class="text-xl">Feed</h3>
-
-            <a class="rounded-md bg-[#4D5BFC] px-3 py-1 text-white"
-                href="{{ route('post.create') }}">Create post</a>
-        </div>
-        <section class="w-full space-y-4 md:w-2/3">
+        <section class="mt-6 w-full space-y-4 md:w-2/3">
             <x-postbox />
             <div class="my-6 h-[1px] w-full bg-gray-200"></div>
             @foreach ($posts as $post)

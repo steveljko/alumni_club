@@ -25,9 +25,9 @@
                 <div class="block space-y-2 md:flex md:space-x-2 md:space-y-0">
                     <span class="block rounded-full border border-gray-200 px-1.5 py-0.75 text-xs font-medium">
                         {{ $post->event->address }}, {{ $post->event->city }}</span>
-                    <x-date-badge :start="$post->event->start_time"
+                    <x-badge-date :start="$post->event->start_time"
                         :end="$post->event->end_time" />
-                    <x-time-badge :start="$post->event->start_time"
+                    <x-badge-time :start="$post->event->start_time"
                         :end="$post->event->end_time" />
                 </div>
             </div>
@@ -49,9 +49,9 @@
                     <span class="block rounded-full border border-gray-200 px-1.5 py-0.75 text-xs font-medium">
                         {{ $post->job->company_address }}, {{ $post->job->company_city }}
                     </span>
-                    <x-date-badge :start="$post->job->start_time"
+                    <x-badge-date :start="$post->job->start_time"
                         :end="$post->job->start_time" />
-                    <x-time-badge :start="$post->job->end_time"
+                    <x-badge-time :start="$post->job->end_time"
                         :end="$post->job->end_time" />
                 </div>
             </div>

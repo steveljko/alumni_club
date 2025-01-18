@@ -59,15 +59,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const accountDropdown = document.getElementById('account_dropdown');
     const accountDropdownMobile = document.getElementById('account_dropdown_mobile');
 
-    accountDropdownToggle.addEventListener('click', () => {
-        const isMobile = window.innerWidth <= 768;
+    if (accountDropdownToggle) {
+        accountDropdownToggle.addEventListener('click', () => {
+            const isMobile = window.innerWidth <= 768;
 
-        if (isMobile) {
-            accountDropdownMobile.classList.toggle('hidden');
-        } else {
-            accountDropdown.classList.toggle('hidden');
-        }
-    });
+            if (isMobile) {
+                accountDropdownMobile.classList.toggle('hidden');
+            } else {
+                accountDropdown.classList.toggle('hidden');
+            }
+        });
+    }
 
     const pbTextarea = document.getElementById('postboxTextarea');
 

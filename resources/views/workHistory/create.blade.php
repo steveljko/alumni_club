@@ -1,8 +1,6 @@
 <x-modal title="Create"
     id="createWorkHistoryModal">
     <form class="w-full p-4"
-        hx-swap="none"
-        hx-target="#modal"
         hx-post="{{ route('workHistory.create') }}">
         @csrf
         <x-form-input label="Comapny Name"

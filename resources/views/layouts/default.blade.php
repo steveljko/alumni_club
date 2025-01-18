@@ -19,6 +19,12 @@
 
         <x-toast />
 
-        @yield('content')
+        <div id="modal"
+            hx-target="this"
+            class="hidden"></div>
+
+        <div>
+            @yield('content')
+        </div>
     </body>
 </html>

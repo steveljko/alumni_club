@@ -16,6 +16,7 @@ class WorkHistory extends Model
         'start_date',
         'end_date',
         'description',
+        'is_draft',
     ];
 
     /**

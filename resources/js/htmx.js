@@ -18,6 +18,7 @@ function loadModalListeners(modal) {
         modal.addEventListener('keydown', (event) => {
             if (event.key == 'Escape') {
                 const modal = document.getElementById('modal');
+                modal.innerHTML = '';
                 modal.classList.add('hidden');
             }
         });

@@ -11,26 +11,26 @@
             <x-form-textarea name="description"
                 limit="256"
                 label="Description" />
-            <x-form-inline>
+            <x-form-input-group>
                 <x-form-input name="company_name"
                     label="Company Name" />
                 <x-form-input name="company_website_url"
                     label="Company Website Link" />
-            </x-form-inline>
-            <x-form-inline>
+            </x-form-input-group>
+            <x-form-input-group>
                 <x-form-input name="company_address"
                     label="Company Address" />
                 <x-form-input name="company_city"
                     label="Company City" />
-            </x-form-inline>
-            <x-form-inline>
+            </x-form-input-group>
+            <x-form-input-group>
                 <x-form-input name="start_time"
                     type="datetime-local"
                     label="Start" />
                 <x-form-input name="end_time"
                     type="datetime-local"
                     label="End" />
-            </x-form-inline>
+            </x-form-input-group>
             <x-form-input name="job_page_url"
                 label="Job Page Link" />
         </div>

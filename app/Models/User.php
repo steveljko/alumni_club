@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Auth\AccountSetupProgress;
 use App\Traits\Auth\CanChangePassword;
 use App\Traits\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -76,7 +77,7 @@ class User extends Authenticatable
      */
     public function isSetupComplete(): bool
     {
-        return $this->setup_progress == 'completed';
+        return $this->setup_progress == AccountSetupProgress::COMPLETED->value;
     }
 
     /**
@@ -87,6 +88,17 @@ class User extends Authenticatable
         return $this->hasMany(WorkHistory::class);
     }
 
+    /**
+     * Check if user has unpublished work histories
+     */
+    public function hasUnpublishedWorkHistories(): bool
+    {
+        return $this->workHistory()->where('is_draft', true)->count() >= 1;
+    }
+
+    /**
+     * User posts
+     */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
