@@ -14,6 +14,8 @@ use App\Http\Controllers\Auth\ShowAddWorkHistoryStepController;
 use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UpdateUserController;
 use App\Http\Controllers\Auth\UserLoginController;
+use App\Http\Controllers\Comment\AddCommentToPostController;
+use App\Http\Controllers\Comment\ShowPostCommentsController;
 use App\Http\Controllers\Home\ShowHomeController;
 use App\Http\Controllers\Post\CreatePostController;
 use App\Http\Controllers\Post\GetPostFormController;
@@ -98,16 +100,23 @@ Route::group(['prefix' => 'workHistory', 'as' => 'workHistory'], function () {
     });
 });
 
-Route::get('/home', ShowHomeController::class)
-    ->middleware(['auth', AccountSetupCompleted::class])
-    ->name('home');
+Route::group(['prefix' => 'posts', 'as' => 'post', 'middleware' => 'auth'], function () {
+    Route::group(['prefix' => '/create', 'as' => '.create'], function () {
+        Route::view('/', 'posts/create');
+        Route::get('/form/{type}', GetPostFormController::class)->name('.form');
+        Route::post('/{type}', CreatePostController::class)->name('.execute');
+    });
+
+    Route::group(['prefix' => 'comments', 'as' => '.comment'], function () {
+        Route::get('/{post}', ShowPostCommentsController::class);
+        Route::post('/{post}', AddCommentToPostController::class)->name('.create');
+    });
+});
 
 Route::get('/profile/{user}', ShowProfileController::class)
     ->middleware(['auth', AccountSetupCompleted::class])
     ->name('profile');
 
-Route::group(['prefix' => 'posts/create', 'as' => 'post.create'], function () {
-    Route::view('/', 'posts/create');
-    Route::get('/form/{type}', GetPostFormController::class)->name('.form');
-    Route::post('/{type}', CreatePostController::class)->name('.execute');
-});
+Route::get('/home', ShowHomeController::class)
+    ->middleware(['auth', AccountSetupCompleted::class])
+    ->name('home');
