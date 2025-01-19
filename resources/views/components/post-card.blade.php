@@ -1,6 +1,6 @@
 <section class="w-full rounded-lg px-4 py-5 shadow"
     id="post-{{ $post->id }}">
-    <div class="{{ !$post->isEventOrJob() ? 'items-start' : 'items-end' }} relative flex justify-between">
+    <div class="{{ !$post->isEventOrJob() ? 'items-start' : 'items-end relative' }} flex justify-between">
         @if ($post->isEventOrJob())
             <span
                 class="absolute right-[-1rem] top-[-1.25rem] block rounded-bl-lg rounded-tr-lg bg-[#A3CEFF] bg-blue-400 px-3 py-1.5 text-sm font-semibold uppercase tracking-[0.08em] text-[#0B417D]">{{ $post->type }}</span>
@@ -16,7 +16,7 @@
     </div>
     @if ($post->isDefault())
         <div class="my-4">
-            <p class="leading-8 text-gray-800">{{ $post->default->body }}</p>
+            <p class="break-all leading-8 text-gray-800">{{ $post->default->body }}</p>
         </div>
     @elseif ($post->isEvent())
         <div class="my-4">

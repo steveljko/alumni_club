@@ -1,3 +1,4 @@
+import { setupPostboxTextarea, setupTextboxCharLimit } from './app.js';
 import htmx from "htmx.org";
 import toast from './toast';
 
@@ -8,7 +9,6 @@ htmx.on("toast-after-redirect", (e) => toast.setDelayedMessage(e.detail.value));
 
 function loadModalListeners(modal) {
     const modalBack =  modal.querySelector('#modal-back');
-    const modalContent = modal.querySelector('#modal-content');
 
     if (modalContent) {
         modalContent.focus();
@@ -24,6 +24,11 @@ function loadModalListeners(modal) {
         });
     }
 }
+
+htmx.onLoad(() => {
+    setupPostboxTextarea();
+    setupTextboxCharLimit();
+});
 
 htmx.on('htmx:afterSwap', (e) => {
   if (e.detail.target.id == 'modal') {

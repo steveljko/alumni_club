@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mx-auto mt-4">
         <div class="flex w-full items-start space-x-4">
-            <div class="sticky top-4 flex h-auto w-2/6 flex-col items-center space-y-[32px] rounded-md bg-white p-4 shadow">
+            <div class="sticky top-4 flex h-auto w-2/6 flex-col items-center space-y-8 rounded-md bg-white p-4 shadow">
                 <img class="h-[200px] w-[200px] rounded-full"
                     src="{{ asset('storage/images/' . $user->avatar) }}"
                     alt="user photo">
