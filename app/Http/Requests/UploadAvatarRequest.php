@@ -25,7 +25,7 @@ class UploadAvatarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'avatar_url' => ['required', 'base64_image_size:2048', 'base64_image_type:jpeg,png'],
+            'avatar' => ['required', 'image', 'mimes:jpeg,jpg,png', 'max:2048'],
         ];
     }
 

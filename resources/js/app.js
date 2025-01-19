@@ -55,59 +55,65 @@ export function setupTextboxCharLimit() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    setupAccountDropdown();
-    setupPostboxTextarea();
-    setupTextboxCharLimit();
+function setupAvatarCrop() {
+    const croptImage = document.getElementById('cropt_image');
 
-    const croptAvatar = document.getElementById('cropt_avatar');
-
-    if (croptAvatar) {
-        let c = new Cropt(croptAvatar, {
+    if (croptImage) {
+        let c = new Cropt(croptImage, {
             "mouseWheelZoom": "on",
             "zoomerInputClass": "form-range"
         });
 
-        const validationMessage = document.getElementById('avatar_url-validation-message');
-        const uploadButton = document.getElementById('uploadButton');
-        const avatarUpload = document.getElementById('avatar_upload');
-        const cropImageUrl = document.getElementById('crop_image_url');
-        const avatar = document.getElementById('avatar');
-        const upload = document.getElementById('upload');
-        const modal = document.getElementById('changeAvatarModal');
-        const crop = document.getElementById('crop');
+        const buttons = {
+            select: document.getElementById('selectBtn'),
+            upload: document.getElementById('uploadBtn'),
+            confirmCrop: document.getElementById('confirmCropBtn'),
+            delete: document.getElementById('deleteBtn'),
+            cancel: document.getElementById('cancelBtn'),
+        }
 
-        uploadButton.addEventListener('click', () => avatarUpload.click());
+        const avatarUploadInput = document.getElementById('avatarUploadInput');
+        const profileAvatar = document.getElementById('profileAvatar');
+        const modal = document.getElementById('resizeAvatarModal');
 
-        if (avatarUpload) {
-            avatarUpload.addEventListener('change', (e) => {
-                const image = avatarUpload.files[0];
+        buttons.select.addEventListener('click', () => avatarUploadInput.click());
 
-                if (!image) return;
-
-                const validTypes = ["image/png", "image/jpeg"];
-                if (!validTypes.includes(image.type)) {
-                    validationMessage.classList.remove('hidden');
-                    validationMessage.innerHTML = 'Only PNG and JPEG are allowed!';
-                    return;
-                }
+        if (avatarUploadInput) {
+            avatarUploadInput.addEventListener('change', (e) => {
+                const image = avatarUploadInput.files[0];
 
                 const imageSrc = URL.createObjectURL(image);
                 c.bind(imageSrc);
                 modal.classList.remove('hidden');
             });
 
-            crop.addEventListener('click', (e) => {
-                c.toCanvas(500).then((canvas) => {
-                    let url = canvas.toDataURL();
-                    avatar.src = url;
-                    cropImageUrl.value = url;
+            buttons.confirmCrop.addEventListener('click', (e) => {
+                c.toCanvas(256).then((canvas) => {
+                    canvas.toBlob((blob) => {
+                        const file = new File([blob], `${Date.now()}.png`, { type: 'image/png' });
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(file);
+
+                        avatarUploadInput.files = dataTransfer.files;
+
+                        let url = URL.createObjectURL(file);
+                        profileAvatar.src = url;
+                    });
                 });
 
                 modal.classList.toggle('hidden');
-                uploadButton.classList.add('hidden');
-                upload.classList.remove('hidden');
+                buttons.upload.classList.remove('hidden');
+                buttons.select.classList.add('hidden');
+                buttons.delete.classList.add('hidden');
+                buttons.cancel.classList.remove('hidden');
             });
         }
     }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    setupAccountDropdown();
+    setupPostboxTextarea();
+    setupTextboxCharLimit();
+    setupAvatarCrop();
 });

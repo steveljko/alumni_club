@@ -72,7 +72,7 @@ Route::as('auth.')->group(function () {
     Route::group(['prefix' => 'settings', 'as' => 'settings', 'middleware' => 'auth'], function () {
         Route::get('/', ShowAccountSettingsController::class);
         Route::put('/update', UpdateUserController::class)->name('.update');
-        Route::patch('/avatar', SetAvatarController::class)->name('.avatar');
+        Route::post('/avatar', SetAvatarController::class)->name('.avatar');
         Route::patch('/avatar/reset', ResetAvatarController::class)->name('.avatarReset');
         Route::patch('/password', ChangePasswordController::class)->name('.changePassword');
     });

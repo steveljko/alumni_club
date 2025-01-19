@@ -1,21 +1,6 @@
 @extends('layouts.home')
 
 @section('content')
-    <x-modal id="changeAvatarModal"
-        class="hidden"
-        title="Upload Avatar">
-        <div class="p-4">
-            <div id="cropt_avatar"></div>
-            <input name="avatar_url"
-                autocomplete="off"
-                class="hidden"
-                id="crop_image_url" />
-            <button id="crop"
-                autocomplete="off"
-                class="w-full rounded-md bg-[#4D5BFC] px-3 py-1 text-white">Crop</button>
-        </div>
-    </x-modal>
-
     <div class="container mx-auto mt-4 flex items-start space-x-8">
         <div class="sticky top-4 w-1/3 space-y-4">
             <div class="w-full rounded-lg bg-white shadow">
@@ -41,41 +26,7 @@
                 <h3 class="mb-4 text-lg font-semibold">Account Settings</h3>
                 <div id="account-settings"
                     class="flex flex-col">
-                    <h4 class="mb-4 text-base font-medium text-gray-700">Avatar</h4>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-4">
-                            <img class="h-[80px] w-[80px] rounded-full"
-                                id="avatar"
-                                src="{{ asset('storage/images/' . auth()->user()->avatar) }}"
-                                alt="Profile Avatar">
-                            <div>
-                                <h3 class="mb-1 text-base font-medium text-gray-900">Profile picture</h3>
-                                <p class="text-sm text-gray-600">PNG, JPEG under 5MB</p>
-                                <span id="avatar_url-validation-message"
-                                    class="mt-2 block hidden text-sm text-red-500"></span>
-                            </div>
-                        </div>
-                        <div id="controls"
-                            class="flex justify-end space-x-2">
-                            <button hx-patch="{{ route('auth.settings.avatar') }}"
-                                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                                hx-include="[name='avatar_url']"
-                                id="upload"
-                                class="hidden rounded-md bg-[#4D5BFC] px-3 py-1 text-white">Upload</button>
-                            <button class="cursor-pointer rounded-md bg-blue-500 px-3 py-1 text-white"
-                                id="uploadButton">
-                                Upload New Avatar
-                            </button>
-                            <input type="file"
-                                id="avatar_upload"
-                                class="hidden"
-                                :multiple="multiple"
-                                :accept="accept" />
-                            <button class="rounded-md bg-black px-3 py-1 text-white"
-                                hx-patch="{{ route('auth.settings.avatarReset') }}"
-                                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'>Delete</button>
-                        </div>
-                    </div>
+                    <x-upload-avatar />
                 </div>
                 <div class="my-6 h-[1px] w-full bg-gray-200"></div>
                 <div>
