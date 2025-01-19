@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Comment;
 
 use App\Http\Actions\Comment\AddComment;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Comment\AddCommentRequest;
+use App\Http\Requests\Comment\AddOrUpdateCommentRequest;
 use App\Models\Post;
 use Illuminate\View\View;
 
 final class AddCommentToPostController extends Controller
 {
     public function __invoke(
-        AddCommentRequest $request,
+        AddOrUpdateCommentRequest $request,
         Post $post,
         AddComment $addComment
     ): View {

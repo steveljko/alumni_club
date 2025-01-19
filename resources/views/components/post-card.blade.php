@@ -79,7 +79,7 @@
               </div>
               <div hx-get="{{ route('post.comment', $post) }}"
                   hx-trigger="click"
-                  hx-swap="innerHTML"
+                  hx-swap="outerHTML"
                   class="flex items-center">
                   <svg width="24"
                       height="24"

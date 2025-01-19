@@ -15,7 +15,9 @@ use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UpdateUserController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Comment\AddCommentToPostController;
+use App\Http\Controllers\Comment\EditCommentController;
 use App\Http\Controllers\Comment\ShowPostCommentsController;
+use App\Http\Controllers\Comment\UpdateCommentController;
 use App\Http\Controllers\Home\ShowHomeController;
 use App\Http\Controllers\Post\CreatePostController;
 use App\Http\Controllers\Post\GetPostFormController;
@@ -110,6 +112,11 @@ Route::group(['prefix' => 'posts', 'as' => 'post', 'middleware' => 'auth'], func
     Route::group(['prefix' => 'comments', 'as' => '.comment'], function () {
         Route::get('/{post}', ShowPostCommentsController::class);
         Route::post('/{post}', AddCommentToPostController::class)->name('.create');
+
+        Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
+            Route::get('/{comment}', EditCommentController::class);
+            Route::put('/{comment}', UpdateCommentController::class);
+        });
     });
 });
 

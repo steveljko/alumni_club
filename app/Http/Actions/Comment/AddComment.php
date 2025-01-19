@@ -2,7 +2,7 @@
 
 namespace App\Http\Actions\Comment;
 
-use App\Http\Requests\Comment\AddCommentRequest;
+use App\Http\Requests\Comment\AddOrUpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
@@ -10,7 +10,7 @@ use App\Models\User;
 final class AddComment
 {
     public function execute(
-        AddCommentRequest $request,
+        AddOrUpdateCommentRequest $request,
         Post $post,
         User $user,
     ): Comment {
