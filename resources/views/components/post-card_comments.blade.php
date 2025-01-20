@@ -14,10 +14,10 @@
             </svg>
             <span class="text-sm">123</span>
         </div>
-        <div hx-get="{{ route('post.comment', $post) }}"
+        <a hx-get="{{ route('post.comment', $post) }}"
             hx-trigger="click, reloadComments.{{ $post->id }} from:body"
             hx-swap="outerHTML"
-            class="flex items-center">
+            class="flex cursor-pointer items-center">
             <svg width="24"
                 height="24"
                 fill="none"
@@ -32,7 +32,7 @@
                     stroke-linejoin="round" />
             </svg>
             <span class="text-sm text-gray-800">{{ $post->comments_count }}</span>
-        </div>
+        </a>
     </div>
     <div class="mt-4"
         id="comments">
@@ -55,7 +55,7 @@
                         <img class="mr-3 h-7 w-7 rounded-full"
                             src="{{ asset('storage/images/' . $comment->user->avatar) }}"
                             alt="User avatar">
-                        <div class="flex items-center justify-between">
+                        <div class="flex w-full justify-between">
                             <div class="space-x-3">
                                 <a href="{{ route('profile', $comment->user) }}"
                                     class="text-base font-medium text-gray-950 hover:text-blue-600 hover:underline">{{ $comment->user->name }}</a>
@@ -69,10 +69,14 @@
                             </div>
 
                             @if (auth()->user()->id == $comment->user_id)
-                                <a href=""
-                                    hx-get="{{ route('post.comment.edit', $comment) }}"
-                                    hx-target="#modal"
-                                    class="block">Edit</a>
+                                <div class="inline-flex space-x-3">
+                                    <a hx-get="{{ route('post.comment.edit', $comment) }}"
+                                        hx-target="#modal"
+                                        class="block cursor-pointer font-medium uppercase tracking-[0.03rem] text-blue-500">Edit</a>
+                                    <a hx-get="{{ route('post.comment.delete', $comment) }}"
+                                        hx-target="#modal"
+                                        class="block cursor-pointer font-medium uppercase tracking-[0.03rem] text-red-500">Delete</a>
+                                </div>
                             @endif
                         </div>
                     </div>

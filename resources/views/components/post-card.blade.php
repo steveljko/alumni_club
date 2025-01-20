@@ -77,10 +77,10 @@
                   </svg>
                   <span class="text-sm">123</span>
               </div>
-              <div hx-get="{{ route('post.comment', $post) }}"
+              <a hx-get="{{ route('post.comment', $post) }}"
                   hx-trigger="click"
                   hx-swap="outerHTML"
-                  class="flex items-center">
+                  class="flex cursor-pointer items-center">
                   <svg width="24"
                       height="24"
                       fill="none"
@@ -95,7 +95,7 @@
                           stroke-linejoin="round" />
                   </svg>
                   <span class="text-sm">{{ $post->comments_count }}</span>
-              </div>
+              </a>
           </div>
       </div>
   </section>

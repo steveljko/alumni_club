@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UpdateUserController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Comment\AddCommentToPostController;
+use App\Http\Controllers\Comment\DeleteCommentController;
 use App\Http\Controllers\Comment\EditCommentController;
 use App\Http\Controllers\Comment\ShowPostCommentsController;
 use App\Http\Controllers\Comment\UpdateCommentController;
@@ -116,6 +117,11 @@ Route::group(['prefix' => 'posts', 'as' => 'post', 'middleware' => 'auth'], func
         Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
             Route::get('/{comment}', EditCommentController::class);
             Route::put('/{comment}', UpdateCommentController::class);
+        });
+
+        Route::group(['prefix' => 'delete', 'as' => '.delete'], function () {
+            Route::view('/{comment}', 'comments.delete');
+            Route::delete('/{comment}', DeleteCommentController::class);
         });
     });
 });
