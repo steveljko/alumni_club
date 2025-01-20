@@ -33,7 +33,7 @@
               </div>
               <p class="text-sm leading-8 text-gray-800">{{ $post->event->description }}</p>
               <div class="flex w-full justify-end">
-                  <a href="{{ $post->event->event_page_url }}"
+                  <a href="{{ route('redirect', ['url' => $post->event->url()]) }}"
                       class="text-sm font-semibold uppercase tracking-[0.03em] text-blue-600 hover:underline">Attend Event</a>
               </div>
           </div>
@@ -57,7 +57,7 @@
               </div>
               <p class="text-sm leading-8 text-gray-800">{{ $post->job->description }}</p>
               <div class="flex w-full justify-end">
-                  <a href="{{ $post->job->job_page_url }}"
+                  <a href="{{ route('redirect', ['url' => $post->job->url()]) }}"
                       class="text-sm font-semibold uppercase tracking-[0.03em] text-blue-600 hover:underline">Apply for Job</a>
               </div>
           </div>

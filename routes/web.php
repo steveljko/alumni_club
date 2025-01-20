@@ -22,6 +22,7 @@ use App\Http\Controllers\Comment\UpdateCommentController;
 use App\Http\Controllers\Home\ShowHomeController;
 use App\Http\Controllers\Post\CreatePostController;
 use App\Http\Controllers\Post\GetPostFormController;
+use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\WorkHistory\CreateWorkHistoryController;
 use App\Http\Controllers\WorkHistory\DeleteWorkHistoryController;
 use App\Http\Controllers\WorkHistory\EditWorkHistoryController;
@@ -133,3 +134,5 @@ Route::get('/profile/{user}', ShowProfileController::class)
 Route::get('/home', ShowHomeController::class)
     ->middleware(['auth', AccountSetupCompleted::class])
     ->name('home');
+
+Route::get('/redirect', RedirectController::class)->name('redirect');

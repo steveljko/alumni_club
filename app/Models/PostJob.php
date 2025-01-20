@@ -31,4 +31,12 @@ class PostJob extends Model
             'end_time' => 'datetime',
         ];
     }
+
+    /**
+     * Get job page url encoded
+     */
+    public function url(): string
+    {
+        return urlencode($this->job_page_url);
+    }
 }

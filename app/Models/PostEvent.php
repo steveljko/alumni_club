@@ -28,4 +28,12 @@ class PostEvent extends Model
             'end_time' => 'datetime',
         ];
     }
+
+    /**
+     * Get event page url encoded
+     */
+    public function url(): string
+    {
+        return urlencode($this->event_page_url);
+    }
 }

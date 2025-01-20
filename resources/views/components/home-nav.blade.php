@@ -14,9 +14,9 @@
                 </button>
                 <!-- primary nav -->
                 <div id="account_dropdown"
-                    class="z-50 hidden w-full transition duration-500"
+                    class="hidden w-full transition duration-500"
                     tabindex="-1">
-                    <div class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md border border-gray-200 bg-white shadow-lg outline-none"
+                    <div class="absolute right-0 z-50 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md border border-gray-200 bg-white shadow-lg outline-none"
                         role="menu">
                         <div class="px-4 py-3">
                             <p class="text-sm leading-5">Signed in as</p>

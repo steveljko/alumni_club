@@ -20,7 +20,7 @@ final class PublishWorkHistoryController extends Controller
                 );
             case PublishWorkHistory::PUBLISHED:
                 return $this->redirectWithToast(
-                    route: 'settings',
+                    route: 'auth.settings',
                     message: 'Published successfully.',
                 );
             case PublishWorkHistory::ERROR:
