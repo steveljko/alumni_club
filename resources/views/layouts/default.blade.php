@@ -14,7 +14,8 @@
             rel="stylesheet">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="bg-[#edeefe]">
+    <body hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+        class="bg-[#edeefe]">
         <x-htmx-error-handler />
 
         <x-toast />

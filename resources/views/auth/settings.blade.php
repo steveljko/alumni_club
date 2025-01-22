@@ -32,6 +32,7 @@
                 <div>
                     <h4 class="mb-4 text-base font-medium text-gray-700">Account Details</h4>
                     <form hx-put="{{ route('auth.settings.update') }}"
+                        hx-indicator="#accountSettingsSpinner"
                         hx-swap="none">
                         @csrf
                         <x-form-input label="Name"
@@ -51,8 +52,9 @@
                             name="bio"
                             :value="$user->bio"
                             limit="256" />
-                        <button type="submit"
-                            class="rounded-md bg-[#4D5BFC] px-3 py-1 text-white">Change</button>
+                        <x-button type="submit"
+                            id="accountSettings"
+                            spinner="true">Change</x-button>
                     </form>
                 </div>
             </div>

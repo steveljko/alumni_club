@@ -1,4 +1,5 @@
 <form class="w-full"
+    hx-indicator="#eventFormSpinner"
     hx-post="{{ route('post.create.execute', ['type' => 'event']) }}">
     @csrf
     <div class="flex w-full items-start">
@@ -88,7 +89,9 @@
                 <span class="text-sm font-medium text-gray-700">Job</span>
             </button>
         </div>
-        <button class="rounded-md bg-[#DCEBFF] px-3 py-2 text-sm font-medium text-[#2F80ED]"
-            type="submit">Post</button>
+        <x-button type="submit"
+            id="eventForm"
+            spinner="true"
+            size="sm">Post</x-button>
     </div>
 </form>

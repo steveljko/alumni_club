@@ -26,24 +26,27 @@
         <div id="controls"
             class="flex justify-end space-x-2">
             <button hx-post="{{ route('auth.settings.avatar') }}"
-                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
                 hx-include="[name='avatar']"
                 hx-encoding="multipart/form-data"
+                hx-indicator="#spinner"
                 id="uploadBtn"
-                class="hidden rounded-md bg-[#4D5BFC] px-3 py-1 text-white">Upload</button>
-            <button class="cursor-pointer rounded-md bg-blue-500 px-3 py-1 text-white"
-                id="selectBtn">
-                Upload New Avatar
+                class="flex hidden items-center rounded-md bg-[#4D5BFC] px-3 py-1 text-white">
+                <x-icon-spinner id="spinner" />
+                Upload
             </button>
+            <x-button id="selectBtn">
+                Upload New Avatar
+            </x-button>
             <input type="file"
                 id="avatarUploadInput"
                 name="avatar"
                 class="hidden"
                 accept="image/png, image/jpeg, image/jpg" />
-            <button class="rounded-md bg-black px-3 py-1 text-white"
-                id="deleteBtn"
-                hx-patch="{{ route('auth.settings.avatarReset') }}"
-                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'>Delete</button>
+            <x-button id="deleteBtn"
+                spinner="true"
+                style="danger"
+                hx-indicator="#deleteBtnSpinner"
+                hx-patch="{{ route('auth.settings.avatarReset') }}">Delete</x-button>
             <button class="hidden rounded-md bg-gray-200 px-3 py-1 text-gray-900"
                 id="cancelBtn">Cancel</button>
         </div>

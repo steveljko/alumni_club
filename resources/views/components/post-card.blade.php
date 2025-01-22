@@ -1,4 +1,4 @@
-  <section class="w-full rounded-lg px-4 py-5 shadow"
+  <section class="w-full rounded-lg bg-white px-4 py-5 shadow"
       id="post-{{ $post->id }}">
       <div class="{{ !$post->isEventOrJob() ? 'items-start' : 'items-end relative' }} flex justify-between">
           @if ($post->isEventOrJob())

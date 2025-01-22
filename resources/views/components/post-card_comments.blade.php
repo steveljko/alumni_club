@@ -38,13 +38,18 @@
         id="comments">
         <h3>Comments ({{ $post->comments_count }})</h3>
         <div>
-            <form hx-post="{{ route('post.comment.create', $post) }}">
+            <form hx-post="{{ route('post.comment.create', $post) }}"
+                hx-indicator="#post{{ $post->id }}commentSpinner">
                 @csrf
                 <x-form-textarea label=""
                     name="content" />
                 <div class="flex w-full justify-end">
-                    <button class="rounded-md bg-[#DCEBFF] px-3 py-2 text-sm font-medium text-[#2F80ED]"
-                        type="submit">Post</button>
+                    <x-button type="submit"
+                        id="post{{ $post->id }}comment"
+                        spinner="true"
+                        size="sm">
+                        Comment
+                    </x-button>
                 </div>
             </form>
         </div>

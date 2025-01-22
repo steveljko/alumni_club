@@ -1,7 +1,8 @@
 <x-modal title="Create"
     id="createWorkHistoryModal">
     <form class="w-full p-4"
-        hx-post="{{ route('workHistory.create') }}">
+        hx-post="{{ route('workHistory.create') }}"
+        hx-indicator="#createWorkHistorySpinner">
         @csrf
         <x-form-input label="Comapny Name"
             name="company_name" />
@@ -16,7 +17,11 @@
         <x-form-textarea label="Descritpion"
             name="description"
             limit="250" />
-        <button type="submit"
-            class="rounded-md bg-[#4D5BFC] px-3 py-1 text-white">Add</button>
+        <x-button type="submit"
+            id="createWorkHistory"
+            spinner="true"
+            size="sm">
+            Add
+        </x-button>
     </form>
 </x-modal>
