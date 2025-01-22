@@ -8,7 +8,12 @@
             </div>
             <div class="mb-2 space-y-1">
                 <time class="mb-1 text-sm font-medium leading-none text-gray-800">
-                    {{ $wh->start_date->format('d M y') }} - {{ $wh->end_date->format('d M y') }}
+                    {{ $wh->start_date->format('d M y') }} -
+                    @if ($wh->end_date)
+                        {{ $wh->end_date->format('d M y') }}
+                    @else
+                        Current
+                    @endif
                     <span class="text-xs italic text-gray-400">({{ $wh->calcYearsInCompany() }})</span>
                 </time>
                 <h3 class="text-lg font-semibold text-gray-900">{{ $wh->position }}</h3>

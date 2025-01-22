@@ -88,6 +88,16 @@ class User extends Authenticatable
         return $this->hasMany(WorkHistory::class);
     }
 
+    public function hasCurrentWork(): bool
+    {
+        return $this->workHistory()->where('end_date', null)->exists();
+    }
+
+    public function currentWork(): ?WorkHistory
+    {
+        return $this->workHistory()->where('end_date', null)->first();
+    }
+
     /**
      * Check if user has unpublished work histories
      */

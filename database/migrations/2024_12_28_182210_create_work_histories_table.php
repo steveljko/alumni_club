@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('company_name');
             $table->string('position');
-            $table->string('start_date');
-            $table->string('end_date')->default(null);
+            $table->dateTime('start_date');
+            $table->dateTime('end_date')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_draft')->default(true);
             $table->foreignId('user_id')->constrained();

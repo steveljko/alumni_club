@@ -13,6 +13,12 @@ final class CreateWorkHistory
         User $user,
         bool $is_draft = false
     ): WorkHistory {
+        // TODO: Add more than one current job
+        if ($request->end_date == null && $currWork = auth()->user()->currentWork()) {
+            $currWork->end_date = now();
+            $currWork->save();
+        }
+
         return $user->workHistory()->create(array_merge($request->validated() + ['is_draft' => $is_draft]));
     }
 }

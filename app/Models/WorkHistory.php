@@ -34,7 +34,8 @@ class WorkHistory extends Model
 
     public function calcYearsInCompany(): string
     {
-        $diff = Carbon::parse($this->start_date)->diff($this->end_date);
+        $end = $this->end_date ?: now();
+        $diff = Carbon::parse($this->start_date)->diff($end);
 
         if ($diff->y > 0) {
             return $diff->y.' year'.($diff->y > 1 ? 's' : '');

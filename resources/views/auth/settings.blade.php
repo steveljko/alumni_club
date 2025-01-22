@@ -85,6 +85,7 @@
                 class="w-full rounded-md bg-white p-6 shadow">
                 <h3 class="mb-4 text-lg font-semibold">Change Password</h3>
                 <form hx-patch="{{ route('auth.settings.changePassword') }}"
+                    hx-indicator="#changePasswordSpinner"
                     hx-swap="none">
                     @csrf
                     <x-form-input label="Password"
@@ -96,8 +97,12 @@
                     <x-form-input label="Current Password"
                         type="password"
                         name="current_password" />
-                    <button type="submit"
-                        class="rounded-md bg-black px-3 py-1 text-white text-white">Change Password</button>
+                    <x-button type="submit"
+                        id="changePassword"
+                        spinner="true"
+                        size="md">
+                        Change Password
+                    </x-button>
                 </form>
             </div>
         </div>

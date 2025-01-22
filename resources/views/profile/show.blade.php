@@ -8,21 +8,28 @@
                     src="{{ asset('storage/images/' . $user->avatar) }}"
                     alt="user photo">
                 <h3 class="text-xl">{{ $user->name }}</h3>
-                <div class="w-full border border-gray-200">
-                    <div class="p-2">
-                        <span class="text-xs font-semibold uppercase text-gray-700">About</span>
-                        <p class="text-gray-700">{{ $user->bio }}</p>
-                    </div>
-                    <div class="p-2">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-semibold uppercase text-gray-700">Current Job</span>
-                            <a href="#"
-                                class="text-sm hover:underline">See History</a>
+                <div class="w-full">
+                    @if ($user->bio)
+                        <div class="p-2">
+                            <span class="mb-2 block text-xs font-semibold uppercase text-gray-700">About</span>
+                            <p class="text-sm text-gray-700">{{ $user->bio }}</p>
                         </div>
-                        <p class="text-gray-700">{{ $user->bio }}</p>
-                    </div>
+                    @endif
+                    @if ($user->hasCurrentWork())
+                        <div class="p-2">
+                            <div class="flex items-center justify-between">
+                                <span class="mb-2 block text-xs font-semibold uppercase text-gray-700">Current Job</span>
+                                <a href="#"
+                                    class="text-sm hover:underline">See History</a>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">{{ $user->currentWork()->position }}</p>
+                                <a class="cursor-pointer text-xs text-gray-500">{{ $user->currentWork()->company_name }}</a>
+                            </div>
+                        </div>
+                    @endif
                     <div class="p-2">
-                        <span class="text-xs font-semibold uppercase text-gray-700">Statistics</span>
+                        <span class="mb-2 block text-xs font-semibold uppercase text-gray-700">Statistics</span>
                         <div>
                             <h3>Posts</h3>
                             <span>{{ $user->posts->count() }}</span>

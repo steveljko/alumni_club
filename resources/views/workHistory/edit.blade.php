@@ -18,7 +18,7 @@
             <x-form-input type="date"
                 label="End Date"
                 name="end_date"
-                :value="$workHistory->end_date->format('Y-m-d')" />
+                :value="$workHistory->end_date ? $workHistory->end_date->format('Y-m-d') : null" />
             <x-form-textarea label="Descritpion"
                 name="description"
                 limit="250"
