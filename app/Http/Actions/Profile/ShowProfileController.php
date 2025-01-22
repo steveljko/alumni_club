@@ -3,6 +3,7 @@
 namespace App\Http\Actions\Profile;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\View\View;
 
 final class ShowProfileController
@@ -12,6 +13,8 @@ final class ShowProfileController
         $user->load(['posts' => function ($query) {
             $query->orderBy('created_at', 'desc');
         }]);
+
+        [$postCount, $commentCount] = Redis::hmget('user_stats:'.auth()->user()->id, ['posts', 'comments']);
 
         if (request()->hasHeader('HX-Request')) {
             $user->load(['posts' => function ($query) {
@@ -24,6 +27,6 @@ final class ShowProfileController
             return view('profile.show', compact('user'))->fragments(['posts', 'posts-count']);
         }
 
-        return view('profile.show', compact('user'));
+        return view('profile.show', compact('user', 'postCount', 'commentCount'));
     }
 }

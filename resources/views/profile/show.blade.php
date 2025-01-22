@@ -30,9 +30,15 @@
                     @endif
                     <div class="p-2">
                         <span class="mb-2 block text-xs font-semibold uppercase text-gray-700">Statistics</span>
-                        <div>
-                            <h3>Posts</h3>
-                            <span>{{ $user->posts->count() }}</span>
+                        <div class="inline-flex w-full">
+                            <div class="w-full">
+                                <h3>Posts</h3>
+                                <span>{{ $postCount }}</span>
+                            </div>
+                            <div class="w-full">
+                                <h3>Comments</h3>
+                                <span>{{ $commentCount }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
