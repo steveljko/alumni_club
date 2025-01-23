@@ -127,6 +127,13 @@ Route::group(['prefix' => 'posts', 'as' => 'post', 'middleware' => 'auth'], func
     });
 });
 
+Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth'], function () {
+    Route::view('/dashboard', 'dashboard.dashboard')->name('.dashboard');
+    Route::view('/users', 'dashboard.users')->name('.users');
+    Route::view('/posts', 'dashboard.posts')->name('.posts');
+    Route::view('/settings', 'dashboard.settings')->name('.settings');
+});
+
 Route::get('/profile/{user}', ShowProfileController::class)
     ->middleware(['auth', AccountSetupCompleted::class])
     ->name('profile');
