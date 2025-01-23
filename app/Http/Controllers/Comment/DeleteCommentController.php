@@ -10,6 +10,10 @@ final class DeleteCommentController extends Controller
 {
     public function __invoke(Comment $comment): Response
     {
+        if (! auth()->user()->can('delete', $comment)) {
+            return $this->redirectWithToast('home', 'You are not alloed to update this!');
+        }
+
         $comment->delete();
 
         $postId = $comment->post_id;

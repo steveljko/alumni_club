@@ -12,7 +12,7 @@ final class ShowProfileController
     {
         $user->load(['posts' => function ($query) {
             $query->orderBy('created_at', 'desc');
-        }]);
+        }, 'posts.user']);
 
         [$postCount, $commentCount] = Redis::hmget('user_stats:'.$user->id, ['posts', 'comments']);
 

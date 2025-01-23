@@ -9,7 +9,7 @@ final class ShowHomeController
 {
     public function __invoke(): View
     {
-        $posts = Post::with(['default', 'event', 'job', 'user', 'comments' => function ($query) {
+        $posts = Post::with(['user', 'comments' => function ($query) {
             $query->orderBy('created_at', 'desc')->limit(5);
         }])
             ->withCount('comments')

@@ -15,6 +15,10 @@ final class UpdateCommentController extends Controller
         Comment $comment,
         UpdateComment $updateComment,
     ): Response {
+        if (! auth()->user()->can('update', $comment)) {
+            return $this->redirectWithToast('home', 'You are not alloed to update this!');
+        }
+
         $ok = $updateComment->execute(request: $request, comment: $comment);
 
         $postId = $comment->post_id;
