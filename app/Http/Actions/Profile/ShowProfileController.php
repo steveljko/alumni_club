@@ -14,7 +14,7 @@ final class ShowProfileController
             $query->orderBy('created_at', 'desc');
         }]);
 
-        [$postCount, $commentCount] = Redis::hmget('user_stats:'.auth()->user()->id, ['posts', 'comments']);
+        [$postCount, $commentCount] = Redis::hmget('user_stats:'.$user->id, ['posts', 'comments']);
 
         if (request()->hasHeader('HX-Request')) {
             $user->load(['posts' => function ($query) {
@@ -24,7 +24,8 @@ final class ShowProfileController
                 $query->orderBy('created_at', 'desc');
             }]);
 
-            return view('profile.show', compact('user'))->fragments(['posts', 'posts-count']);
+            return view('profile.show', compact('user', 'postCount', 'commentCount'))
+                ->fragments(['posts', 'posts-count']);
         }
 
         return view('profile.show', compact('user', 'postCount', 'commentCount'));

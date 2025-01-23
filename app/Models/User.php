@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
@@ -91,14 +92,11 @@ class User extends Authenticatable
         return $this->hasMany(WorkHistory::class);
     }
 
-    public function hasCurrentWork(): bool
-    {
-        return $this->workHistory()->where('end_date', null)->exists();
-    }
-
     public function currentWork(): ?WorkHistory
     {
-        return $this->workHistory()->where('end_date', null)->first();
+        return Cache::rememberForever('current_work:'.$this->id, function () {
+            return $this->workHistory()->where('end_date', null)->first() ?: null;
+        });
     }
 
     /**

@@ -30,6 +30,8 @@ class Post extends Model
         'type' => PostType::class,
     ];
 
+    protected $with = ['default', 'event', 'job'];
+
     public function isDefault(): bool
     {
         return $this->type == PostType::DEFAULT;

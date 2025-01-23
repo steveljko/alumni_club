@@ -15,7 +15,7 @@
                             <p class="text-sm text-gray-700">{{ $user->bio }}</p>
                         </div>
                     @endif
-                    @if ($user->hasCurrentWork())
+                    @if ($user->currentWork())
                         <div class="p-2">
                             <div class="flex items-center justify-between">
                                 <span class="mb-2 block text-xs font-semibold uppercase text-gray-700">Current Job</span>
@@ -53,27 +53,33 @@
                             <span class="font-medium text-gray-500">({{ $user->posts->count() }})</span>
                         </h3>
                     @endfragment
-                    <select name="type"
-                        hx-get=""
-                        hx-trigger="change"
-                        hx-include="[name='type']"
-                        hx-target="#posts"
-                        hx-select-oob="#count:outerHTML,#posts:innerHTML"
-                        autocomplete="off">
-                        <option value=""
-                            selected>All</option>
-                        <option value="default">Default</option>
-                        <option value="event">Events</option>
-                        <option value="job">Jobs</option>
-                    </select>
+                    @if (count($user->posts))
+                        <select name="type"
+                            hx-get=""
+                            hx-trigger="change"
+                            hx-include="[name='type']"
+                            hx-target="#posts"
+                            hx-select-oob="#count:outerHTML,#posts:innerHTML"
+                            autocomplete="off">
+                            <option value=""
+                                selected>All</option>
+                            <option value="default">Default</option>
+                            <option value="event">Events</option>
+                            <option value="job">Jobs</option>
+                        </select>
+                    @endif
                 </div>
 
                 <div class="space-y-4"
                     id="posts">
                     @fragment('posts')
-                        @foreach ($user->posts as $post)
-                            <x-post-card :post="$post" />
-                        @endforeach
+                        @if (count($user->posts))
+                            @foreach ($user->posts as $post)
+                                <x-post-card :post="$post" />
+                            @endforeach
+                        @else
+                            <p>No posts found!</p>
+                        @endif
                     @endfragment
                 </div>
             </div>
