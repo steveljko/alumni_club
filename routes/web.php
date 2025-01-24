@@ -19,6 +19,8 @@ use App\Http\Controllers\Comment\DeleteCommentController;
 use App\Http\Controllers\Comment\EditCommentController;
 use App\Http\Controllers\Comment\ShowPostCommentsController;
 use App\Http\Controllers\Comment\UpdateCommentController;
+use App\Http\Controllers\Dashboard\CreateUserController;
+use App\Http\Controllers\Dashboard\ShowUsersController;
 use App\Http\Controllers\Home\ShowHomeController;
 use App\Http\Controllers\Post\CreatePostController;
 use App\Http\Controllers\Post\GetPostFormController;
@@ -129,7 +131,9 @@ Route::group(['prefix' => 'posts', 'as' => 'post', 'middleware' => 'auth'], func
 
 Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth'], function () {
     Route::view('/dashboard', 'dashboard.dashboard')->name('.dashboard');
-    Route::view('/users', 'dashboard.users')->name('.users');
+    Route::get('/users', ShowUsersController::class)->name('.users');
+    Route::view('/users/create', 'dashboard.users.create')->name('.users.create');
+    Route::post('/users/create', CreateUserController::class)->name('.users.create');
     Route::view('/posts', 'dashboard.posts')->name('.posts');
     Route::view('/settings', 'dashboard.settings')->name('.settings');
 });

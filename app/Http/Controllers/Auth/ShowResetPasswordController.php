@@ -18,6 +18,6 @@ final class ShowResetPasswordController extends Controller
             );
         }
 
-        return view('auth.reset_password');
+        return view('resources.auth.reset_password');
     }
 }

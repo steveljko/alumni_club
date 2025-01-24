@@ -27,7 +27,7 @@ class SetDetailsRequest extends FormRequest
         return [
             'uni_start_year' => ['required', 'integer', 'between:2000,2024'],
             'uni_finish_year' => ['required', 'integer', 'between:2000,2024'],
-            'bio' => ['sometimes', 'min:8', 'max:256'],
+            'bio' => ['nullable', 'min:8', 'max:256'],
         ];
     }
 

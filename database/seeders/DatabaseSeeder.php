@@ -16,5 +16,11 @@ class DatabaseSeeder extends Seeder
         User::factory(10)
             ->has(WorkHistory::factory(3))
             ->create(['setup_progress' => 'completed']);
+
+        User::factory()
+            ->create(['email' => 'admin@admin.com']);
+
+        User::factory()
+            ->create(['email' => 'user@user.com']);
     }
 }

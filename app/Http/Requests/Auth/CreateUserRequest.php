@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Response;
 
-class UpdateUserRequest extends FormRequest
+class CreateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,8 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // TODO: Find way for 2025 to be current year
-            'name' => ['required', 'string', 'min:8', 'max:128'],
-            'uni_start_year' => ['required', 'integer', 'between:2000,2025'],
-            'uni_finish_year' => ['required', 'integer', 'between:2000,2025'],
-            'bio' => ['nullable', 'string', 'min:8', 'max:256'],
+            'name' => ['required', 'min:8'],
+            'email' => ['required', 'email', 'min:8'],
         ];
     }
 
