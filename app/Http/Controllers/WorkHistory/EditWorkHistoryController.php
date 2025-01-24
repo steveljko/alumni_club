@@ -9,6 +9,6 @@ final class EditWorkHistoryController
 {
     public function __invoke(WorkHistory $workHistory): View
     {
-        return view('workHistory.edit', compact('workHistory'));
+        return view('resources.user.workHistory.edit', compact('workHistory'));
     }
 }

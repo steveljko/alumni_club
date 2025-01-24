@@ -11,12 +11,16 @@
                 </p>
             </div>
             <form hx-put="{{ route('auth.password.forgot.execute') }}"
+                hx-indicator="#forgotPasswordSpinner"
                 hx-swap="none">
                 @csrf
                 <x-form-input label="Email address"
                     name="email" />
-                <button type="submit"
-                    class="rounded-md bg-[#4D5BFC] px-3 py-1 text-white">Send Email</button>
+                <x-button id="forgotPassword"
+                    type="submit"
+                    spinner="true">
+                    Send Email
+                </x-button>
             </form>
         </div>
     </div>

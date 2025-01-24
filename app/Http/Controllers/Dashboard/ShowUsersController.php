@@ -13,9 +13,9 @@ final class ShowUsersController
 
         if (request()->header('hx-request')
             && request()->header('hx-target') == 'users-table') {
-            return view('dashboard.users.partials.table', compact('users'));
+            return view('resources.dashboard.users.partials.table', compact('users'));
         }
 
-        return view('dashboard.users.page', compact('users'));
+        return view('resources.dashboard.users.page', compact('users'));
     }
 }

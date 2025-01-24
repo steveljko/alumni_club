@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div class="p-4">
-                    @include('workHistory.show', ['workHistory' => $user->workHistory])
+                    @include('resources.user.workHistory.show', ['workHistory' => $user->workHistory])
                 </div>
             </div>
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Comment;
+namespace App\Http\Controllers\Post\Comment;
 
 use App\Models\Post;
 use Illuminate\View\View;

@@ -10,6 +10,6 @@ final class RedirectController
     {
         $url = urldecode(request()->query('url'));
 
-        return view('redirect', compact('url'));
+        return view('resources.redirect', compact('url'));
     }
 }

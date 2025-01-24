@@ -17,6 +17,6 @@ final class ShowHomeController
             ->limit(15)
             ->get();
 
-        return view('home.main', compact('posts'));
+        return view('resources.home.page', compact('posts'));
     }
 }

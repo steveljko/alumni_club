@@ -9,6 +9,7 @@
                     rem blanditiis ipsum a, optio incidunt corrupti rerum repellat earum reiciendis deserunt obcaecati impedit?</p>
             </div>
             <form hx-put="{{ route('auth.password.reset.execute', ['token' => request()->token]) }}"
+                hx-indicator="#changePasswordSpinner"
                 hx-swap="none">
                 @csrf
                 <x-form-input label="Password"
@@ -17,8 +18,9 @@
                 <x-form-input label="Confirm Password"
                     type="password"
                     name="password_confirmation" />
-                <button type="submit"
-                    class="rounded-md bg-[#4D5BFC] px-3 py-1 text-white">Change Password</button>
+                <x-button id="changePassword"
+                    type="submit"
+                    spinner="true">Change Password</x-button>
             </form>
         </div>
     </div>

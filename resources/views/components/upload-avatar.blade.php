@@ -25,15 +25,15 @@
         </div>
         <div id="controls"
             class="flex justify-end space-x-2">
-            <button hx-post="{{ route('auth.settings.avatar') }}"
+            <x-button hx-post="{{ route('auth.settings.avatar') }}"
                 hx-include="[name='avatar']"
                 hx-encoding="multipart/form-data"
-                hx-indicator="#spinner"
+                hx-indicator="#uploadBtnSpinner"
                 id="uploadBtn"
+                spinner="true"
                 class="flex hidden items-center rounded-md bg-[#4D5BFC] px-3 py-1 text-white">
-                <x-icon-spinner id="spinner" />
                 Upload
-            </button>
+            </x-button>
             <x-button id="selectBtn">
                 Upload New Avatar
             </x-button>

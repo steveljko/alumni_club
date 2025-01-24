@@ -9,7 +9,7 @@
                     hx-get="{{ route('admin.users.create') }}"
                     hx-target="#modal">New User</x-button>
             </div>
-            @include('dashboard.users.partials.table')
+            @include('resources.dashboard.users.partials.table')
         </div>
     </div>
 @endsection

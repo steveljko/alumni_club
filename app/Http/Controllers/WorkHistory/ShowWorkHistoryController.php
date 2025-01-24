@@ -14,7 +14,7 @@ final class ShowWorkHistoryController
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $view = view('workHistory.show', compact('workHistory'));
+        $view = view('resources.user.workHistory.show', compact('workHistory'));
 
         if (request()->hasHeader('HX-Request')) {
             return $view->fragments(['job_count', 'workHistories']);

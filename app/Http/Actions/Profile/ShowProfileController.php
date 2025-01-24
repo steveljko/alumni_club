@@ -24,10 +24,10 @@ final class ShowProfileController
                 $query->orderBy('created_at', 'desc');
             }]);
 
-            return view('profile.show', compact('user', 'postCount', 'commentCount'))
+            return view('resources.user.profile.show', compact('user', 'postCount', 'commentCount'))
                 ->fragments(['posts', 'posts-count']);
         }
 
-        return view('profile.show', compact('user', 'postCount', 'commentCount'));
+        return view('resources.user.profile.show', compact('user', 'postCount', 'commentCount'));
     }
 }

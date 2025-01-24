@@ -13,6 +13,6 @@ final class ShowAccountSettingsController
                 ->orderBy('created_at', 'desc');
         }]);
 
-        return view('resources.auth.settings', compact('user'));
+        return view('resources.user.profile.settings', compact('user'));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Comment;
+namespace App\Http\Controllers\Post\Comment;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
@@ -13,6 +13,6 @@ final class EditCommentController extends Controller
             return $this->redirectWithToast('home', 'You are not alloed to edit this!');
         }
 
-        return view('comments.edit', compact('comment'));
+        return view('resources.post.comments.edit', compact('comment'));
     }
 }
