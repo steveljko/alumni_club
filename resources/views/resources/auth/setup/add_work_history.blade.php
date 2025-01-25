@@ -26,7 +26,7 @@
                     <div class="my-3 h-[350px] space-y-2 overflow-y-auto rounded-xl border border-gray-200 bg-gray-50 p-4"
                         id="job_list">
                         @if (!empty($workHistory))
-                            @include('workHistory.show', $workHistory)
+                            @include('resources.user.workHistory.show', $workHistory)
                         @else
                             <p>{{ __('setup.step3.no_jobs_added') }}</p>
                         @endif

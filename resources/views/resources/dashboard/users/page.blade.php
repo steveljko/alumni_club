@@ -9,6 +9,12 @@
                     hx-get="{{ route('admin.users.create') }}"
                     hx-target="#modal">New User</x-button>
             </div>
+            <x-form-input name="q"
+                placeholder="Search"
+                label="Search"
+                hx-get="{{ route('admin.users') }}"
+                hx-target="#users-table"
+                hx-trigger="keyup changed delay:1s" />
             @include('resources.dashboard.users.partials.table')
         </div>
     </div>

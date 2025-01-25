@@ -15,7 +15,9 @@ use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UpdateUserController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Dashboard\CreateUserController;
+use App\Http\Controllers\Dashboard\EditUserController;
 use App\Http\Controllers\Dashboard\ShowUsersController;
+use App\Http\Controllers\Dashboard\UpdateUserController as DashboardUpdateUserController;
 use App\Http\Controllers\Home\ShowHomeController;
 use App\Http\Controllers\Post\Comment\AddCommentToPostController;
 use App\Http\Controllers\Post\Comment\DeleteCommentController;
@@ -131,9 +133,24 @@ Route::group(['prefix' => 'posts', 'as' => 'post', 'middleware' => 'auth'], func
 
 Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth'], function () {
     Route::view('/dashboard', 'resources.dashboard.dashboard')->name('.dashboard');
-    Route::get('/users', ShowUsersController::class)->name('.users');
-    Route::view('/users/create', 'resources.dashboard.users.create')->name('.users.create');
-    Route::post('/users/create', CreateUserController::class)->name('.users.create');
+
+    Route::group(['prefix' => 'users', 'as' => '.users'], function () {
+        // Show all users
+        Route::get('/', ShowUsersController::class);
+
+        // Create user
+        Route::group(['prefix' => 'create', 'as' => '.create'], function () {
+            Route::view('/', 'resources.dashboard.users.create');
+            Route::post('/', CreateUserController::class);
+        });
+
+        // Edit user
+        Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
+            Route::get('/{user}', EditUserController::class);
+            Route::put('/{user}', DashboardUpdateUserController::class);
+        });
+    });
+
     Route::view('/posts', 'resources.dashboard.posts')->name('.posts');
     Route::view('/settings', 'resources.dashboard.settings')->name('.settings');
 });
