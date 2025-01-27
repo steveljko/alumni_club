@@ -8,16 +8,16 @@ use Illuminate\View\View;
 
 final class ShowUsersController
 {
-    public function __invoke(Request $request): View
+    public function __invoke(Request $request): View|string
     {
         $searchTerm = $request->input('q');
 
         $users = User::where('name', 'LIKE', "%$searchTerm%")
             ->paginate(10);
 
-        if ($request->header('hx-request')
-            && $request->header('hx-target') == 'users-table') {
-            return view('resources.dashboard.users.partials.table', compact('users'));
+        if ($request->header('hx-request')) {
+            return view('resources.dashboard.users.page', compact('users'))
+                ->fragment('table');
         }
 
         return view('resources.dashboard.users.page', compact('users'));

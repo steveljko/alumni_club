@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('setup_progress')->default('step.1');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -43,6 +44,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');

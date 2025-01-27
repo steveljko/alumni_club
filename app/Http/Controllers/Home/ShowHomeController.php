@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Enums\Post\PostStatus;
 use App\Models\Post;
 use Illuminate\View\View;
 
@@ -13,6 +14,7 @@ final class ShowHomeController
             $query->orderBy('created_at', 'desc')->limit(5);
         }])
             ->withCount('comments')
+            ->where('status', PostStatus::PUBLISHED)
             ->orderBy('created_at', 'desc')
             ->limit(15)
             ->get();

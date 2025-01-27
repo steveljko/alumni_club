@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UpdateUserController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Dashboard\CreateUserController;
+use App\Http\Controllers\Dashboard\DeleteUserController;
 use App\Http\Controllers\Dashboard\EditUserController;
 use App\Http\Controllers\Dashboard\ShowUsersController;
 use App\Http\Controllers\Dashboard\UpdateUserController as DashboardUpdateUserController;
@@ -36,6 +37,7 @@ use App\Http\Controllers\WorkHistory\SkipAddingWorkHistoryController;
 use App\Http\Controllers\WorkHistory\UpdateWorkHistoryController;
 use App\Http\Middleware\AccountSetupCompleted;
 use App\Http\Middleware\CanAccessSetupStep;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::as('auth.')->group(function () {
@@ -149,6 +151,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth'], fun
             Route::get('/{user}', EditUserController::class);
             Route::put('/{user}', DashboardUpdateUserController::class);
         });
+
+        // Delete user
+        Route::delete('/delete/{user}', DeleteUserController::class)->name('.delete');
     });
 
     Route::view('/posts', 'resources.dashboard.posts')->name('.posts');
