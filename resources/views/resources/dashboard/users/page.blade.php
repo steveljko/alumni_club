@@ -24,55 +24,57 @@
                     </svg>
                 </div>
                 <input name="q"
-                    id="simple-search"
-                    class="focus:ring-primary-500 focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900"
-                    placeholder="Search"
+                    class="focus:ring-primary-500 focus:border-primary-500 mb-4 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900"
+                    placeholder="Search for user..."
                     hx-get="{{ route('admin.users') }}"
+                    hx-push-url="true"
                     hx-target="#users-table"
                     hx-swap="outerHTML"
                     hx-trigger="keyup changed delay:1s">
             </div>
-            @fragment('table')
-                <div id="users-table"
-                    hx-get=""
-                    hx-trigger="loadUsers from:body"
-                    hx-target="#users-table"
-                    hx-swap="outerHTML">
-                    <table class="w-full table-fixed text-left text-sm">
-                        <thead class="bg-gray-50 text-xs uppercase text-gray-700">
-                            <tr>
-                                <th class="w-8 p-4">#</th>
-                                <th class="p-4">Name</th>
-                                <th class="p-4">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (isset($users))
-                                @foreach ($users as $index => $user)
-                                    <tr class="border-b odd:bg-white even:bg-gray-50"
-                                        id="user-{{ $user->id }}">
-                                        <td class="p-4">{{ $index + $users->firstItem() }}</td>
-                                        <td class="p-4">{{ $user->name }}</td>
-                                        <td class="p-4">
-                                            <a hx-get="{{ route('admin.users.edit', $user->id) }}"
-                                                hx-target="#modal"
-                                                class="cursor-pointer">Edit</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-
-                    <div id="pagination-links"
-                        hx-boost="true"
+            <div class="relative flex h-full w-full flex-col overflow-scroll rounded-xl border border-gray-300 bg-white bg-clip-border text-gray-700">
+                @fragment('table')
+                    <div id="users-table"
+                        hx-get=""
+                        hx-trigger="loadUsers from:body"
                         hx-target="#users-table"
-                        hx-swap="outerHTML"
-                        class="p-4">
-                        {{ $users->links() }}
+                        hx-swap="outerHTML">
+                        <table class="w-full table-fixed text-left text-sm">
+                            <thead class="bg-gray-50 text-xs uppercase text-gray-700">
+                                <tr>
+                                    <th class="w-8 p-4">#</th>
+                                    <th class="p-4">Name</th>
+                                    <th class="p-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (isset($users))
+                                    @foreach ($users as $index => $user)
+                                        <tr class="border-b odd:bg-white even:bg-gray-50"
+                                            id="user-{{ $user->id }}">
+                                            <td class="p-4">{{ $index + $users->firstItem() }}</td>
+                                            <td class="p-4">{{ $user->name }}</td>
+                                            <td class="p-4">
+                                                <a hx-get="{{ route('admin.users.edit', $user->id) }}"
+                                                    hx-target="#modal"
+                                                    class="cursor-pointer">Edit</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+
+                        <div id="pagination-links"
+                            hx-boost="true"
+                            hx-target="#users-table"
+                            hx-swap="outerHTML"
+                            class="p-4">
+                            {{ $users->links() }}
+                        </div>
                     </div>
-                </div>
-            @endfragment
+                @endfragment
+            </div>
         </div>
     </div>
 @endsection
