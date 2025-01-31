@@ -18,38 +18,7 @@
         </div>
     </div>
     <div class="mt-2 flex items-center justify-between">
-        <div class="ml-[56px] flex space-x-2">
-            <button hx-get="{{ route('post.create.form', ['type' => 'default']) }}"
-                hx-target="form"
-                hx-swap="outerHTML"
-                hx-indicator="#defaultIndicator"
-                class="flex cursor-pointer select-none items-center justify-center rounded-full border border-blue-400 bg-blue-50 px-2 py-1"
-                type="button">
-                <div id="defaultIndicator"></div>
-                <x-icon-lines class="mr-1.5 text-blue-600" />
-                <span class="text-sm font-medium text-blue-600">Default</span>
-            </button>
-            <button hx-get="{{ route('post.create.form', ['type' => 'event']) }}"
-                hx-target="form"
-                hx-swap="outerHTML"
-                hx-indicator="#eventIndicator"
-                class="flex cursor-pointer select-none items-center justify-center rounded-full border border-transparent px-2 py-1 hover:border-gray-300"
-                type="button">
-                <div id="eventIndicator"></div>
-                <x-icon-calendar class="mr-1.5" />
-                <span class="text-sm font-medium text-gray-700">Event</span>
-            </button>
-            <button hx-get="{{ route('post.create.form', ['type' => 'job']) }}"
-                hx-target="form"
-                hx-swap="outerHTML"
-                hx-indicator="#jobIndicator"
-                class="flex cursor-pointer select-none items-center justify-center rounded-full border border-transparent px-2 py-1 hover:border-gray-300"
-                type="button">
-                <div id="jobIndicator"></div>
-                <x-icon-briefcase class="mr-1.5" />
-                <span class="text-sm font-medium text-gray-700">Job</span>
-            </button>
-        </div>
+        <x-postbox-type active="default" />
         <x-button type="submit"
             id="defaultForm"
             spinner="true"
