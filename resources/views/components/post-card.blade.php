@@ -3,7 +3,7 @@
       <div class="{{ !$post->isEventOrJob() ? 'items-start' : 'items-end relative' }} flex justify-between">
           @if ($post->isEventOrJob())
               <span
-                  class="absolute right-[-1rem] top-[-1.25rem] block rounded-bl-lg rounded-tr-lg bg-[#A3CEFF] bg-blue-400 px-3 py-1.5 text-sm font-semibold uppercase tracking-[0.08em] text-[#0B417D]">{{ $post->type }}</span>
+                  class="absolute right-[-1rem] top-[-1.25rem] block rounded-bl-lg rounded-tr-lg bg-[#A3C1DA] bg-blue-400 px-3 py-1.5 text-sm font-semibold uppercase tracking-[0.08em] text-[#003366]">{{ $post->type }}</span>
           @endif
           <div class="flex-start flex items-center">
               <img class="mr-3 h-10 w-10 rounded-full"

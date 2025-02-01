@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-        class="bg-[#edeefe]">
+        class="bg-[#e5eaef]">
         <x-htmx-error-handler />
 
         <x-toast />
@@ -24,10 +24,12 @@
             hx-target="this"
             class="hidden"></div>
 
-        <div class="flex">
+        <div class="flex flex-row">
             <x-sidebar />
 
-            @yield('content')
+            <div class="m-6 w-full">
+                @yield('content')
+            </div>
         </div>
     </body>
 </html>

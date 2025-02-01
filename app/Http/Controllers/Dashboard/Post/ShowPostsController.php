@@ -10,7 +10,7 @@ final class ShowPostsController
 {
     public function __invoke(Request $request): View|string
     {
-        $posts = Post::with('user')->orderBy('created_at', 'desc')->paginate(10);
+        $posts = Post::with('user')->withCount('comments')->orderBy('created_at', 'desc')->paginate(10);
 
         if ($request->header('hx-request')) {
             return view('resources.dashboard.posts.page', compact('posts'))->fragment('wrapper');

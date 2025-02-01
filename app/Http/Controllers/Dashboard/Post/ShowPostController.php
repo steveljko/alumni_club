@@ -10,7 +10,7 @@ final class ShowPostController
 {
     public function __invoke(Request $request, Post $post): View|string
     {
-        $post->load('user');
+        $post->load('user', 'comments', 'comments.user')->loadCount('comments');
 
         if ($request->header('hx-request')) {
             return view('resources.dashboard.posts.show', compact('post'))->fragment('wrapper');

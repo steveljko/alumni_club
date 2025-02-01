@@ -1,5 +1,5 @@
-<div class="w-full overflow-y-scroll bg-white md:w-[320px]">
-    <ul class="flex h-screen flex-col justify-between p-4">
+<div class="h-screen w-1/6 overflow-y-scroll bg-white">
+    <ul class="flex h-screen w-full flex-col justify-between p-4">
         <div>
             <x-sidebar-nav-item route="admin.dashboard">
                 <x-slot:icon><x-icon-house /></x-slot:icon>
