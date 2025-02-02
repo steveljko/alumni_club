@@ -8,20 +8,24 @@ htmx.on("toast", (e) => toast.message(e.detail.value));
 htmx.on("toast-after-redirect", (e) => toast.setDelayedMessage(e.detail.value));
 
 function loadModalListeners(modal) {
-    const modalBack =  modal.querySelector('#modal-back');
+    const modalContent = modal.querySelector('#modal-content');
+    const modalClose = modal.querySelector('[data-hide-modal]');
 
     if (modalContent) {
         modalContent.focus();
     }
 
+    function closeModal() {
+        modal.innerHTML = '';
+        modal.classList.add('hidden');
+    }
+
     if (modal) {
         modal.addEventListener('keydown', (event) => {
-            if (event.key == 'Escape') {
-                const modal = document.getElementById('modal');
-                modal.innerHTML = '';
-                modal.classList.add('hidden');
-            }
+            if (event.key == 'Escape') closeModal();
         });
+
+        modalClose.addEventListener('click', (event) => { closeModal() });
     }
 }
 

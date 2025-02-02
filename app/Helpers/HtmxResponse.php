@@ -65,7 +65,7 @@ final class HtmxResponse
 
     public function send(): Response
     {
-        $response = response(Response::HTTP_NO_CONTENT);
+        $response = response()->noContent();
 
         foreach ($this->headers as $key => $value) {
             $response->headers->set($key, $value);
