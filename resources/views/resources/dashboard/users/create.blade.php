@@ -1,16 +1,16 @@
-<x-modal title="Create New User"
-    id="createUser">
-    <form hx-post="{{ route('admin.users.create') }}"
-        hx-indicator="#createUserSpinner"
-        class="w-full p-4">
-        <x-form-input label="Name"
-            name="name" />
-        <x-form-input label="Email Address"
-            name="email" />
-        <x-button type="submit"
-            id="createUser"
-            spinner="true">
-            Create User
-        </x-button>
-    </form>
-</x-modal>
+<form
+    hx-post="{{ route('admin.users.create') }}"
+    hx-indicator="#spinner"
+    class="w-full"
+    id="modal-content"
+>
+    <x-modal.header>Create User</x-modal.header>
+    <x-modal.body>
+        <x-form-input label="Name" name="name" />
+        <x-form-input label="Email Address" name="email" />
+    </x-modal.body>
+    <x-modal.footer>
+        <x-modal.button variant="secondary" data-hide-modal>Cancel</x-modal.button>
+        <x-modal.button type="submit">Create User</x-modal.button>
+    </x-modal.footer>
+</form>

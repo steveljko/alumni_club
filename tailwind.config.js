@@ -30,6 +30,10 @@ export default {
             padding: {
                 '0.75': '0.188rem',
             },
+            animation: {
+                'fadeInTop': 'fadeInTop 500ms ease-in-out',
+                'fadeInDown': 'fadeInDown 500ms ease-in-out',
+            }
         },
     },
     plugins: [],
