@@ -15,12 +15,14 @@ use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UpdateUserController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Dashboard\CreateUserController;
-use App\Http\Controllers\Dashboard\DeleteUserController;
 use App\Http\Controllers\Dashboard\EditUserController;
 use App\Http\Controllers\Dashboard\Post\ShowPostController;
 use App\Http\Controllers\Dashboard\Post\ShowPostsController;
 use App\Http\Controllers\Dashboard\ShowUsersController;
 use App\Http\Controllers\Dashboard\UpdateUserController as DashboardUpdateUserController;
+use App\Http\Controllers\Dashboard\User\DeleteUserController;
+use App\Http\Controllers\Dashboard\User\DestroyUserController;
+use App\Http\Controllers\Dashboard\User\ShowUserController as DashboardShowUserController;
 use App\Http\Controllers\Home\ShowHomeController;
 use App\Http\Controllers\Post\Comment\AddCommentToPostController;
 use App\Http\Controllers\Post\Comment\DeleteCommentController;
@@ -141,6 +143,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth'], fun
         // Show all users
         Route::get('/', ShowUsersController::class);
 
+        // View user
+        Route::get('/{user}', DashboardShowUserController::class)->name('.show');
+
         // Create user
         Route::group(['prefix' => 'create', 'as' => '.create'], function () {
             Route::view('/', 'resources.dashboard.users.create');
@@ -154,7 +159,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth'], fun
         });
 
         // Delete user
-        Route::delete('/delete/{user}', DeleteUserController::class)->name('.delete');
+        Route::group(['prefix' => 'delete', 'as' => '.delete'], function () {
+            Route::get('/{user}', DeleteUserController::class);
+            Route::delete('/{user}', DestroyUserController::class);
+        });
     });
 
     Route::group(['prefix' => 'posts', 'as' => '.posts'], function () {

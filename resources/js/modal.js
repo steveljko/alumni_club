@@ -21,12 +21,13 @@ class Modal {
 
     clearDialog () {
         this.dialog.innerHTML = '';
+        this.modal.setAttribute('aria-hidden', 'true');
         this.modal.blur();
     }
 
     setupCloseButtons() {
         if (this.modal) {
-            this.modal.querySelectorAll('[data-hide-modal=""]')
+            this.modal.querySelectorAll('[data-hide-modal="true"]')
                     .forEach(e => e.addEventListener('click', _ => this.hide()));
         }
     }

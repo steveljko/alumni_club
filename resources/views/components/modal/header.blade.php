@@ -4,7 +4,7 @@
         type="button"
         class="close"
         aria-label="Close"
-        data-hide-modal
+        data-hide-modal="true"
     >
         <span class="px-2 py-2" aria-hidden="true">&times;</span>
     </button>

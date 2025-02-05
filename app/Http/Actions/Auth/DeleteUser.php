@@ -1,23 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Actions\Auth;
 
 use App\Enums\Post\PostStatus;
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
-final class DeleteUserController extends Controller
+final class DeleteUser
 {
-    public function __invoke(User $user): Response
+    public function execute(User $user)
     {
         DB::transaction(function () use ($user) {
             $user->posts()->update(['status' => PostStatus::ARCHIVED]);
 
             $user->delete();
         });
-
-        return $this->toast('Deleted!');
     }
 }

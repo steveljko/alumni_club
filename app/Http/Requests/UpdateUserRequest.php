@@ -25,10 +25,9 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // TODO: Find way for 2025 to be current year
             'name' => ['required', 'string', 'min:8', 'max:128'],
             'uni_start_year' => ['required', 'integer', 'between:2000,2025'],
-            'uni_finish_year' => ['required', 'integer', 'between:2000,2025'],
+            'uni_finish_year' => ['required', 'integer', 'between:2000,2025', 'after:uni_start_year'],
             'bio' => ['nullable', 'string', 'min:8', 'max:256'],
         ];
     }

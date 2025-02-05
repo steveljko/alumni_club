@@ -8,11 +8,7 @@
                 <h3 class="text-lg font-semibold">Posts</h3>
             </div>
             @fragment('table')
-                <div id="users-table"
-                    hx-get=""
-                    hx-trigger="loadUsers from:body"
-                    hx-target="#users-table"
-                    hx-swap="outerHTML">
+                <div id="posts-table">
                     <table class="min-w-full table-auto text-left text-sm">
                         <thead class="text-navyblue-500">
                             <tr class="border-b-2 leading-[20px]">
@@ -39,7 +35,7 @@
                                 @foreach ($posts as $index => $post)
                                     <tr class="border-b border-gray-100 text-gray-700 hover:bg-gray-50"
                                         id="post-{{ $post->id }}">
-                                        <td class="text-center"
+                                        <td class="w-[1%] whitespace-nowrap p-4 text-center"
                                             scope="row">{{ $index + $posts->firstItem() }}</td>
                                         <td class="w-[1%] whitespace-nowrap p-4"
                                             scope="row">{{ $post->created_at->format('d M Y') }}</td>

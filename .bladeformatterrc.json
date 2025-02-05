@@ -1,8 +1,8 @@
 {
   "indentSize": 4,
-  "wrapAttributes": "force",
+  "wrapAttributes": "force-expand-multiline",
   "wrapLineLength": 150,
-  "wrapAttributesMinAttrs": 2,
+  "wrapAttributesMinAttrs": 3,
   "indentInnerHtml": true,
   "endWithNewLine": true,
   "endOfLine": "LF",

@@ -10,7 +10,7 @@
         <x-form-input label="Email Address" name="email" />
     </x-modal.body>
     <x-modal.footer>
-        <x-modal.button variant="secondary" data-hide-modal>Cancel</x-modal.button>
+        <x-modal.button variant="secondary" data-hide-modal="true">Cancel</x-modal.button>
         <x-modal.button type="submit">Create User</x-modal.button>
     </x-modal.footer>
 </form>

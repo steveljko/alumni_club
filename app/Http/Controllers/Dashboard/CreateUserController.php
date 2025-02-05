@@ -13,6 +13,7 @@ final class CreateUserController extends Controller
     {
         $user = $createUser->execute($request);
 
-        return $this->toast('User succesfully created!');
+        // Find way to go next page if limit is exeded.
+        return $this->triggerWithToast(event: 'loadUsers', message: 'User succesfully created!');
     }
 }
