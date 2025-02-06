@@ -1,27 +1,30 @@
-<x-modal title="Create"
-    id="createWorkHistoryModal">
-    <form class="w-full p-4"
-        hx-post="{{ route('workHistory.create') }}"
-        hx-indicator="#createWorkHistorySpinner">
-        @csrf
-        <x-form-input label="Comapny Name"
-            name="company_name" />
-        <x-form-input label="Position"
-            name="position" />
-        <x-form-input type="date"
+<form
+    hx-post="{{ route('workHistory.create') }}"
+    hx-indicator="#createWorkHistorySpinner"
+    id="modal-content"
+>
+    <x-modal.header>Create Work History</x-modal.header>
+    <x-modal.body>
+        <x-form-input label="Comapny Name" name="company_name" />
+        <x-form-input label="Position" name="position" />
+        <x-form-input
+            type="date"
             label="Start Date"
-            name="start_date" />
-        <x-form-input type="date"
+            name="start_date"
+        />
+        <x-form-input
+            type="date"
             label="End Date"
-            name="end_date" />
-        <x-form-textarea label="Descritpion"
+            name="end_date"
+        />
+        <x-form-textarea
+            label="Descritpion"
             name="description"
-            limit="250" />
-        <x-button type="submit"
-            id="createWorkHistory"
-            spinner="true"
-            size="sm">
-            Add
-        </x-button>
-    </form>
-</x-modal>
+            limit="250"
+        />
+    </x-modal.body>
+    <x-modal.footer>
+        <x-modal.button variant="secondary" data-hide-modal="true">Cancel</x-modal.button>
+        <x-modal.button type="submit">Create Work History</x-modal.button>
+    </x-modal.footer>
+</form>
