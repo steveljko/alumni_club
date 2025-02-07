@@ -35,6 +35,7 @@ use App\Http\Controllers\Post\GetPostFormController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\WorkHistory\CreateWorkHistoryController;
 use App\Http\Controllers\WorkHistory\DeleteWorkHistoryController;
+use App\Http\Controllers\WorkHistory\DestroyWorkHistoryController;
 use App\Http\Controllers\WorkHistory\EditWorkHistoryController;
 use App\Http\Controllers\WorkHistory\PublishWorkHistoryController;
 use App\Http\Controllers\WorkHistory\ShowWorkHistoryController;
@@ -111,7 +112,8 @@ Route::group(['prefix' => 'workHistory', 'as' => 'workHistory'], function () {
     });
 
     Route::group(['prefix' => 'delete', 'as' => '.delete'], function () {
-        Route::delete('/{workHistory}', DeleteWorkHistoryController::class);
+        Route::get('/{workHistory}', DeleteWorkHistoryController::class);
+        Route::delete('/{workHistory}', DestroyWorkHistoryController::class);
     });
 });
 

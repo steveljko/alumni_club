@@ -1,6 +1,6 @@
 <form
     hx-post="{{ route('workHistory.create') }}"
-    hx-indicator="#createWorkHistorySpinner"
+    hx-indicator="#spinner"
     id="modal-content"
 >
     <x-modal.header>Create Work History</x-modal.header>

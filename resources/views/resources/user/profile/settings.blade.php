@@ -80,15 +80,20 @@
                                 hx-put="{{ route('workHistory.publish') }}"
                             >Publish All</a>
                         @endif
-                        <a
-                            class="cursor-pointer rounded bg-blue-500 px-2 py-2 text-sm font-medium text-white"
+                        <x-button
+                            id="addPrevWork"
+                            size="sm"
                             hx-get="{{ route('workHistory.create') }}"
                             hx-target="#dialog"
                             hx-swap="innerHTML"
-                        >Add Previous Work</a>
+                        >Add Previous Work</x-button>
                     </div>
                 </div>
-                <div class="p-4">
+                <div
+                    hx-get="{{ route('workHistory.show') }}"
+                    hx-trigger="loadWorkHistories from:body"
+                    hx-swap="innerHTML"
+                >
                     @include('resources.user.workHistory.show', ['workHistory' => $user->workHistory])
                 </div>
             </div>

@@ -2,28 +2,13 @@
 
 namespace App\Http\Controllers\WorkHistory;
 
-use App\Http\Actions\WorkHistory\DeleteWorkHistory;
-use App\Http\Controllers\Controller;
 use App\Models\WorkHistory;
-use Illuminate\Http\Response;
+use Illuminate\View\View;
 
-final class DeleteWorkHistoryController extends Controller
+final class DeleteWorkHistoryController
 {
-    public function __invoke(WorkHistory $workHistory, DeleteWorkHistory $deleteWorkHistory): Response
+    public function __invoke(WorkHistory $workHistory): View
     {
-        if (! auth()->user()->can('delete', [$workHistory])) {
-            return $this->toast(__('setup.step3.cant_delete'));
-        }
-
-        $ok = $deleteWorkHistory->execute(workHistory: $workHistory);
-
-        if (! $ok) {
-            return $this->toast(__('setup.step3.try_again'));
-        }
-
-        return $this->triggerWithToast(
-            event: 'loadWorkHistories',
-            message: __('setup.step3.can_delete')
-        );
+        return view('resources.user.workHistory.delete', compact('workHistory'));
     }
 }

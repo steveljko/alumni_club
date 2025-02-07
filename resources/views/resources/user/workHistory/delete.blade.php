@@ -1,5 +1,5 @@
 <div id="modal-content">
-    <x-modal.header>Delete comment?</x-modal.header>
+    <x-modal.header>Delete Work?</x-modal.header>
     <x-modal.body>
         <p class="text-sm leading-6 text-gray-500">
             This action is permanent and cannot be undone.
@@ -11,8 +11,8 @@
         <x-modal.button variant="secondary" data-hide-modal="true">Cancel</x-modal.button>
         <x-modal.button
             variant="danger"
-            hx-delete="{{ route('post.comment.delete', $comment) }}"
+            hx-delete="{{ route('workHistory.delete', $workHistory->id) }}"
             hx-indicator="#spinner"
-        >Delete comment</x-modal.button>
+        >Confirm Delete</x-modal.button>
     </x-modal.footer>
 </div>

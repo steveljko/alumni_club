@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\WorkHistory;
 
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 final class ShowWorkHistoryController
 {
-    public function __invoke(): View|string
+    public function __invoke(Request $request): View
     {
         $workHistory = auth()->user()
             ->workHistory()
@@ -14,12 +15,6 @@ final class ShowWorkHistoryController
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $view = view('resources.user.workHistory.show', compact('workHistory'));
-
-        if (request()->hasHeader('HX-Request')) {
-            return $view->fragments(['job_count', 'workHistories']);
-        }
-
-        return $view;
+        return view('resources.user.workHistory.show', compact('workHistory'));
     }
 }
