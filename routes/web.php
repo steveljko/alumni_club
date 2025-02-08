@@ -141,7 +141,7 @@ Route::group(['prefix' => 'posts', 'as' => 'post', 'middleware' => 'auth'], func
     });
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
     Route::get('/', function () {
         return redirect()->route('admin.dashboard');
     });

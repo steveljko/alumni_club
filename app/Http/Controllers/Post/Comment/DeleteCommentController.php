@@ -11,7 +11,7 @@ final class DeleteCommentController extends Controller
     public function __invoke(Comment $comment): Response
     {
         if (! auth()->user()->can('delete', $comment)) {
-            return $this->redirectWithToast('home', 'You are not alloed to update this!');
+            return $this->toast('You are not allowed to delete this comment!');
         }
 
         $comment->delete();

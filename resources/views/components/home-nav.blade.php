@@ -29,6 +29,13 @@
                             <p class="truncate text-sm font-medium leading-5 text-gray-900">{{ auth()->user()->name }}</p>
                         </div>
                         <div class="py-1">
+                            @role('admin')
+                                <a
+                                    class="flex w-full cursor-pointer justify-between px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
+                                    role="menuitem"
+                                    href="{{ route('admin.dashboard') }}"
+                                >Admin Dashboard</a>
+                            @endrole
                             <a
                                 class="flex w-full cursor-pointer justify-between px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
                                 role="menuitem"

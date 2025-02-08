@@ -16,7 +16,7 @@ final class UpdateCommentController extends Controller
         UpdateComment $updateComment,
     ): Response {
         if (! auth()->user()->can('update', $comment)) {
-            return $this->redirectWithToast('home', 'You are not alloed to update this!');
+            return $this->toast('You are not allowed to edit this comment!');
         }
 
         $ok = $updateComment->execute(request: $request, comment: $comment);

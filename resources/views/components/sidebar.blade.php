@@ -18,13 +18,20 @@
                 App Settings
             </x-sidebar-nav-item>
             <div class="my-2 h-[1px] w-full bg-gray-200"></div>
+            <x-sidebar-nav-item route="home">
+                <x-slot:icon><x-icon-house /></x-slot:icon>
+                Home
+            </x-sidebar-nav-item>
+            <div class="my-2 h-[1px] w-full bg-gray-200"></div>
             <x-sidebar-nav-item route="auth.settings">
                 <x-slot:icon><x-icon-gear /></x-slot:icon>
                 Account Settings
             </x-sidebar-nav-item>
-            <li><a class="flex cursor-pointer items-center rounded-md p-3 text-start font-semibold leading-tight text-gray-600 transition duration-500 hover:bg-gray-200 hover:text-blue-700"
+            <li><a
+                    class="flex cursor-pointer items-center rounded-md p-3 text-start font-semibold leading-tight text-gray-600 transition duration-500 hover:bg-gray-200 hover:text-blue-700"
                     hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                    hx-delete="{{ route('auth.logout') }}">
+                    hx-delete="{{ route('auth.logout') }}"
+                >
                     <x-icon-logout />
                     Logout
                 </a></li>

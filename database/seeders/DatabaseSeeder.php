@@ -13,16 +13,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            SettingsSeeder::class,
+            RolesAndPermissionsSeeder::class,
+        ]);
+
         User::factory(10)
             ->has(WorkHistory::factory(3))
             ->create(['setup_progress' => 'completed']);
 
         User::factory()
-            ->create(['email' => 'admin@admin.com']);
+            ->create(['email' => 'admin@admin.com'])
+            ->assignRole('admin');
 
         User::factory()
-            ->create(['email' => 'user@user.com']);
-
-        $this->call(SettingsSeeder::class);
+            ->create(['email' => 'user@user.com'])
+            ->assignRole('alumni');
     }
 }

@@ -83,7 +83,7 @@
                                 </span>
                             </div>
 
-                            @if (auth()->user()->id == $comment->user_id)
+                            @if (auth()->user()->id == $comment->user_id || auth()->user()->can('edit any comment'))
                                 <div class="inline-flex space-x-3">
                                     <a
                                         hx-get="{{ route('post.comment.edit', $comment) }}"
