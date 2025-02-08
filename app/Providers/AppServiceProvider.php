@@ -3,11 +3,10 @@
 namespace App\Providers;
 
 use App\Http\Middleware\ModifyDuskBrowserTime;
-use App\Models\WorkHistory;
-use App\Policies\WorkHistoryPolicy;
+use App\Models\Setting;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,30 +28,12 @@ class AppServiceProvider extends ServiceProvider
             $router->prependMiddlewareToGroup('web', ModifyDuskBrowserTime::class);
         }
 
-        Gate::policy(WorkHistory::class, WorkHistoryPolicy::class);
+        if (Schema::hasTable('settings')) {
+            $settings = Cache::rememberForever('settings', function () {
+                return Setting::all()->pluck('value', 'key')->toArray();
+            });
 
-        Validator::extend('base64_image_size', function ($attribute, $value, $parameters, $validator) {
-            $decodedImage = base64_decode($value);
-            $size = strlen($decodedImage) / 1024;
-
-            return $size <= $parameters[0];
-        });
-
-        Validator::extend('base64_image_size', function ($attribute, $value, $parameters, $validator) {
-            $decodedImage = base64_decode($value);
-            $size = strlen($decodedImage) / 1024;
-
-            return $size <= $parameters[0];
-        });
-
-        Validator::extend('base64_image_type', function ($attribute, $value, $parameters, $validator) {
-            if (preg_match('/^data:image\/(\w+);base64,/', $value, $type)) {
-                $fileType = $type[1];
-
-                return in_array($fileType, $parameters);
-            }
-
-            return false;
-        });
+            config(['settings' => $settings]);
+        }
     }
 }

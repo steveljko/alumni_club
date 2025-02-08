@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>{{ config('settings.site_name') }}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link
             rel="preconnect"
@@ -20,12 +20,6 @@
 
         <x-modal.container />
         <x-modal.backdrop />
-
-        <div
-            id="modal"
-            hx-target="this"
-            class="hidden"
-        ></div>
 
         <div>
             @yield('content')

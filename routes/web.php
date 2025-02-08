@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\ShowAddWorkHistoryStepController;
 use App\Http\Controllers\Auth\ShowResetPasswordController;
 use App\Http\Controllers\Auth\UpdateUserController;
 use App\Http\Controllers\Auth\UserLoginController;
+use App\Http\Controllers\Dashboard\AppSettings\UpdateAppSettingsController;
 use App\Http\Controllers\Dashboard\CreateUserController;
 use App\Http\Controllers\Dashboard\EditUserController;
 use App\Http\Controllers\Dashboard\Post\ShowPostController;
@@ -141,6 +142,10 @@ Route::group(['prefix' => 'posts', 'as' => 'post', 'middleware' => 'auth'], func
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
+
     Route::view('/dashboard', 'resources.dashboard.dashboard')->name('.dashboard');
 
     Route::group(['prefix' => 'users', 'as' => '.users'], function () {
@@ -174,7 +179,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth'], fun
         Route::get('/{post}', ShowPostController::class)->name('.show');
     });
 
-    Route::view('/settings', 'resources.dashboard.settings')->name('.settings');
+    Route::group(['prefix' => 'settings', 'as' => '.settings'], function () {
+        Route::view('/', 'resources.dashboard.settings');
+        Route::put('/', UpdateAppSettingsController::class);
+    });
 });
 
 Route::get('/profile/{user}', ShowProfileController::class)
