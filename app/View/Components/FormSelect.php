@@ -30,6 +30,9 @@ class FormSelect extends Component
         ]);
     }
 
+    /**
+     * Generates dates between range of dates
+     */
     private function generateDate(): array
     {
         [$start, $end] = explode(',', $this->between);
@@ -44,6 +47,6 @@ class FormSelect extends Component
             $dates[] = $year;
         }
 
-        return $dates;
+        return [null, ...$dates];
     }
 }

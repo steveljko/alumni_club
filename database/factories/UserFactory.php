@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Auth\AccountSetupProgress;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -29,7 +30,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'initial_password_changed_at' => now(),
-            'setup_progress' => 'step.2',
+            'setup_progress' => AccountSetupProgress::COMPLETED,
             'remember_token' => Str::random(10),
         ];
     }
