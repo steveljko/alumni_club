@@ -16,5 +16,9 @@ class SettingsSeeder extends Seeder
             ['key' => 'site_name', 'value' => 'Demo Site'],
             ['key' => 'maintenance_mode', 'value' => 'false'],
         ]);
+
+        // Default values for app settings
+        Setting::where('key', 'site_name')->update(['value' => 'Demo App']);
+        Setting::where('key', 'maintenance_mode')->update(['value' => 'false']);
     }
 }
