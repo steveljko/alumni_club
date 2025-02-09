@@ -8,7 +8,7 @@
 >
     <div
         id="dialog"
-        class="relative mx-auto mt-4 w-full animate-fadeInDown rounded-lg bg-white md:w-1/3"
+        class="relative mx-auto mt-4 w-full animate-fadeInDown rounded-lg bg-white md:w-2/3 lg:w-1/3"
         role="document"
         hx-target="this"
     >

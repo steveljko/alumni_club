@@ -2,11 +2,13 @@
 
 @section('content')
     <div class="container mx-auto mt-4">
-        <div class="flex w-full items-start space-x-4">
-            <div class="sticky top-4 flex h-auto w-2/6 flex-col items-center space-y-8 rounded-md bg-white p-4 shadow">
-                <img class="h-[200px] w-[200px] rounded-full"
+        <div class="mx-auto block w-full items-start space-y-4 lg:flex lg:space-x-4 lg:space-y-0">
+            <div class="sticky top-4 flex h-auto w-full flex-col items-center space-y-8 rounded-md bg-white p-4 shadow lg:w-2/6">
+                <img
+                    class="h-[200px] w-[200px] rounded-full"
                     src="{{ asset('storage/images/' . $user->avatar) }}"
-                    alt="user photo">
+                    alt="user photo"
+                >
                 <h3 class="text-xl">{{ $user->name }}</h3>
                 <div class="w-full">
                     @if ($user->bio)
@@ -19,8 +21,7 @@
                         <div class="p-2">
                             <div class="flex items-center justify-between">
                                 <span class="mb-2 block text-xs font-semibold uppercase text-gray-700">Current Job</span>
-                                <a href="#"
-                                    class="text-sm hover:underline">See History</a>
+                                <a href="#" class="text-sm hover:underline">See History</a>
                             </div>
                             <div>
                                 <p class="text-sm font-medium">{{ $user->currentWork()->position }}</p>
@@ -47,22 +48,23 @@
             <div class="w-full rounded-md bg-white p-4 shadow">
                 <div class="mb-4 flex items-center justify-between">
                     @fragment('posts-count')
-                        <h3 id="count"
-                            class="text-lg font-semibold">
+                        <h3 id="count" class="text-lg font-semibold">
                             Previous Posts
                             <span class="font-medium text-gray-500">({{ $user->posts->count() }})</span>
                         </h3>
                     @endfragment
                     @if (count($user->posts))
-                        <select name="type"
+                        <select
+                            name="type"
                             hx-get=""
                             hx-trigger="change"
                             hx-include="[name='type']"
                             hx-target="#posts"
                             hx-select-oob="#count:outerHTML,#posts:innerHTML"
-                            autocomplete="off">
-                            <option value=""
-                                selected>All</option>
+                            class="cursor-pointer rounded border border-gray-200 bg-transparent p-2 text-sm text-gray-700 shadow"
+                            autocomplete="off"
+                        >
+                            <option value="" selected>All</option>
                             <option value="default">Default</option>
                             <option value="event">Events</option>
                             <option value="job">Jobs</option>
@@ -70,8 +72,7 @@
                     @endif
                 </div>
 
-                <div class="space-y-4"
-                    id="posts">
+                <div class="space-y-4" id="posts">
                     @fragment('posts')
                         @if (count($user->posts))
                             @foreach ($user->posts as $post)
