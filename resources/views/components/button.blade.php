@@ -12,8 +12,9 @@
     {{ $attributes }}
 >
     @if ($spinner)
-        <x-icon-spinner class="htmx-indicator mr-3 inline hidden h-4 w-4 animate-spin text-white [&.htmx-request]:block"
-            id="{{ $id }}Spinner"></x-icon-spinner>
+        <x-icons.spinner class="htmx-indicator mr-3 inline hidden h-4 w-4 animate-spin text-white [&.htmx-request]:block"
+            id="{{ $id }}Spinner"
+        ></x-icon-spinner>
     @endif
     {{ $slot }}
 </button>

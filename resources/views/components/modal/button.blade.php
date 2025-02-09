@@ -11,7 +11,7 @@
     {{ $attributes }}
 >
     @if ($variant == 'primary' || $variant == 'danger')
-        <x-icon-spinner class="htmx-indicator mr-3 inline hidden h-4 w-4 animate-spin text-white [&.htmx-request]:block" id="spinner" />
+        <x-icons.spinner class="htmx-indicator mr-3 inline hidden h-4 w-4 animate-spin text-white [&.htmx-request]:block" id="spinner" />
     @endif
     @if (!isset($href))
         {{ $slot }}

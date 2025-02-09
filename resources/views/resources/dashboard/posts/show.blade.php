@@ -10,7 +10,7 @@
             <div class="w-full rounded-lg bg-white p-4 shadow" id="wrapper">
                 <div class="mb-4 flex items-center justify-between">
                     <div class="inline-flex items-center space-x-3">
-                        <x-icon-arrow-left
+                        <x-icons.arrow-left
                             hx-get="{{ route('admin.posts') }}"
                             hx-target="#wrapper"
                             hx-swap="outerHTML"
