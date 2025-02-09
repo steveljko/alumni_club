@@ -32,8 +32,8 @@ final class CreatePostController extends Controller
             data: $request->all()
         );
 
-        return $this->redirectWithToast(
-            route: 'home',
+        return $this->triggerWithToast(
+            event: 'reloadPosts',
             message: 'Post is created.'
         );
     }

@@ -1,4 +1,11 @@
-  <section class="w-full rounded-lg bg-white px-4 py-5 shadow" id="post-{{ $post->id }}">
+  <section
+      hx-get="{{ route('post.show', $post) }}"
+      hx-target="this"
+      hx-swap="outerHTML"
+      hx-trigger="reloadPost.{{ $post->id }} from:body"
+      class="w-full rounded-lg bg-white px-4 py-5 shadow"
+      id="post-{{ $post->id }}"
+  >
       <div class="{{ !$post->isEventOrJob() ? 'items-start' : 'items-end relative' }} flex justify-between">
           @if ($post->isEventOrJob())
               <span
@@ -69,48 +76,40 @@
           </div>
       @endif
       <div hx-target="this">
-          <div class="flex items-center border-t border-gray-100 pt-4">
-              <div class="mr-4 flex items-center">
-                  <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="mr-2 size-[24px]"
+          <div class="flex items-center justify-between border-t border-gray-100 pt-4">
+              <div class="inline-flex">
+                  <div class="mr-4 flex items-center">
+                      <x-icons.heart />
+                      <span class="text-sm">123</span>
+                  </div>
+                  <a
+                      hx-get="{{ route('post.comment', $post) }}"
+                      hx-trigger="click"
+                      hx-swap="outerHTML"
+                      class="flex cursor-pointer items-center"
                   >
-                      <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                      />
-                  </svg>
-                  <span class="text-sm">123</span>
+                      <x-icons.chat-bubble />
+                      <span class="text-sm">{{ $post->comments_count }}</span>
+                  </a>
               </div>
-              <a
-                  hx-get="{{ route('post.comment', $post) }}"
-                  hx-trigger="click"
-                  hx-swap="outerHTML"
-                  class="flex cursor-pointer items-center"
-              >
-                  <svg
-                      width="24"
-                      height="24"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      class="mr-2"
-                      xmlns="http://www.w3.org/2000/svg"
-                  >
-                      <path
-                          d="M2.25 12.76C2.25 14.36 3.373 15.754 4.957 15.987C6.044 16.147 7.142 16.27 8.25 16.356V21L12.326 16.924C12.6024 16.6493 12.9735 16.4909 13.363 16.481C15.2644 16.4284 17.161 16.2634 19.043 15.987C20.627 15.754 21.75 14.361 21.75 12.759V6.741C21.75 5.139 20.627 3.746 19.043 3.513C16.711 3.17072 14.357 2.99926 12 3C9.608 3 7.256 3.175 4.957 3.513C3.373 3.746 2.25 5.14 2.25 6.741V12.759V12.76Z"
-                          stroke="#828282"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                      />
-                  </svg>
-                  <span class="text-sm">{{ $post->comments_count }}</span>
-              </a>
+              <div class="space-x-2">
+                  @if (auth()->user()->can('edit', $post))
+                      <a
+                          hx-get="{{ route('post.edit', $post) }}"
+                          hx-target="#dialog"
+                          hx-swap="innerHTML"
+                          class="cursor-pointer font-medium uppercase tracking-[0.02rem] text-navyblue-500"
+                      >Edit</a>
+                  @endif
+                  @if (auth()->user()->can('delete', $post))
+                      <a
+                          hx-get="{{ route('post.delete', $post) }}"
+                          hx-target="#dialog"
+                          hx-swap="innerHTML"
+                          class="cursor-pointer font-medium uppercase tracking-[0.02rem] text-red-500"
+                      >Delete</a>
+                  @endif
+              </div>
           </div>
       </div>
   </section>

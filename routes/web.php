@@ -18,7 +18,7 @@ use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Dashboard\AppSettings\UpdateAppSettingsController;
 use App\Http\Controllers\Dashboard\CreateUserController;
 use App\Http\Controllers\Dashboard\EditUserController;
-use App\Http\Controllers\Dashboard\Post\ShowPostController;
+use App\Http\Controllers\Dashboard\Post\ShowPostController as DashboardShowPostController;
 use App\Http\Controllers\Dashboard\Post\ShowPostsController;
 use App\Http\Controllers\Dashboard\ShowUsersController;
 use App\Http\Controllers\Dashboard\UpdateUserController as DashboardUpdateUserController;
@@ -32,7 +32,12 @@ use App\Http\Controllers\Post\Comment\EditCommentController;
 use App\Http\Controllers\Post\Comment\ShowPostCommentsController;
 use App\Http\Controllers\Post\Comment\UpdateCommentController;
 use App\Http\Controllers\Post\CreatePostController;
+use App\Http\Controllers\Post\DeletePostController;
+use App\Http\Controllers\Post\DestroyPostController;
+use App\Http\Controllers\Post\EditPostController;
 use App\Http\Controllers\Post\GetPostFormController;
+use App\Http\Controllers\Post\ShowPostController;
+use App\Http\Controllers\Post\UpdatePostController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\WorkHistory\CreateWorkHistoryController;
 use App\Http\Controllers\WorkHistory\DeleteWorkHistoryController;
@@ -119,14 +124,27 @@ Route::group(['prefix' => 'workHistory', 'as' => 'workHistory'], function () {
 });
 
 Route::group(['prefix' => 'posts', 'as' => 'post', 'middleware' => 'auth'], function () {
+    Route::get('/{post}', ShowPostController::class)->name('.show');
+
     Route::group(['prefix' => '/create', 'as' => '.create'], function () {
         Route::view('/', 'posts/create');
         Route::get('/form/{type}', GetPostFormController::class)->name('.form');
         Route::post('/{type}', CreatePostController::class)->name('.execute');
     });
 
+    Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
+        Route::get('/{post}', EditPostController::class);
+        Route::put('/{post}', UpdatePostController::class);
+    });
+
+    Route::group(['prefix' => 'delete', 'as' => '.delete'], function () {
+        Route::get('/{post}', DeletePostController::class);
+        Route::delete('/{post}', DestroyPostController::class);
+    });
+
     Route::group(['prefix' => 'comments', 'as' => '.comment'], function () {
         Route::get('/{post}', ShowPostCommentsController::class);
+
         Route::post('/{post}', AddCommentToPostController::class)->name('.create');
 
         Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
@@ -176,7 +194,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => ['auth', 'ro
 
     Route::group(['prefix' => 'posts', 'as' => '.posts'], function () {
         Route::get('/', ShowPostsController::class);
-        Route::get('/{post}', ShowPostController::class)->name('.show');
+        Route::get('/{post}', DashboardShowPostController::class)->name('.show');
     });
 
     Route::group(['prefix' => 'settings', 'as' => '.settings'], function () {

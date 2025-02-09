@@ -13,7 +13,8 @@ final class ShowPostController
         $post->load('user', 'comments', 'comments.user')->loadCount('comments');
 
         if ($request->header('hx-request')) {
-            return view('resources.dashboard.posts.show', compact('post'))->fragment('wrapper');
+            return view('resources.dashboard.posts.show', compact('post'))
+                ->fragment('wrapper');
         }
 
         return view('resources.dashboard.posts.show', compact('post'));
