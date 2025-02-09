@@ -1,6 +1,6 @@
-<div class="h-screen w-1/6 overflow-y-scroll bg-white">
+<div class="h-screen w-1/6 overflow-y-scroll border-r bg-white shadow">
     <ul class="flex h-screen w-full flex-col justify-between p-4">
-        <div>
+        <div class="space-y-2">
             <x-sidebar-nav-item route="admin.dashboard">
                 <x-slot:icon><x-icons.house /></x-slot:icon>
                 Dashobard
@@ -22,19 +22,6 @@
                 <x-slot:icon><x-icons.house /></x-slot:icon>
                 Home
             </x-sidebar-nav-item>
-            <div class="my-2 h-[1px] w-full bg-gray-200"></div>
-            <x-sidebar-nav-item route="auth.settings">
-                <x-slot:icon><x-icons.gear /></x-slot:icon>
-                Account Settings
-            </x-sidebar-nav-item>
-            <li><a
-                    class="flex cursor-pointer items-center rounded-md p-3 text-start font-semibold leading-tight text-gray-600 transition duration-500 hover:bg-gray-200 hover:text-blue-700"
-                    hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                    hx-delete="{{ route('auth.logout') }}"
-                >
-                    <x-icons.logout />
-                    Logout
-                </a></li>
         </div>
         <div>
             <li class="flex items-center justify-between p-2">

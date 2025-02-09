@@ -14,7 +14,7 @@ return [
     ],
 
     'step3' => [
-        'title' => 'Work History',
+        'title' => 'Provide previous work history',
         'desc' => 'If you have previous work history, add it. It will later generate a CV automatically for you.',
         'jobs_added' => ':count previous jobs added.',
         'no_jobs_added' => 'No jobs currently added. Click on the "Add" button to add a new job.',

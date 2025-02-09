@@ -22,7 +22,7 @@ final class UpdateWorkHistoryController extends Controller
         }
 
         return $this->triggerWithToast(
-            event: 'loadWorkHistories',
+            event: 'reloadWorkHistories',
             message: __('auth.workHistory.update_success')
         );
     }

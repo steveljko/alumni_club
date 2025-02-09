@@ -6,28 +6,41 @@
             <div class="rounded-xl bg-white p-4 shadow">
                 <div class="mb-4">
                     <h2 class="mb-2 font-semibold">Add Details</h2>
-                    <p class="text-sm text-gray-500">You are close enoguuht for working...</p>
+                    <p class="text-sm text-gray-500">You're just a step away from completing your profile—please provide a few more details!</p>
                 </div>
-                <form hx-put="{{ route('auth.setup.step.2') }}"
-                    hx-swap="none">
+                <form
+                    hx-put="{{ route('auth.setup.step.2') }}"
+                    hx-indicator="#nextButtonSpinner"
+                    hx-swap="none"
+                >
                     @csrf
                     <div class="flex w-full space-x-4">
-                        <x-form-select label="University Start Year"
+                        <x-form-select
+                            label="University Start Year"
                             name="uni_start_year"
-                            between="2000,current">
+                            between="2000,current"
+                        >
                         </x-form-select>
-                        <x-form-select label="University Finish Year"
+                        <x-form-select
+                            label="University Finish Year"
                             name="uni_finish_year"
-                            between="2000,current" />
+                            between="2000,current"
+                        />
                     </div>
                     <div>
-                        <x-form-textarea label="Biography"
+                        <x-form-textarea
+                            label="Biography"
                             name="bio"
-                            limit="250" />
+                            limit="250"
+                        />
                     </div>
                     <div class="flex w-full justify-end">
-                        <button type="submit"
-                            class="rounded-md bg-[#4D5BFC] px-3 py-1 text-white">Next</button>
+                        <x-button
+                            id="nextButton"
+                            spinner="true"
+                            type="submit"
+                        >Next</x-button>
+
                     </div>
                 </form>
             </div>

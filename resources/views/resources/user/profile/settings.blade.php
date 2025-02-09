@@ -74,11 +74,11 @@
                     </h3>
                     <div>
                         @if (auth()->user()->hasUnpublishedWorkHistories())
-                            <a
-                                class="cursor-pointer rounded bg-green-600 px-2 py-2 text-sm font-medium text-white"
-                                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                            <x-button
+                                id="publishWorkHistories"
+                                size="sm"
                                 hx-put="{{ route('workHistory.publish') }}"
-                            >Publish All</a>
+                            >Publish All</x-button>
                         @endif
                         <x-button
                             id="addPrevWork"
@@ -91,7 +91,7 @@
                 </div>
                 <div
                     hx-get="{{ route('workHistory.show') }}"
-                    hx-trigger="loadWorkHistories from:body"
+                    hx-trigger="reloadWorkHistories from:body"
                     hx-swap="innerHTML"
                 >
                     @include('resources.user.workHistory.show', ['workHistory' => $user->workHistory])

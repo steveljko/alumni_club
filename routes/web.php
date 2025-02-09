@@ -60,11 +60,13 @@ Route::as('auth.')->group(function () {
     Route::delete('/logout', UserLogout::class)->middleware('auth')->name('logout');
 
     Route::group(['prefix' => '/password', 'as' => 'password.'], function () {
+        // Forgot password
         Route::group(['prefix' => '/forgot', 'as' => 'forgot'], function () {
             Route::view('/', 'resources.auth.forgot_password');
             Route::put('/', ForgotPasswordController::class)->name('.execute');
         });
 
+        // Reset password
         Route::group(['prefix' => '/reset', 'as' => 'reset'], function () {
             Route::get('/{token}', ShowResetPasswordController::class);
             Route::put('/{token}', ResetPasswordController::class)->name('.execute');
@@ -76,16 +78,19 @@ Route::as('auth.')->group(function () {
         'as' => 'setup.',
         'middleware' => 'auth',
     ], function () {
+        // Change initial password
         Route::group(['prefix' => '/step/1', 'as' => 'step.1', 'middleware' => CanAccessSetupStep::class.':1'], function () {
             Route::view('/', 'resources.auth.setup.initial_password_change');
             Route::put('/', ChangeInitialPasswordController::class);
         });
 
+        // Change user details
         Route::group(['prefix' => '/step/2', 'as' => 'step.2', 'middleware' => CanAccessSetupStep::class.':2'], function () {
             Route::view('/', 'resources.auth.setup.add_details');
             Route::put('/', SetDetailsController::class);
         });
 
+        // Add previous work
         Route::group(['prefix' => '/step/3', 'as' => 'step.3', 'middleware' => CanAccessSetupStep::class.':3'], function () {
             Route::get('/', ShowAddWorkHistoryStepController::class);
             Route::patch('/skip', SkipAddingWorkHistoryController::class)->name('.skip');
@@ -95,28 +100,33 @@ Route::as('auth.')->group(function () {
     Route::group(['prefix' => 'settings', 'as' => 'settings', 'middleware' => 'auth'], function () {
         Route::get('/', ShowAccountSettingsController::class);
         Route::put('/update', UpdateUserController::class)->name('.update');
+        Route::patch('/password', ChangePasswordController::class)->name('.changePassword');
+        // Avatar settings
         Route::post('/avatar/crop', CropAvatarController::class)->name('.avatarCrop');
         Route::post('/avatar', SetAvatarController::class)->name('.avatar');
         Route::patch('/avatar/reset', ResetAvatarController::class)->name('.avatarReset');
-        Route::patch('/password', ChangePasswordController::class)->name('.changePassword');
     });
 });
 
 Route::group(['prefix' => 'workHistory', 'as' => 'workHistory'], function () {
     Route::get('/show', ShowWorkHistoryController::class)->name('.show');
 
+    // Create work history
     Route::group(['prefix' => 'create', 'as' => '.create'], function () {
         Route::view('/', 'resources.user.workHistory.create');
         Route::post('/', CreateWorkHistoryController::class);
     });
 
+    // Publish work history
     Route::put('/publish', PublishWorkHistoryController::class)->name('.publish');
 
+    // Edit work history
     Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
         Route::get('/{workHistory}', EditWorkHistoryController::class);
         Route::patch('/{workHistory}', UpdateWorkHistoryController::class);
     });
 
+    // Delete work history
     Route::group(['prefix' => 'delete', 'as' => '.delete'], function () {
         Route::get('/{workHistory}', DeleteWorkHistoryController::class);
         Route::delete('/{workHistory}', DestroyWorkHistoryController::class);
@@ -143,15 +153,19 @@ Route::group(['prefix' => 'posts', 'as' => 'post', 'middleware' => 'auth'], func
     });
 
     Route::group(['prefix' => 'comments', 'as' => '.comment'], function () {
+        // Show posts comments
         Route::get('/{post}', ShowPostCommentsController::class);
 
+        // Create comment
         Route::post('/{post}', AddCommentToPostController::class)->name('.create');
 
+        // Edit comment
         Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
             Route::get('/{comment}', EditCommentController::class);
             Route::put('/{comment}', UpdateCommentController::class);
         });
 
+        // Delete comment
         Route::group(['prefix' => 'delete', 'as' => '.delete'], function () {
             Route::view('/{comment}', 'resources.post.comments.delete');
             Route::delete('/{comment}', DeleteCommentController::class);
@@ -159,6 +173,7 @@ Route::group(['prefix' => 'posts', 'as' => 'post', 'middleware' => 'auth'], func
     });
 });
 
+// Admin Dashboard
 Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
     Route::get('/', function () {
         return redirect()->route('admin.dashboard');

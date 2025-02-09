@@ -24,6 +24,9 @@ final class CreateWorkHistoryController extends Controller
             return $this->toast(__('setup.step3.try_again'));
         }
 
-        return $this->trigger(event: 'loadWorkHistories');
+        return $this->triggerWithToast(
+            event: 'reloadWorkHistories',
+            message: 'You successfully created this!'
+        );
     }
 }

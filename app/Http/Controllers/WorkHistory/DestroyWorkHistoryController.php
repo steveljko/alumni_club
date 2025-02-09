@@ -24,7 +24,7 @@ final class DestroyWorkHistoryController extends Controller
         }
 
         return $this->triggerWithToast(
-            event: 'loadWorkHistories',
+            event: 'reloadWorkHistories',
             message: __('setup.step3.can_delete')
         );
     }
