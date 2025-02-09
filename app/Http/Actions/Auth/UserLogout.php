@@ -11,6 +11,9 @@ final class UserLogout extends Controller
     {
         auth()->logout();
 
+        session()->invalidate();
+        session()->regenerateToken();
+
         return $this->redirectWithToast(
             route: 'auth.login',
             message: __('auth.logout'),
