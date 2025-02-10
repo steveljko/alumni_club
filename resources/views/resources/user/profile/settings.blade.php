@@ -28,7 +28,7 @@
                 <div>
                     <h4 class="mb-4 text-base font-medium text-gray-700">Account Details</h4>
                     <form
-                        hx-put="{{ route('auth.settings.update') }}"
+                        hx-put="{{ route('users.settings.update') }}"
                         hx-indicator="#accountSettingsSpinner"
                         hx-swap="none"
                     >
@@ -101,7 +101,7 @@
             <div id="change-password" class="w-full rounded-md bg-white p-6 shadow">
                 <h3 class="mb-4 text-lg font-semibold">Change Password</h3>
                 <form
-                    hx-patch="{{ route('auth.settings.changePassword') }}"
+                    hx-patch="{{ route('users.settings.changePassword') }}"
                     hx-indicator="#changePasswordSpinner"
                     hx-swap="none"
                 >

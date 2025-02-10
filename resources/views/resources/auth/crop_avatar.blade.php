@@ -1,5 +1,5 @@
 <form
-    hx-post="{{ route('auth.settings.avatar') }}"
+    hx-post="{{ route('users.settings.avatar') }}"
     hx-encoding="multipart/form-data"
     id="modal-content"
     class="crop_avatar"

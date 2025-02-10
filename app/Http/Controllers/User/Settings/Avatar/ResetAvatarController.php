@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Settings\Avatar;
 
 use App\Http\Actions\Auth\ResetAvatar;
 use App\Http\Controllers\Controller;

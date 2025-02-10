@@ -1,30 +1,16 @@
 <?php
 
-use App\Http\Actions\Auth\UserLogout;
-use App\Http\Actions\Profile\ShowProfileController;
-use App\Http\Controllers\Auth\ChangeInitialPasswordController;
-use App\Http\Controllers\Auth\ChangePasswordController;
-use App\Http\Controllers\Auth\CropAvatarController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\ResetAvatarController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\SetAvatarController;
-use App\Http\Controllers\Auth\SetDetailsController;
-use App\Http\Controllers\Auth\ShowAccountSettingsController;
-use App\Http\Controllers\Auth\ShowAddWorkHistoryStepController;
-use App\Http\Controllers\Auth\ShowResetPasswordController;
-use App\Http\Controllers\Auth\UpdateUserController;
 use App\Http\Controllers\Auth\UserLoginController;
+use App\Http\Controllers\Auth\UserLogoutController;
 use App\Http\Controllers\Dashboard\AppSettings\UpdateAppSettingsController;
-use App\Http\Controllers\Dashboard\CreateUserController;
-use App\Http\Controllers\Dashboard\EditUserController;
 use App\Http\Controllers\Dashboard\Post\ShowPostController as DashboardShowPostController;
 use App\Http\Controllers\Dashboard\Post\ShowPostsController;
-use App\Http\Controllers\Dashboard\ShowUsersController;
-use App\Http\Controllers\Dashboard\UpdateUserController as DashboardUpdateUserController;
+use App\Http\Controllers\Dashboard\User\CreateUserController;
 use App\Http\Controllers\Dashboard\User\DeleteUserController;
 use App\Http\Controllers\Dashboard\User\DestroyUserController;
+use App\Http\Controllers\Dashboard\User\EditUserController;
 use App\Http\Controllers\Dashboard\User\ShowUserController as DashboardShowUserController;
+use App\Http\Controllers\Dashboard\User\ShowUsersController;
 use App\Http\Controllers\Home\ShowHomeController;
 use App\Http\Controllers\Post\Comment\AddCommentToPostController;
 use App\Http\Controllers\Post\Comment\DeleteCommentController;
@@ -39,14 +25,27 @@ use App\Http\Controllers\Post\GetPostFormController;
 use App\Http\Controllers\Post\ShowPostController;
 use App\Http\Controllers\Post\UpdatePostController;
 use App\Http\Controllers\RedirectController;
-use App\Http\Controllers\WorkHistory\CreateWorkHistoryController;
-use App\Http\Controllers\WorkHistory\DeleteWorkHistoryController;
-use App\Http\Controllers\WorkHistory\DestroyWorkHistoryController;
-use App\Http\Controllers\WorkHistory\EditWorkHistoryController;
-use App\Http\Controllers\WorkHistory\PublishWorkHistoryController;
-use App\Http\Controllers\WorkHistory\ShowWorkHistoryController;
-use App\Http\Controllers\WorkHistory\SkipAddingWorkHistoryController;
-use App\Http\Controllers\WorkHistory\UpdateWorkHistoryController;
+use App\Http\Controllers\User\Settings\Avatar\CropAvatarController;
+use App\Http\Controllers\User\Settings\Avatar\ResetAvatarController;
+use App\Http\Controllers\User\Settings\Avatar\SetAvatarController;
+use App\Http\Controllers\User\Settings\Details\SetDetailsController;
+use App\Http\Controllers\User\Settings\Password\ChangeInitialPasswordController;
+use App\Http\Controllers\User\Settings\Password\ChangePasswordController;
+use App\Http\Controllers\User\Settings\Password\ForgotPasswordController;
+use App\Http\Controllers\User\Settings\Password\ResetPasswordController;
+use App\Http\Controllers\User\Settings\Password\ShowResetPasswordController;
+use App\Http\Controllers\User\Settings\ShowAccountSettingsController;
+use App\Http\Controllers\User\Settings\UpdateUserController;
+use App\Http\Controllers\User\ShowProfileController;
+use App\Http\Controllers\User\WorkHistory\CreateWorkHistoryController;
+use App\Http\Controllers\User\WorkHistory\DeleteWorkHistoryController;
+use App\Http\Controllers\User\WorkHistory\DestroyWorkHistoryController;
+use App\Http\Controllers\User\WorkHistory\EditWorkHistoryController;
+use App\Http\Controllers\User\WorkHistory\PublishWorkHistoryController;
+use App\Http\Controllers\User\WorkHistory\ShowAddWorkHistoryStepController;
+use App\Http\Controllers\User\WorkHistory\ShowWorkHistoryController;
+use App\Http\Controllers\User\WorkHistory\SkipAddingWorkHistoryController;
+use App\Http\Controllers\User\WorkHistory\UpdateWorkHistoryController;
 use App\Http\Middleware\AccountSetupCompleted;
 use App\Http\Middleware\CanAccessSetupStep;
 use Illuminate\Support\Facades\Route;
@@ -54,10 +53,10 @@ use Illuminate\Support\Facades\Route;
 Route::as('auth.')->group(function () {
     Route::group(['prefix' => 'login', 'as' => 'login'], function () {
         Route::view('/', 'resources.auth.login');
-        Route::post('/', UserLoginController::class)->name('.execute');
+        Route::post('/', UserLoginController::class);
     });
 
-    Route::delete('/logout', UserLogout::class)->middleware('auth')->name('logout');
+    Route::delete('/logout', UserLogoutController::class)->middleware('auth')->name('logout');
 
     Route::group(['prefix' => '/password', 'as' => 'password.'], function () {
         // Forgot password
@@ -96,8 +95,13 @@ Route::as('auth.')->group(function () {
             Route::patch('/skip', SkipAddingWorkHistoryController::class)->name('.skip');
         });
     });
+});
 
-    Route::group(['prefix' => 'settings', 'as' => 'settings', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'users', 'as' => 'users', 'middleware' => ['auth', AccountSetupCompleted::class]], function () {
+    Route::get('/profile/{user}', ShowProfileController::class)
+        ->name('.profile');
+
+    Route::group(['prefix' => 'settings', 'as' => '.settings'], function () {
         Route::get('/', ShowAccountSettingsController::class);
         Route::put('/update', UpdateUserController::class)->name('.update');
         Route::patch('/password', ChangePasswordController::class)->name('.changePassword');
@@ -106,6 +110,7 @@ Route::as('auth.')->group(function () {
         Route::post('/avatar', SetAvatarController::class)->name('.avatar');
         Route::patch('/avatar/reset', ResetAvatarController::class)->name('.avatarReset');
     });
+
 });
 
 Route::group(['prefix' => 'workHistory', 'as' => 'workHistory'], function () {
@@ -197,7 +202,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => ['auth', 'ro
         // Edit user
         Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
             Route::get('/{user}', EditUserController::class);
-            Route::put('/{user}', DashboardUpdateUserController::class);
+            Route::put('/{user}', UpdateUserController::class);
         });
 
         // Delete user
@@ -217,10 +222,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => ['auth', 'ro
         Route::put('/', UpdateAppSettingsController::class);
     });
 });
-
-Route::get('/profile/{user}', ShowProfileController::class)
-    ->middleware(['auth', AccountSetupCompleted::class])
-    ->name('profile');
 
 Route::get('/home', ShowHomeController::class)
     ->middleware(['auth', AccountSetupCompleted::class])

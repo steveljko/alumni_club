@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\WorkHistory;
+namespace App\Http\Controllers\User\WorkHistory;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;

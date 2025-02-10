@@ -113,7 +113,7 @@
                         <label class="mb-2 block text-sm font-medium uppercase text-gray-700">Published By</label>
                         @if ($post->user != null)
                             <a class="block cursor-pointer truncate break-all text-sm text-blue-500 hover:underline"
-                                href="{{ route('profile', $post->user) }}"
+                                href="{{ route('users.profile', $post->user) }}"
                             >
                                 {{ $post->user?->name }}
                             </a>

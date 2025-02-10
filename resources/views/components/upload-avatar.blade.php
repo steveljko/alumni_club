@@ -26,7 +26,7 @@
                 name="avatar"
                 class="hidden"
                 accept="image/png, image/jpeg, image/jpg"
-                hx-post="{{ route('auth.settings.avatarCrop') }}"
+                hx-post="{{ route('users.settings.avatarCrop') }}"
                 hx-encoding="multipart/form-data"
                 hx-target="#dialog"
             />
@@ -35,7 +35,7 @@
                 spinner="true"
                 style="danger"
                 hx-indicator="#deleteBtnSpinner"
-                hx-patch="{{ route('auth.settings.avatarReset') }}"
+                hx-patch="{{ route('users.settings.avatarReset') }}"
             >Delete</x-button>
             <button class="hidden rounded-md bg-gray-200 px-3 py-1 text-gray-900" id="cancelBtn">Cancel</button>
         </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\WorkHistory;
+namespace App\Http\Controllers\User\WorkHistory;
 
 use App\Http\Actions\WorkHistory\DeleteWorkHistory;
 use App\Http\Controllers\Controller;
@@ -24,7 +24,7 @@ final class DestroyWorkHistoryController extends Controller
         }
 
         return $this->triggerWithToast(
-            event: 'reloadWorkHistories',
+            event: 'loadWorkHistories',
             message: __('setup.step3.can_delete')
         );
     }

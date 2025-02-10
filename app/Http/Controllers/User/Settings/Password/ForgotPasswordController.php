@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Settings\Password;
 
 use App\Http\Actions\Auth\ForgotPassword;
 use App\Http\Controllers\Controller;

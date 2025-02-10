@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\WorkHistory;
+namespace App\Http\Controllers\User\WorkHistory;
 
 use App\Enums\Auth\AccountSetupProgress;
 use App\Http\Actions\WorkHistory\CreateWorkHistory;
@@ -24,9 +24,6 @@ final class CreateWorkHistoryController extends Controller
             return $this->toast(__('setup.step3.try_again'));
         }
 
-        return $this->triggerWithToast(
-            event: 'reloadWorkHistories',
-            message: 'You successfully created this!'
-        );
+        return $this->trigger(event: 'loadWorkHistories');
     }
 }

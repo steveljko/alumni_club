@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Settings\Details;
 
 use App\Http\Actions\Auth\SetDetails;
 use App\Http\Controllers\Controller;

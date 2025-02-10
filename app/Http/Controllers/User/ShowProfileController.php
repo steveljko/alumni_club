@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Actions\Profile;
+namespace App\Http\Controllers\User;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Redis;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Settings;
 
 use App\Http\Actions\Auth\UpdateUser;
 use App\Http\Controllers\Controller;
@@ -13,6 +13,7 @@ final class UpdateUserController extends Controller
         UpdateUserRequest $request,
         UpdateUser $updateUser
     ): Response {
+        // TODO: Use same controller for dashboard & profile settings
         $ok = $updateUser->execute(request: $request, user: auth()->user());
 
         if (! $ok) {
@@ -20,7 +21,7 @@ final class UpdateUserController extends Controller
         }
 
         return $this->redirectWithToast(
-            route: 'auth.settings',
+            route: 'users.settings',
             message: __('auth.successful_user_update')
         );
     }

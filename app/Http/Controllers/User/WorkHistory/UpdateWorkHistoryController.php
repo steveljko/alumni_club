@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\WorkHistory;
+namespace App\Http\Controllers\User\WorkHistory;
 
 use App\Http\Actions\WorkHistory\UpdateWorkHistory;
 use App\Http\Controllers\Controller;
@@ -22,7 +22,7 @@ final class UpdateWorkHistoryController extends Controller
         }
 
         return $this->triggerWithToast(
-            event: 'reloadWorkHistories',
+            event: 'loadWorkHistories',
             message: __('auth.workHistory.update_success')
         );
     }

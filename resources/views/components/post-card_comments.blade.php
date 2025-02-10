@@ -71,7 +71,7 @@
                         >
                         <div class="flex w-full justify-between">
                             <div class="space-x-3">
-                                <a href="{{ route('profile', $comment->user) }}"
+                                <a href="{{ route('users.profile', $comment->user) }}"
                                     class="text-base font-medium text-gray-950 hover:text-blue-600 hover:underline"
                                 >{{ $comment->user->name }}</a>
                                 <span class="text-xs text-gray-400">

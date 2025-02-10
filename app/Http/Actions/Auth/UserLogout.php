@@ -2,21 +2,13 @@
 
 namespace App\Http\Actions\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
-
-final class UserLogout extends Controller
+final class UserLogout
 {
-    public function __invoke(): Response
+    public function execute(): void
     {
         auth()->logout();
 
         session()->invalidate();
         session()->regenerateToken();
-
-        return $this->redirectWithToast(
-            route: 'auth.login',
-            message: __('auth.logout'),
-        );
     }
 }

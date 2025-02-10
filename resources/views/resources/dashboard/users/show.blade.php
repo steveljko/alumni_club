@@ -23,7 +23,7 @@
         </div>
     </x-modal.body>
     <x-modal.footer>
-        <x-modal.button variant="secondary" href="{{ route('profile', $user->id) }}">View Profile</x-modal.button>
+        <x-modal.button variant="secondary" href="{{ route('users.profile', $user->id) }}">View Profile</x-modal.button>
         <x-modal.button data-hide-modal="true">Close</x-modal.button>
     </x-modal.footer>
 </div>

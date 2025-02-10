@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Settings\Password;
 
 use App\Http\Actions\Auth\ResetPassword;
 use App\Http\Controllers\Controller;
@@ -16,7 +16,7 @@ final class ResetPasswordController extends Controller
         $ok = $resetPassword->execute($request);
 
         if (! $ok) {
-            return null;
+            return $this->toast('something went wrong!');
         }
 
         return $this->redirectWithToast(

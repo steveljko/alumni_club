@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Settings\Avatar;
 
 use App\Http\Actions\Auth\SetAvatar;
 use App\Http\Controllers\Controller;
@@ -20,7 +20,7 @@ final class SetAvatarController extends Controller
         }
 
         return $this->redirectWithToast(
-            route: 'auth.settings',
+            route: 'users.settings',
             message: __('auth.succesful_avatar_upload'),
         );
     }

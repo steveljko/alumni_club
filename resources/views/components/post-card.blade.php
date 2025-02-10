@@ -18,7 +18,7 @@
                   src="{{ asset('storage/images/' . $post->user->avatar) }}"
                   alt="User Avatar"
               >
-              <a href="{{ route('profile', $post->user) }}"
+              <a href="{{ route('users.profile', $post->user) }}"
                   class="text-base font-medium text-gray-950 hover:text-blue-600 hover:underline">{{ $post->user->name }}</a>
           </div>
           <span class="text-sm text-gray-400">{{ $post->created_at->diffForHumans() }}</span>
