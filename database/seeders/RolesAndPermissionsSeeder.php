@@ -29,6 +29,12 @@ class RolesAndPermissionsSeeder extends Seeder
             ['name' => 'delete own comment', 'guard_name' => 'web'],
         ]);
 
+        Permission::insertOrIgnore([
+            ['name' => 'create user', 'guard_name' => 'web'],
+            ['name' => 'edit any user', 'guard_name' => 'web'],
+            ['name' => 'delete any user', 'guard_name' => 'web'],
+        ]);
+
         Role::create(['name' => 'alumni'])
             ->givePermissionTo([
                 'create post',
@@ -45,12 +51,15 @@ class RolesAndPermissionsSeeder extends Seeder
             ->givePermissionTo([
                 'create post',
                 'create comment',
+                'create user',
 
                 'edit any post',
                 'edit any comment',
+                'edit any user',
 
                 'delete any post',
                 'delete any comment',
+                'delete any user',
             ]);
     }
 }

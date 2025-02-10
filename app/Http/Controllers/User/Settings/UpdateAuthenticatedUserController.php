@@ -7,13 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Response;
 
-final class UpdateUserController extends Controller
+final class UpdateAuthenticatedUserController extends Controller
 {
     public function __invoke(
         UpdateUserRequest $request,
         UpdateUser $updateUser
     ): Response {
-        // TODO: Use same controller for dashboard & profile settings
         $ok = $updateUser->execute(request: $request, user: auth()->user());
 
         if (! $ok) {

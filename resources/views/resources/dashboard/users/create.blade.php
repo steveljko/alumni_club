@@ -1,7 +1,6 @@
 <form
     hx-post="{{ route('admin.users.create') }}"
     hx-indicator="#spinner"
-    class="w-full"
     id="modal-content"
 >
     <x-modal.header>Create User</x-modal.header>

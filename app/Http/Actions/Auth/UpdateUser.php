@@ -7,8 +7,10 @@ use App\Models\User;
 
 final class UpdateUser
 {
-    public function execute(UpdateUserRequest $request, User $user): bool
-    {
+    public function execute(
+        UpdateUserRequest $request,
+        User $user
+    ): bool {
         return $user->update($request->validated());
     }
 }

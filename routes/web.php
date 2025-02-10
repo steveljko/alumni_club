@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\User\DestroyUserController;
 use App\Http\Controllers\Dashboard\User\EditUserController;
 use App\Http\Controllers\Dashboard\User\ShowUserController as DashboardShowUserController;
 use App\Http\Controllers\Dashboard\User\ShowUsersController;
+use App\Http\Controllers\Dashboard\User\UpdateUserController;
 use App\Http\Controllers\Home\ShowHomeController;
 use App\Http\Controllers\Post\Comment\AddCommentToPostController;
 use App\Http\Controllers\Post\Comment\DeleteCommentController;
@@ -35,7 +36,7 @@ use App\Http\Controllers\User\Settings\Password\ForgotPasswordController;
 use App\Http\Controllers\User\Settings\Password\ResetPasswordController;
 use App\Http\Controllers\User\Settings\Password\ShowResetPasswordController;
 use App\Http\Controllers\User\Settings\ShowAccountSettingsController;
-use App\Http\Controllers\User\Settings\UpdateUserController;
+use App\Http\Controllers\User\Settings\UpdateAuthenticatedUserController;
 use App\Http\Controllers\User\ShowProfileController;
 use App\Http\Controllers\User\WorkHistory\CreateWorkHistoryController;
 use App\Http\Controllers\User\WorkHistory\DeleteWorkHistoryController;
@@ -103,7 +104,7 @@ Route::group(['prefix' => 'users', 'as' => 'users', 'middleware' => ['auth', Acc
 
     Route::group(['prefix' => 'settings', 'as' => '.settings'], function () {
         Route::get('/', ShowAccountSettingsController::class);
-        Route::put('/update', UpdateUserController::class)->name('.update');
+        Route::put('/update', UpdateAuthenticatedUserController::class)->name('.update');
         Route::patch('/password', ChangePasswordController::class)->name('.changePassword');
         // Avatar settings
         Route::post('/avatar/crop', CropAvatarController::class)->name('.avatarCrop');
@@ -190,8 +191,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => ['auth', 'ro
         // Show all users
         Route::get('/', ShowUsersController::class);
 
-        // View user
-        Route::get('/{user}', DashboardShowUserController::class)->name('.show');
+        // Show user
+        Route::get('/show/{user}', DashboardShowUserController::class)->name('.show');
 
         // Create user
         Route::group(['prefix' => 'create', 'as' => '.create'], function () {

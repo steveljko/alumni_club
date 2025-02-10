@@ -9,6 +9,7 @@
                     id="newUser"
                     hx-get="{{ route('admin.users.create') }}"
                     hx-target="#dialog"
+                    hx-swap="innerHTML"
                 >New User</x-button>
             </div>
             <div>
