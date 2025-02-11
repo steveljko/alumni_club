@@ -14,7 +14,7 @@ final class ShowHomeController
         $posts = Post::with(['user', 'comments' => function ($query) {
             $query->orderBy('created_at', 'desc')->limit(5);
         }])
-            ->withCount('comments')
+            ->withCount(['likes', 'comments'])
             ->where('status', PostStatus::PUBLISHED)
             ->orderBy('created_at', 'desc')
             ->limit(15)

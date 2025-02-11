@@ -23,6 +23,8 @@ use App\Http\Controllers\Post\DeletePostController;
 use App\Http\Controllers\Post\DestroyPostController;
 use App\Http\Controllers\Post\EditPostController;
 use App\Http\Controllers\Post\GetPostFormController;
+use App\Http\Controllers\Post\Like\DislikePostController;
+use App\Http\Controllers\Post\Like\LikePostController;
 use App\Http\Controllers\Post\ShowPostController;
 use App\Http\Controllers\Post\UpdatePostController;
 use App\Http\Controllers\RedirectController;
@@ -158,6 +160,8 @@ Route::group(['prefix' => 'posts', 'as' => 'posts', 'middleware' => 'auth'], fun
     // Update post
     Route::get('/{post}/edit', EditPostController::class)->name('.edit');
     Route::put('/{post}', UpdatePostController::class)->name('.update');
+    Route::patch('/{post}/like', LikePostController::class)->name('.like');
+    Route::patch('/{post}/dislike', DislikePostController::class)->name('.dislike');
 
     // Delete post
     Route::get('/{post}/delete', DeletePostController::class)->name('.delete');

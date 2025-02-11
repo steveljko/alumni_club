@@ -33,7 +33,7 @@ final class CreatePostController extends Controller
         );
 
         return $this->triggerWithToast(
-            event: 'reloadPosts',
+            event: 'loadPosts',
             message: 'Post is created.'
         );
     }

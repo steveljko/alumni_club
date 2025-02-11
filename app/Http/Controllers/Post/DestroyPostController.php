@@ -23,6 +23,6 @@ final class DestroyPostController extends Controller
             return $this->toast('asdasdsada');
         }
 
-        return $this->triggerWithToast(event: 'reloadPosts', message: 'Successfully deleted!');
+        return $this->triggerWithToast(event: 'loadPosts', message: 'Successfully deleted!');
     }
 }

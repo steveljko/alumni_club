@@ -78,9 +78,23 @@
       <div hx-target="this">
           <div class="flex items-center justify-between border-t border-gray-100 pt-4">
               <div class="inline-flex">
-                  <div class="mr-4 flex items-center">
-                      <x-icons.heart />
-                      <span class="text-sm">123</span>
+                  <div
+                      class="mr-4 flex items-center"
+                      hx-target="this"
+                      hx-swap="innerHTML"
+                  >
+                      @fragment('like')
+                          @if (auth()->user()->isLiked($post))
+                              <button hx-patch="{{ route('posts.dislike', $post) }}">
+                                  <x-icons.heart class="text-red-500" />
+                              </button>
+                          @else
+                              <button hx-patch="{{ route('posts.like', $post) }}">
+                                  <x-icons.heart />
+                              </button>
+                          @endif
+                          <span class="text-sm">{{ $post->likes_count }}</span>
+                      @endfragment
                   </div>
                   <a
                       hx-get="{{ route('posts.comments', $post) }}"

@@ -19,7 +19,6 @@ return new class extends Migration
                 ->default(PostStatus::DRAFT->value);
             $table->enum('type', PostType::toArray())
                 ->default(PostType::DEFAULT->value);
-            $table->string('likes_count')->default(0);
             $table->foreignId('user_id')->constrained();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();

@@ -4,7 +4,7 @@
     <div class="container mx-auto">
         <section
             hx-get=""
-            hx-trigger="reloadPosts from:body"
+            hx-trigger="loadPosts from:body"
             hx-swap="innerHTML"
             class="mt-6 w-full space-y-4 md:w-2/3"
         >

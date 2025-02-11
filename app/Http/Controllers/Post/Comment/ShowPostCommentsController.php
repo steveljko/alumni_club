@@ -10,7 +10,7 @@ final class ShowPostCommentsController
     public function __invoke(Post $post): View|string
     {
         $post
-            ->loadCount('comments')
+            ->loadCount(['likes', 'comments'])
             ->load(['comments' => function ($query) {
                 $query->orderBy('created_at', 'desc')->limit(5);
             }]);

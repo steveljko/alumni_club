@@ -4,7 +4,7 @@
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"
-    class="mr-2 size-[24px]"
+    {{ $attributes->merge(['class' => 'mr-2 size-[24px]']) }}
 >
     <path
         stroke-linecap="round"

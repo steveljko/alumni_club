@@ -18,7 +18,7 @@ final class AddCommentToPostController extends Controller
         $addComment->execute(request: $request, post: $post, user: auth()->user());
 
         $post
-            ->loadCount('comments')
+            ->loadCount(['likes', 'comments'])
             ->load(['comments' => function ($query) {
                 $query->orderBy('created_at', 'desc')->limit(5);
             }]);
