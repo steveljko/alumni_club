@@ -93,7 +93,9 @@ class User extends Authenticatable
      */
     public function workHistory(): HasMany
     {
-        return $this->hasMany(WorkHistory::class);
+        return $this->hasMany(WorkHistory::class)
+            ->orderBy('start_date', 'desc')
+            ->orderBy('created_at', 'desc');
     }
 
     public function currentWork(): ?WorkHistory

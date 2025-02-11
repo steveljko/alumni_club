@@ -51,6 +51,10 @@ use App\Http\Middleware\AccountSetupCompleted;
 use App\Http\Middleware\CanAccessSetupStep;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return redirect('home');
+});
+
 Route::as('auth.')->group(function () {
     Route::group(['prefix' => 'login', 'as' => 'login'], function () {
         Route::view('/', 'resources.auth.login');
@@ -59,7 +63,7 @@ Route::as('auth.')->group(function () {
 
     Route::delete('/logout', UserLogoutController::class)->middleware('auth')->name('logout');
 
-    Route::group(['prefix' => '/password', 'as' => 'password.'], function () {
+    Route::group(['prefix' => 'password', 'as' => 'password.'], function () {
         // Forgot password
         Route::group(['prefix' => '/forgot', 'as' => 'forgot'], function () {
             Route::view('/', 'resources.auth.forgot_password');
@@ -79,29 +83,35 @@ Route::as('auth.')->group(function () {
         'middleware' => 'auth',
     ], function () {
         // Change initial password
-        Route::group(['prefix' => '/step/1', 'as' => 'step.1', 'middleware' => CanAccessSetupStep::class.':1'], function () {
+        Route::group(['prefix' => 'step/1', 'as' => 'step.1', 'middleware' => CanAccessSetupStep::class.':1'], function () {
             Route::view('/', 'resources.auth.setup.initial_password_change');
             Route::put('/', ChangeInitialPasswordController::class);
         });
 
-        // Change user details
-        Route::group(['prefix' => '/step/2', 'as' => 'step.2', 'middleware' => CanAccessSetupStep::class.':2'], function () {
+        // Add more details
+        Route::group(['prefix' => 'step/2', 'as' => 'step.2', 'middleware' => CanAccessSetupStep::class.':2'], function () {
             Route::view('/', 'resources.auth.setup.add_details');
             Route::put('/', SetDetailsController::class);
         });
 
-        // Add previous work
-        Route::group(['prefix' => '/step/3', 'as' => 'step.3', 'middleware' => CanAccessSetupStep::class.':3'], function () {
+        // Add previous work history
+        Route::group(['prefix' => 'step/3', 'as' => 'step.3', 'middleware' => CanAccessSetupStep::class.':3'], function () {
             Route::get('/', ShowAddWorkHistoryStepController::class);
+            Route::view('/skip', 'resources.auth.setup.skip_adding_work_history')->name('.skip');
             Route::patch('/skip', SkipAddingWorkHistoryController::class)->name('.skip');
         });
     });
 });
 
-Route::group(['prefix' => 'users', 'as' => 'users', 'middleware' => ['auth', AccountSetupCompleted::class]], function () {
-    Route::get('/profile/{user}', ShowProfileController::class)
-        ->name('.profile');
+Route::group([
+    'prefix' => 'users',
+    'as' => 'users',
+    'middleware' => ['auth', AccountSetupCompleted::class],
+], function () {
+    // User profile
+    Route::get('/profile/{user}', ShowProfileController::class)->name('.profile');
 
+    // User settings
     Route::group(['prefix' => 'settings', 'as' => '.settings'], function () {
         Route::get('/', ShowAccountSettingsController::class);
         Route::put('/update', UpdateAuthenticatedUserController::class)->name('.update');
@@ -112,70 +122,62 @@ Route::group(['prefix' => 'users', 'as' => 'users', 'middleware' => ['auth', Acc
         Route::patch('/avatar/reset', ResetAvatarController::class)->name('.avatarReset');
     });
 
-});
+    // User work histories
+    Route::group([
+        'prefix' => 'workHistories',
+        'as' => '.workHistories',
+        'excluded_middleware' => [AccountSetupCompleted::class], // excluded for step 3 in wizard
+    ], function () {
+        // Create work history
+        Route::view('/create', 'resources.user.workHistory.create')->name('.create');
+        Route::post('/', CreateWorkHistoryController::class)->name('.store');
 
-Route::group(['prefix' => 'workHistory', 'as' => 'workHistory'], function () {
-    Route::get('/show', ShowWorkHistoryController::class)->name('.show');
+        // Read work history
+        Route::get('/', ShowWorkHistoryController::class);
 
-    // Create work history
-    Route::group(['prefix' => 'create', 'as' => '.create'], function () {
-        Route::view('/', 'resources.user.workHistory.create');
-        Route::post('/', CreateWorkHistoryController::class);
-    });
+        // Update work history
+        Route::get('/{workHistory}/edit', EditWorkHistoryController::class)->name('.edit');
+        Route::patch('/{workHistory}', UpdateWorkHistoryController::class)->name('.update');
+        Route::put('/publish', PublishWorkHistoryController::class)->name('.publish');
 
-    // Publish work history
-    Route::put('/publish', PublishWorkHistoryController::class)->name('.publish');
-
-    // Edit work history
-    Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
-        Route::get('/{workHistory}', EditWorkHistoryController::class);
-        Route::patch('/{workHistory}', UpdateWorkHistoryController::class);
-    });
-
-    // Delete work history
-    Route::group(['prefix' => 'delete', 'as' => '.delete'], function () {
-        Route::get('/{workHistory}', DeleteWorkHistoryController::class);
-        Route::delete('/{workHistory}', DestroyWorkHistoryController::class);
+        // Delete work history
+        Route::get('/{workHistory}/delete', DeleteWorkHistoryController::class)->name('.delete');
+        Route::delete('/{workHistory}', DestroyWorkHistoryController::class)->name('.destroy');
     });
 });
 
-Route::group(['prefix' => 'posts', 'as' => 'post', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'posts', 'as' => 'posts', 'middleware' => 'auth'], function () {
+    // Create post
+    Route::view('/', 'posts.create')->name('.create');
+    Route::get('/{type}/form', GetPostFormController::class)->name('.getForm');
+    Route::post('/{type}', CreatePostController::class)->name('.store');
+
+    // Read post
     Route::get('/{post}', ShowPostController::class)->name('.show');
 
-    Route::group(['prefix' => '/create', 'as' => '.create'], function () {
-        Route::view('/', 'posts/create');
-        Route::get('/form/{type}', GetPostFormController::class)->name('.form');
-        Route::post('/{type}', CreatePostController::class)->name('.execute');
-    });
+    // Update post
+    Route::get('/{post}/edit', EditPostController::class)->name('.edit');
+    Route::put('/{post}', UpdatePostController::class)->name('.update');
 
-    Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
-        Route::get('/{post}', EditPostController::class);
-        Route::put('/{post}', UpdatePostController::class);
-    });
+    // Delete post
+    Route::get('/{post}/delete', DeletePostController::class)->name('.delete');
+    Route::delete('/{post}', DestroyPostController::class)->name('.destroy');
 
-    Route::group(['prefix' => 'delete', 'as' => '.delete'], function () {
-        Route::get('/{post}', DeletePostController::class);
-        Route::delete('/{post}', DestroyPostController::class);
-    });
-
-    Route::group(['prefix' => 'comments', 'as' => '.comment'], function () {
-        // Show posts comments
+    // Post comments
+    Route::group(['prefix' => 'comments', 'as' => '.comments'], function () {
+        // Show post comments
         Route::get('/{post}', ShowPostCommentsController::class);
 
-        // Create comment
+        // Create post comment
         Route::post('/{post}', AddCommentToPostController::class)->name('.create');
 
-        // Edit comment
-        Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
-            Route::get('/{comment}', EditCommentController::class);
-            Route::put('/{comment}', UpdateCommentController::class);
-        });
+        // Update post comment
+        Route::get('/{comment}/edit', EditCommentController::class)->name('.edit');
+        Route::put('/{comment}', UpdateCommentController::class)->name('.update');
 
-        // Delete comment
-        Route::group(['prefix' => 'delete', 'as' => '.delete'], function () {
-            Route::view('/{comment}', 'resources.post.comments.delete');
-            Route::delete('/{comment}', DeleteCommentController::class);
-        });
+        // Delete post comment
+        Route::view('/{comment}/delete', 'resources.post.comments.delete')->name('.delete');
+        Route::delete('/{comment}', DeleteCommentController::class)->name('.destroy');
     });
 });
 
@@ -188,29 +190,21 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => ['auth', 'ro
     Route::view('/dashboard', 'resources.dashboard.dashboard')->name('.dashboard');
 
     Route::group(['prefix' => 'users', 'as' => '.users'], function () {
-        // Show all users
-        Route::get('/', ShowUsersController::class);
-
-        // Show user
-        Route::get('/show/{user}', DashboardShowUserController::class)->name('.show');
-
         // Create user
-        Route::group(['prefix' => 'create', 'as' => '.create'], function () {
-            Route::view('/', 'resources.dashboard.users.create');
-            Route::post('/', CreateUserController::class);
-        });
+        Route::view('/create', 'resources.dashboard.users.create')->name('.create');
+        Route::post('/', CreateUserController::class)->name('.store');
 
-        // Edit user
-        Route::group(['prefix' => 'edit', 'as' => '.edit'], function () {
-            Route::get('/{user}', EditUserController::class);
-            Route::put('/{user}', UpdateUserController::class);
-        });
+        // Read users
+        Route::get('/', ShowUsersController::class);
+        Route::get('/{user}', DashboardShowUserController::class)->name('.show');
+
+        // Update user
+        Route::get('/{user}/edit', EditUserController::class)->name('.edit');
+        Route::put('/{user}', UpdateUserController::class)->name('.update');
 
         // Delete user
-        Route::group(['prefix' => 'delete', 'as' => '.delete'], function () {
-            Route::get('/{user}', DeleteUserController::class);
-            Route::delete('/{user}', DestroyUserController::class);
-        });
+        Route::get('/{user}/delete', DeleteUserController::class)->name('.delete');
+        Route::delete('/{user}', DestroyUserController::class)->name('.destroy');
     });
 
     Route::group(['prefix' => 'posts', 'as' => '.posts'], function () {
@@ -220,7 +214,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => ['auth', 'ro
 
     Route::group(['prefix' => 'settings', 'as' => '.settings'], function () {
         Route::view('/', 'resources.dashboard.settings');
-        Route::put('/', UpdateAppSettingsController::class);
+        Route::patch('/', UpdateAppSettingsController::class);
     });
 });
 

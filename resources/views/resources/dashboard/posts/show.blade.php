@@ -20,7 +20,7 @@
                         <h3 class="text-lg font-semibold">Posts</h3>
                     </div>
                     <x-button
-                        hx-get="{{ route('post.edit', $post) }}"
+                        hx-get="{{ route('posts.edit', $post) }}"
                         hx-target="#dialog"
                         hx-swap="innerHTML"
                         id="editPost"

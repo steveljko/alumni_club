@@ -1,5 +1,5 @@
 <form
-    hx-post="{{ route('workHistory.create') }}"
+    hx-post="{{ route('users.workHistories.store') }}"
     hx-indicator="#spinner"
     id="modal-content"
 >

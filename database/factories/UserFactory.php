@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\Auth\AccountSetupProgress;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -45,6 +46,20 @@ class UserFactory extends Factory
         ]);
     }
 
+    /**
+     * Configure the model factory.
+     */
+    public function configure(): static
+    {
+        // Assign role to the user after the user is created.
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('alumni');
+        });
+    }
+
+    /**
+     * Sets the user to have an unchanged initial password and marks them at the first setup step.
+     */
     public function withUnchangedInitialPassword(): static
     {
         return $this->state(fn () => [

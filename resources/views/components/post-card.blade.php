@@ -1,5 +1,5 @@
   <section
-      hx-get="{{ route('post.show', $post) }}"
+      hx-get="{{ route('posts.show', $post) }}"
       hx-target="this"
       hx-swap="outerHTML"
       hx-trigger="reloadPost.{{ $post->id }} from:body"
@@ -83,7 +83,7 @@
                       <span class="text-sm">123</span>
                   </div>
                   <a
-                      hx-get="{{ route('post.comment', $post) }}"
+                      hx-get="{{ route('posts.comments', $post) }}"
                       hx-trigger="click"
                       hx-swap="outerHTML"
                       class="flex cursor-pointer items-center"
@@ -95,7 +95,7 @@
               <div class="space-x-2">
                   @if (auth()->user()->can('edit', $post))
                       <a
-                          hx-get="{{ route('post.edit', $post) }}"
+                          hx-get="{{ route('posts.edit', $post) }}"
                           hx-target="#dialog"
                           hx-swap="innerHTML"
                           class="cursor-pointer font-medium uppercase tracking-[0.02rem] text-navyblue-500"
@@ -103,7 +103,7 @@
                   @endif
                   @if (auth()->user()->can('delete', $post))
                       <a
-                          hx-get="{{ route('post.delete', $post) }}"
+                          hx-get="{{ route('posts.delete', $post) }}"
                           hx-target="#dialog"
                           hx-swap="innerHTML"
                           class="cursor-pointer font-medium uppercase tracking-[0.02rem] text-red-500"

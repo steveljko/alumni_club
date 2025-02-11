@@ -9,6 +9,10 @@
     </x-modal.body>
     <x-modal.footer>
         <x-modal.button variant="secondary" data-hide-modal="true">Cancel</x-modal.button>
-        <x-modal.button hx-delete="{{ route('admin.users.delete', $user->id) }}" hx-indicator="#spinner">Confirm Delete</x-modal.button>
+        <x-modal.button
+            variant="danger"
+            hx-delete="{{ route('admin.users.destroy', $user->id) }}"
+            hx-indicator="#spinner"
+        >Confirm Delete</x-modal.button>
     </x-modal.footer>
 </div>

@@ -11,7 +11,7 @@
         <x-modal.button variant="secondary" data-hide-modal="true">Cancel</x-modal.button>
         <x-modal.button
             variant="danger"
-            hx-delete="{{ route('workHistory.delete', $workHistory->id) }}"
+            hx-delete="{{ route('users.workHistories.destroy', $workHistory->id) }}"
             hx-indicator="#spinner"
         >Confirm Delete</x-modal.button>
     </x-modal.footer>

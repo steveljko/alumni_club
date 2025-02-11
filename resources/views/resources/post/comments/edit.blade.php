@@ -1,5 +1,5 @@
 <form
-    hx-put="{{ route('post.comment.edit', $comment) }}"
+    hx-put="{{ route('posts.comments.update', $comment) }}"
     hx-indicator="#spinner"
     id="modal-content"
 >

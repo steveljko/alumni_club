@@ -17,7 +17,7 @@ final class ResetAvatarController extends Controller
         }
 
         return $this->redirectWithToast(
-            route: 'auth.settings',
+            route: 'users.settings',
             message: __('auth.succesful_avatar_reset')
         );
     }

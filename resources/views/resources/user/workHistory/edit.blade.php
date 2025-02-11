@@ -1,5 +1,5 @@
 <form
-    hx-patch="{{ route('workHistory.edit', $workHistory->id) }}"
+    hx-patch="{{ route('users.workHistories.update', $workHistory->id) }}"
     hx-indicator="#spinner"
     id="modal-content"
 >

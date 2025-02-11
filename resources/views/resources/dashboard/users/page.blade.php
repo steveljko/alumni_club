@@ -75,13 +75,13 @@
                                             hx-swap="innerHTML"
                                         >View</x-button>
                                         <x-button
-                                            id="edit-user"
+                                            id="editUser"
                                             hx-get="{{ route('admin.users.edit', $user->id) }}"
                                             hx-target="#dialog"
                                             hx-swap="innerHTML"
                                         >Edit</x-button>
                                         <x-button
-                                            id="delete-user"
+                                            id="deleteUser"
                                             style="danger"
                                             hx-get="{{ route('admin.users.delete', $user->id) }}"
                                             hx-target="#dialog"

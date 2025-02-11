@@ -1,5 +1,5 @@
 <form
-    hx-post="{{ route('admin.users.create') }}"
+    hx-post="{{ route('admin.users.store') }}"
     hx-indicator="#spinner"
     id="modal-content"
 >

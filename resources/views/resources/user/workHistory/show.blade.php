@@ -13,13 +13,16 @@
                             Current
                         @endif
                         <span class="text-xs italic text-gray-400">({{ $wh->calcYearsInCompany() }})</span>
+                        @if ($wh->is_draft)
+                            <span>Unpublished</span>
+                        @endif
                     </time>
                     <h3 class="text-lg font-semibold text-gray-900">{{ $wh->position }}</h3>
                     <p class="text-sm font-medium uppercase text-gray-600">{{ $wh->company_name }}</p>
                 </div>
                 <div class="flex space-x-3">
                     <button
-                        hx-get="{{ route('workHistory.edit', $wh->id) }}"
+                        hx-get="{{ route('users.workHistories.edit', $wh->id) }}"
                         hx-target="#dialog"
                         hx-swap="innerHTML"
                         class="flex cursor-pointer items-center font-semibold uppercase tracking-[0.03rem] text-navyblue-500"
@@ -27,7 +30,7 @@
                         Edit
                     </button>
                     <button
-                        hx-get="{{ route('workHistory.delete', $wh->id) }}"
+                        hx-get="{{ route('users.workHistories.delete', $wh->id) }}"
                         hx-target="#dialog"
                         hx-swap="innerHTML"
                         class="flex cursor-pointer items-center font-semibold uppercase tracking-[0.03rem] text-red-500"

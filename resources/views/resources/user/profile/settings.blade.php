@@ -72,26 +72,26 @@
                     <h3 class="text-lg font-semibold">
                         Manage Work History
                     </h3>
-                    <div>
+                    <div class="flex space-x-2">
                         @if (auth()->user()->hasUnpublishedWorkHistories())
                             <x-button
                                 id="publishWorkHistories"
                                 size="sm"
-                                hx-put="{{ route('workHistory.publish') }}"
+                                hx-put="{{ route('users.workHistories.publish') }}"
                             >Publish All</x-button>
                         @endif
                         <x-button
                             id="addPrevWork"
                             size="sm"
-                            hx-get="{{ route('workHistory.create') }}"
+                            hx-get="{{ route('users.workHistories.create') }}"
                             hx-target="#dialog"
                             hx-swap="innerHTML"
                         >Add Previous Work</x-button>
                     </div>
                 </div>
                 <div
-                    hx-get="{{ route('workHistory.show') }}"
-                    hx-trigger="reloadWorkHistories from:body"
+                    hx-get="{{ route('users.workHistories') }}"
+                    hx-trigger="loadWorkHistories from:body"
                     hx-swap="innerHTML"
                 >
                     @include('resources.user.workHistory.show', ['workHistory' => $user->workHistory])

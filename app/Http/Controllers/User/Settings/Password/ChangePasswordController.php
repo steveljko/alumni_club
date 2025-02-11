@@ -20,7 +20,7 @@ final class ChangePasswordController extends Controller
         }
 
         return $this->redirectWithToast(
-            route: 'auth.settings',
+            route: 'users.settings',
             message: __('auth.successful_password_change')
         );
     }

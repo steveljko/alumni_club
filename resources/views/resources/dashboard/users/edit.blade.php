@@ -1,7 +1,6 @@
   <form
-      hx-put="{{ route('admin.users.edit', $user) }}"
+      hx-put="{{ route('admin.users.update', $user) }}"
       hx-indicator="#spinner"
-      class="w-full"
       id="modal-content"
   >
       <x-modal.header>Edit User</x-modal.header>

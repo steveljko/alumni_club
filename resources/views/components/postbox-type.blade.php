@@ -1,6 +1,6 @@
 <div class="ml-[56px] flex space-x-2">
     <button
-        hx-get="{{ route('post.create.form', ['type' => 'default']) }}"
+        hx-get="{{ route('posts.getForm', ['type' => 'default']) }}"
         hx-target="form"
         hx-swap="outerHTML"
         hx-indicator="#defaultIndicator"
@@ -15,7 +15,7 @@
         <span class="text-sm font-medium tracking-[-0.02rem]">Default</span>
     </button>
     <button
-        hx-get="{{ route('post.create.form', ['type' => 'event']) }}"
+        hx-get="{{ route('posts.getForm', ['type' => 'event']) }}"
         hx-target="form"
         hx-swap="outerHTML"
         hx-indicator="#eventIndicator"
@@ -30,7 +30,7 @@
         <span class="text-sm font-medium tracking-[-0.02rem]">Event</span>
     </button>
     <button
-        hx-get="{{ route('post.create.form', ['type' => 'job']) }}"
+        hx-get="{{ route('posts.getForm', ['type' => 'job']) }}"
         hx-target="form"
         hx-swap="outerHTML"
         hx-indicator="#jobIndicator"

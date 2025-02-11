@@ -11,7 +11,7 @@
         <x-modal.button variant="secondary" data-hide-modal="true">Cancel</x-modal.button>
         <x-modal.button
             variant="danger"
-            hx-delete="{{ route('post.comment.delete', $comment) }}"
+            hx-delete="{{ route('posts.comments.destroy', $comment) }}"
             hx-indicator="#spinner"
         >Delete comment</x-modal.button>
     </x-modal.footer>
