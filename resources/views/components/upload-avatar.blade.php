@@ -1,6 +1,6 @@
 <div>
     <h4 class="mb-4 text-base font-medium text-gray-700">Avatar</h4>
-    <div class="flex items-center justify-between">
+    <div class="block items-center justify-between md:flex">
         <div class="flex items-center space-x-4">
             <img
                 class="h-20 w-20 rounded-full"

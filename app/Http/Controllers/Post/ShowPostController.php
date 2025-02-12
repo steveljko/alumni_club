@@ -9,7 +9,7 @@ final class ShowPostController
 {
     public function __invoke(Post $post): View
     {
-        $post->loadCount('comments')->get();
+        $post->loadCount(['likes', 'comments'])->get();
 
         return view('components.post-card', compact('post'));
     }

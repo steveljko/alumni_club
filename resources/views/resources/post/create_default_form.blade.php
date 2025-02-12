@@ -1,7 +1,8 @@
 <form
     class="w-full"
-    hx-indicator="#defaultFormSpinner"
     hx-post="{{ route('posts.store', ['type' => 'default']) }}"
+    hx-indicator="#defaultFormSpinner"
+    id="postbox_form"
 >
     @csrf
     <div class="flex w-full items-start">

@@ -61,6 +61,14 @@ htmx.on('htmx:beforeSwap', (e) => {
     }
 });
 
+document.addEventListener('htmx:afterRequest', function (event) {
+    if (event.target.id == 'postbox_form') {
+        if (event.detail.successful) {
+            event.target.reset();
+        }
+    }
+});
+
 document.addEventListener('htmx:responseError', function (event) {
     const errors = JSON.parse(event.detail.xhr.response).errors;
 

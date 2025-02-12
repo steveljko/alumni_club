@@ -11,7 +11,7 @@ final class ShowProfileController
     public function __invoke(User $user): View|string
     {
         $user->load(['posts' => function ($query) {
-            $query->orderBy('created_at', 'desc')->withCount('comments');
+            $query->orderBy('created_at', 'desc')->withCount(['likes', 'comments']);
         }, 'posts.user']);
 
         [$postCount, $commentCount] = Redis::hmget('user_stats:'.$user->id, ['posts', 'comments']);

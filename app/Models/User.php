@@ -122,14 +122,14 @@ class User extends Authenticatable
     }
 
     /** Post likes */
-    public function likes()
+    public function likedPosts()
     {
-        return $this->belongsToMany(Post::class, 'post_likes', 'user_id', 'post_id');
+        return $this->belongsToMany(Post::class, 'posts_likes', 'user_id', 'post_id');
     }
 
     public function isLiked(Post $post)
     {
-        return $this->likes()->where('post_id', $post->id)->exists();
+        return $this->likedPosts()->where('post_id', $post->id)->exists();
     }
 
     public function likePost(Post $post)
@@ -138,7 +138,7 @@ class User extends Authenticatable
             return false;
         }
 
-        $this->likes()->attach($post->id);
+        $this->likedPosts()->attach($post->id);
 
         return true;
     }
@@ -149,7 +149,7 @@ class User extends Authenticatable
             return false;
         }
 
-        $this->likes()->detach($post->id);
+        $this->likedPosts()->detach($post->id);
 
         return true;
     }

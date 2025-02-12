@@ -51,6 +51,7 @@ use App\Http\Controllers\User\WorkHistory\SkipAddingWorkHistoryController;
 use App\Http\Controllers\User\WorkHistory\UpdateWorkHistoryController;
 use App\Http\Middleware\AccountSetupCompleted;
 use App\Http\Middleware\CanAccessSetupStep;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -218,7 +219,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => ['auth', 'ro
 
     Route::group(['prefix' => 'settings', 'as' => '.settings'], function () {
         Route::view('/', 'resources.dashboard.settings');
-        Route::patch('/', UpdateAppSettingsController::class);
+        Route::put('/', UpdateAppSettingsController::class);
     });
 });
 

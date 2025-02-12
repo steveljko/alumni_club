@@ -29,13 +29,6 @@
                             <p class="truncate text-sm font-medium leading-5 text-gray-900">{{ auth()->user()->name }}</p>
                         </div>
                         <div class="py-1">
-                            @role('admin')
-                                <a
-                                    class="flex w-full cursor-pointer justify-between px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
-                                    role="menuitem"
-                                    href="{{ route('admin.dashboard') }}"
-                                >Admin Dashboard</a>
-                            @endrole
                             <a
                                 class="flex w-full cursor-pointer justify-between px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
                                 role="menuitem"
@@ -46,11 +39,17 @@
                                 role="menuitem"
                                 href="{{ route('users.settings') }}"
                             >Account settings</a>
+                            @role('admin')
+                                <a
+                                    class="flex w-full cursor-pointer justify-between px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
+                                    role="menuitem"
+                                    href="{{ route('admin.dashboard') }}"
+                                >Admin Dashboard</a>
+                            @endrole
                             <a
                                 class="flex w-full cursor-pointer justify-between px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
                                 role="menuitem"
                                 hx-delete="{{ route('auth.logout') }}"
-                                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
                             >Sign out</a>
                         </div>
                     </div>
@@ -60,18 +59,30 @@
         <!-- mobile nav -->
         <div id="account_dropdown_mobile" class="hidden w-full border-t border-gray-200 transition duration-500 md:hidden">
             <div role="menu">
-                <div>
+                <div class="pt-2">
                     <p class="text-sm leading-5">Signed in as</p>
                     <p class="truncate text-sm font-medium leading-5 text-gray-900">{{ auth()->user()->name }}</p>
                 </div>
                 <div class="py-1">
-                    <a class="flex w-full cursor-pointer justify-between text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
-                        role="menuitem">Account settings</a>
                     <a
-                        class="flex w-full cursor-pointer justify-between text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
+                        class="flex w-full cursor-pointer justify-between py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
                         role="menuitem"
-                        hx-delete="{{ route('auth.logout') }}"
-                        hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                        href="{{ route('users.profile', auth()->user()) }}"
+                    >Profile</a>
+                    <a
+                        class="flex w-full cursor-pointer justify-between py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                        href="{{ route('users.settings') }}"
+                    >Account settings</a>
+                    @role('admin')
+                        <a
+                            class="flex w-full cursor-pointer justify-between py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
+                            role="menuitem"
+                            href="{{ route('admin.dashboard') }}"
+                        >Admin Dashboard</a>
+                    @endrole
+                    <a class="flex w-full cursor-pointer justify-between py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
                     >Sign out</a>
                 </div>
             </div>

@@ -1,8 +1,8 @@
 @extends('layouts.home')
 
 @section('content')
-    <div class="container mx-auto mt-4 flex items-start space-x-8">
-        <div class="sticky top-4 w-1/3 space-y-4">
+    <div class="container mx-auto mt-4 block items-start space-x-0 md:flex md:space-x-8">
+        <div class="static top-4 w-full space-y-4 md:sticky md:w-1/3">
             <div class="w-full rounded-lg bg-white shadow">
                 <h3 class="rounded-t-lg border-b border-gray-200 bg-gray-100 p-3 text-sm font-semibold uppercase tracking-[0.03rem] text-gray-700">
                     Profile
@@ -18,7 +18,7 @@
                 <a href="#change-password" class="block px-3 py-2 text-gray-800 hover:bg-gray-100">Change Password</a>
             </div>
         </div>
-        <div class="w-full space-y-6">
+        <div class="mt-4 w-full space-y-6 md:mt-0">
             <div class="w-full rounded-md bg-white p-6 shadow">
                 <h3 class="mb-4 text-lg font-semibold">Account Settings</h3>
                 <div id="account-settings" class="flex flex-col">
@@ -32,7 +32,6 @@
                         hx-indicator="#accountSettingsSpinner"
                         hx-swap="none"
                     >
-                        @csrf
                         <x-form-input
                             label="Name"
                             name="name"
@@ -58,11 +57,13 @@
                             :value="$user->bio"
                             limit="256"
                         />
-                        <x-button
-                            type="submit"
-                            id="accountSettings"
-                            spinner="true"
-                        >Change</x-button>
+                        <div class="flex justify-end">
+                            <x-button
+                                type="submit"
+                                id="accountSettings"
+                                spinner="true"
+                            >Change</x-button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -105,7 +106,6 @@
                     hx-indicator="#changePasswordSpinner"
                     hx-swap="none"
                 >
-                    @csrf
                     <x-form-input
                         label="Password"
                         type="password"
@@ -121,14 +121,16 @@
                         type="password"
                         name="current_password"
                     />
-                    <x-button
-                        type="submit"
-                        id="changePassword"
-                        spinner="true"
-                        size="md"
-                    >
-                        Change Password
-                    </x-button>
+                    <div class="flex justify-end">
+                        <x-button
+                            type="submit"
+                            id="changePassword"
+                            spinner="true"
+                            size="md"
+                        >
+                            Change Password
+                        </x-button>
+                    </div>
                 </form>
             </div>
         </div>
