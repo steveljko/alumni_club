@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 
 class PostObserver
@@ -13,6 +14,7 @@ class PostObserver
     public function created(Post $post): void
     {
         Redis::hincrby("user_stats:$post->user_id", 'posts', 1);
+        Cache::forget('dashboard_stats');
     }
 
     /**

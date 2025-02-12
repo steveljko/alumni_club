@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 
 class UserObserver
@@ -17,6 +18,8 @@ class UserObserver
             'comments' => 0,
             'likes' => 0,
         ]);
+
+        Cache::forget('dashboard_stats');
 
         $user->assignRole('alumni');
     }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\UserLogoutController;
 use App\Http\Controllers\Dashboard\AppSettings\UpdateAppSettingsController;
 use App\Http\Controllers\Dashboard\Post\ShowPostController as DashboardShowPostController;
 use App\Http\Controllers\Dashboard\Post\ShowPostsController;
+use App\Http\Controllers\Dashboard\ShowDashboardController;
 use App\Http\Controllers\Dashboard\User\CreateUserController;
 use App\Http\Controllers\Dashboard\User\DeleteUserController;
 use App\Http\Controllers\Dashboard\User\DestroyUserController;
@@ -192,7 +193,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => ['auth', 'ro
         return redirect()->route('admin.dashboard');
     });
 
-    Route::view('/dashboard', 'resources.dashboard.dashboard')->name('.dashboard');
+    Route::get('/dashboard', ShowDashboardController::class)->name('.dashboard');
 
     Route::group(['prefix' => 'users', 'as' => '.users'], function () {
         // Create user
@@ -228,3 +229,6 @@ Route::get('/home', ShowHomeController::class)
     ->name('home');
 
 Route::get('/redirect', RedirectController::class)->name('redirect');
+Route::get('/asd', function () {
+    return User::find(11)->likedPosts;
+});
