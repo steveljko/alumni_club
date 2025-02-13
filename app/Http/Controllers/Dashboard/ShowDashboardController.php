@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Activity;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
@@ -19,6 +20,8 @@ final class ShowDashboardController
             ];
         });
 
-        return view('resources.dashboard.dashboard', compact('stats'));
+        $activities = Activity::orderBy('created_at', 'DESC')->limit(10)->get();
+
+        return view('resources.dashboard.dashboard', compact('stats', 'activities'));
     }
 }

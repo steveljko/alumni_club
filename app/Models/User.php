@@ -18,12 +18,12 @@ use Spatie\Permission\Traits\HasRoles;
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
 {
-    use CanChangePassword,
-        CanResetPassword,
-        HasFactory,
-        HasRoles,
-        Notifiable,
-        SoftDeletes;
+    use CanChangePassword;
+    use CanResetPassword;
+    use HasFactory;
+    use HasRoles;
+    use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -152,5 +152,11 @@ class User extends Authenticatable
         $this->likedPosts()->detach($post->id);
 
         return true;
+    }
+
+    /** Activities */
+    public function activities(): HasMany
+    {
+        return $this->hasMany(Activity::class);
     }
 }

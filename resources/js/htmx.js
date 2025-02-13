@@ -3,6 +3,7 @@ import htmx from 'htmx.org';
 import modal from './modal';
 import toast from './toast';
 import { Cropt } from 'cropt';
+import { highlightAll } from '@speed-highlight/core';
 
 window.htmx = htmx;
 
@@ -45,6 +46,8 @@ htmx.onLoad((el) => {
                 });
         });
     }
+
+    highlightAll();
 });
 
 htmx.on('htmx:afterSwap', (e) => {

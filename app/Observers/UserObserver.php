@@ -23,4 +23,12 @@ class UserObserver
 
         $user->assignRole('alumni');
     }
+
+    /**
+     * Handle the User "deleted" event.
+     */
+    public function deleted(Post $post): void
+    {
+        Cache::forget('dashboard_stats');
+    }
 }

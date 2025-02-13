@@ -2,9 +2,12 @@
 
 namespace App\Http\Actions\Post;
 
+use App\Enums\Activity\ActivityEventType;
 use App\Enums\Post\PostStatus;
 use App\Enums\Post\PostType;
+use App\Http\Actions\Activity\LogUserActivity;
 use App\Models\Post;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 final class CreatePost
@@ -18,11 +21,13 @@ final class CreatePost
                 'user_id' => auth()->user()->id,
             ]);
 
-            return match ($type) {
+            $post = match ($type) {
                 PostType::DEFAULT => $this->createDefaultPost($post, $data),
                 PostType::EVENT => $this->createEventPost($post, $data),
                 PostType::JOB => $this->createJobPost($post, $data),
             };
+
+            $this->logActivity(model: $post);
         });
     }
 
@@ -48,5 +53,14 @@ final class CreatePost
         $post->load('job');
 
         return $post;
+    }
+
+    private function logActivity(Model $model): void
+    {
+        (new LogUserActivity)->execute(
+            user: auth()->user(),
+            model: $model,
+            eventType: ActivityEventType::CREATE,
+        );
     }
 }
