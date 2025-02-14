@@ -1,6 +1,6 @@
 <div
     id="modal-container"
-    class="fixed z-[60] hidden hidden h-screen w-full"
+    class="fixed z-[60] hidden hidden h-screen w-full overflow-y-auto"
     tabindex="-1"
     role="dialog"
     aria-labelledby="#modal-title"
