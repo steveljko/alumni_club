@@ -11,8 +11,6 @@ final class ShowWorkHistoryController
     {
         $workHistory = auth()->user()
             ->workHistory()
-            ->orderBy('start_date', 'desc')
-            ->orderBy('created_at', 'desc')
             ->get();
 
         return view('resources.user.workHistory.show', compact('workHistory'));

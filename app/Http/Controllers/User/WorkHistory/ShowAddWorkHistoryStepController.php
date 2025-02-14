@@ -10,8 +10,6 @@ final class ShowAddWorkHistoryStepController
     {
         $workHistory = auth()->user()
             ->workHistory()
-            ->orderBy('start_date', 'desc')
-            ->orderBy('created_at', 'desc')
             ->get();
 
         return view('resources.auth.setup.add_work_history', compact('workHistory'));

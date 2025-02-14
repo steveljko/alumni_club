@@ -3,10 +3,8 @@
 namespace App\Http\Actions\Auth;
 
 use App\Http\Requests\Auth\CreateUserRequest;
-use App\Mail\Auth\SendPasswordToNewlyCreatedUserMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 final class CreateUser

@@ -9,6 +9,8 @@ final class ShowActivityController
 {
     public function __invoke(Activity $activity): View
     {
+        $activity->load('user');
+
         return view('resources.dashboard.activities.show', compact('activity'));
     }
 }

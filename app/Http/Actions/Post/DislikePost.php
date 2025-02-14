@@ -13,6 +13,8 @@ final class DislikePost
             return false;
         }
 
-        return $user->dislikePost($post);
+        $user->likedPosts()->detach($post);
+
+        return true;
     }
 }

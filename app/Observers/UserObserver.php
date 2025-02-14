@@ -27,7 +27,7 @@ class UserObserver
     /**
      * Handle the User "deleted" event.
      */
-    public function deleted(Post $post): void
+    public function deleted(User $post): void
     {
         Cache::forget('dashboard_stats');
     }

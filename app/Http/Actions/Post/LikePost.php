@@ -13,6 +13,8 @@ final class LikePost
             return false;
         }
 
-        return $user->likePost($post);
+        $user->likedPosts($post)->attach($post);
+
+        return true;
     }
 }

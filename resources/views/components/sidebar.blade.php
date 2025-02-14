@@ -1,4 +1,4 @@
-<div class="h-screen w-1/6 overflow-y-scroll border-r bg-white shadow">
+<div class="sticky top-0 h-screen w-1/6 overflow-y-scroll border-r bg-white shadow">
     <ul class="flex h-screen w-full flex-col justify-between p-4">
         <div class="space-y-2">
             <x-sidebar-nav-item route="admin.dashboard">

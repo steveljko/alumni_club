@@ -8,6 +8,7 @@ use App\Traits\Auth\CanChangePassword;
 use App\Traits\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -88,8 +89,10 @@ class User extends Authenticatable
         return $this->setup_progress == AccountSetupProgress::COMPLETED->value;
     }
 
-    /**
-     * User's previous work history
+    /*
+     * ##########################
+     * #      Work History      #
+     * ##########################
      */
     public function workHistory(): HasMany
     {
@@ -98,6 +101,13 @@ class User extends Authenticatable
             ->orderBy('created_at', 'desc');
     }
 
+    // Check if user has unpublished works
+    public function hasUnpublishedWorkHistories(): bool
+    {
+        return $this->workHistory()->where('is_draft', true)->count() >= 1;
+    }
+
+    // Get user current work
     public function currentWork(): ?WorkHistory
     {
         return Cache::rememberForever('current_work:'.$this->id, function () {
@@ -105,56 +115,40 @@ class User extends Authenticatable
         });
     }
 
-    /**
-     * Check if user has unpublished work histories
-     */
-    public function hasUnpublishedWorkHistories(): bool
-    {
-        return $this->workHistory()->where('is_draft', true)->count() >= 1;
-    }
-
-    /**
-     * User posts
+    /*
+     * ##########################
+     * #       User Posts       #
+     * ##########################
      */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
 
-    /** Post likes */
-    public function likedPosts()
+    /*
+     * ##########################
+     * #  Posts liked by user   #
+     * ##########################
+     */
+    public function likedPosts(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'posts_likes', 'user_id', 'post_id');
+        return $this->belongsToMany(Post::class, PostLike::class);
     }
 
-    public function isLiked(Post $post)
+    // Check if provided post is liked by user
+    public function isLiked(Post $post): bool
     {
-        return $this->likedPosts()->where('post_id', $post->id)->exists();
+        return $this
+            ->likedPosts()
+            ->where('post_id', $post->id)
+            ->exists();
     }
 
-    public function likePost(Post $post)
-    {
-        if ($this->isLiked($post)) {
-            return false;
-        }
-
-        $this->likedPosts()->attach($post->id);
-
-        return true;
-    }
-
-    public function dislikePost(Post $post)
-    {
-        if (! $this->isLiked($post)) {
-            return false;
-        }
-
-        $this->likedPosts()->detach($post->id);
-
-        return true;
-    }
-
-    /** Activities */
+    /*
+     * ##########################
+     * #       Activities       #
+     * ##########################
+     */
     public function activities(): HasMany
     {
         return $this->hasMany(Activity::class);
