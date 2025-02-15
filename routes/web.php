@@ -55,6 +55,7 @@ use App\Http\Controllers\User\WorkHistory\SkipAddingWorkHistoryController;
 use App\Http\Controllers\User\WorkHistory\UpdateWorkHistoryController;
 use App\Http\Middleware\AccountSetupCompleted;
 use App\Http\Middleware\CanAccessSetupStep;
+use App\Http\Middleware\MaintenanceMode;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -233,7 +234,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => ['auth', 'ro
 });
 
 Route::get('/home', ShowHomeController::class)
-    ->middleware(['auth', AccountSetupCompleted::class])
+    ->middleware(['auth', AccountSetupCompleted::class, MaintenanceMode::class])
     ->name('home');
+
+Route::get('/maintenance', function () {
+    return view('resources.maintenance');
+})->name('maintenance');
 
 Route::get('/redirect', RedirectController::class)->name('redirect');

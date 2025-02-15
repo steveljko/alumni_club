@@ -10,7 +10,7 @@ final class ShowUsersWorkHistoryController
     public function __invoke(User $user): View
     {
         return view('resources.user.workHistory.show', [
-            'workHistory' => $user->workHistory,
+            'user' => $user,
         ]);
     }
 }

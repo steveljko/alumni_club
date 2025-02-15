@@ -1,7 +1,7 @@
-<div hx-get="{{ route('users.profile.workHistories', $workHistory[0]->user_id) }}" hx-trigger="loadWorkHistories from:body">
-    @if (count($workHistory))
+<div hx-get="{{ route('users.profile.workHistories', $user) }}" hx-trigger="loadWorkHistories from:body">
+    @if (count($user->workHistory))
         <ol class="relative space-y-8 border-s border-gray-500">
-            @foreach ($workHistory as $wh)
+            @foreach ($user->workHistory as $wh)
                 <li class="ms-6">
                     <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-500 bg-gray-500">
                     </div>

@@ -1,8 +1,9 @@
-<div id="toast"
+<div
+    id="toast"
     role="status"
-    class="{{ session('toast') ? 'block' : 'hidden' }} fixed bottom-8 left-1/2 z-10 min-w-[250px] -translate-x-1/2 transform rounded-md bg-white text-center text-blue-50 shadow">
-    <div id="toast_msg"
-        class="py-3 text-gray-700">
+    class="{{ session('toast') ? 'block' : 'hidden' }} fixed bottom-8 left-1/2 z-10 min-w-[250px] -translate-x-1/2 transform rounded-md bg-white px-4 text-center text-blue-50 shadow"
+>
+    <div id="toast_msg" class="py-3 text-gray-700">
         @if (session('toast'))
             {{ session('toast') }}
         @endif

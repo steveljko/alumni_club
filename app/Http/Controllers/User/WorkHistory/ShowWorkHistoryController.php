@@ -9,10 +9,9 @@ final class ShowWorkHistoryController
 {
     public function __invoke(Request $request): View
     {
-        $workHistory = auth()->user()
-            ->workHistory()
-            ->get();
+        $user = auth()->user()
+            ->load('workHistory');
 
-        return view('resources.user.workHistory.show', compact('workHistory'));
+        return view('resources.user.workHistory.show', compact('user'));
     }
 }
