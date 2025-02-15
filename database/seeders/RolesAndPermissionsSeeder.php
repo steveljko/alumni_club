@@ -35,31 +35,43 @@ class RolesAndPermissionsSeeder extends Seeder
             ['name' => 'delete any user', 'guard_name' => 'web'],
         ]);
 
+        Permission::insertOrIgnore([
+            ['name' => 'create work history', 'guard_name' => 'web'],
+            ['name' => 'edit any work history', 'guard_name' => 'web'],
+            ['name' => 'edit own work history', 'guard_name' => 'web'],
+            ['name' => 'delete any work history', 'guard_name' => 'web'],
+            ['name' => 'delete own work history', 'guard_name' => 'web'],
+        ]);
+
         Role::create(['name' => 'alumni'])
             ->givePermissionTo([
                 'create post',
                 'create comment',
+                'create work history',
 
                 'edit own post',
                 'edit own comment',
+                'edit own work history',
 
                 'delete own post',
-                'delete own comment',
+                'delete own work history',
             ]);
 
         Role::create(['name' => 'admin'])
             ->givePermissionTo([
+                'create user',
                 'create post',
                 'create comment',
-                'create user',
 
+                'edit any user',
                 'edit any post',
                 'edit any comment',
-                'edit any user',
+                'edit any work history',
 
+                'delete any user',
                 'delete any post',
                 'delete any comment',
-                'delete any user',
+                'delete any work history',
             ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Actions\Auth;
 
+use App\Enums\Activity\ActivityEventType;
 use App\Http\Actions\Activity\LogUserActivity;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;

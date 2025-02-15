@@ -21,7 +21,11 @@
                         <div class="p-2">
                             <div class="flex items-center justify-between">
                                 <span class="mb-2 block text-xs font-semibold uppercase text-gray-700">Current Job</span>
-                                <a href="#" class="text-sm hover:underline">See History</a>
+                                <a
+                                    class="cursor-pointer text-sm hover:underline"
+                                    hx-get="{{ route('users.workHistories.show', $user) }}"
+                                    hx-target="#content"
+                                >See History</a>
                             </div>
                             <div>
                                 <p class="text-sm font-medium">{{ $user->currentWork()->position }}</p>
@@ -45,43 +49,26 @@
                 </div>
             </div>
 
-            <div class="w-full rounded-md bg-white p-4 shadow">
-                <div class="mb-4 flex items-center justify-between">
-                    @fragment('posts-count')
-                        <h3 id="count" class="text-lg font-semibold">
-                            Previous Posts
-                            <span class="font-medium text-gray-500">({{ $user->posts->count() }})</span>
-                        </h3>
-                    @endfragment
-                    @if (count($user->posts))
-                        <select
-                            name="type"
-                            hx-get=""
-                            hx-trigger="change"
-                            hx-include="[name='type']"
-                            hx-target="#posts"
-                            hx-select-oob="#count:outerHTML,#posts:innerHTML"
-                            class="cursor-pointer rounded border border-gray-200 bg-transparent p-2 text-sm text-gray-700 shadow"
-                            autocomplete="off"
-                        >
-                            <option value="" selected>All</option>
-                            <option value="default">Default</option>
-                            <option value="event">Events</option>
-                            <option value="job">Jobs</option>
-                        </select>
-                    @endif
+            <div class="w-full rounded-md bg-white shadow">
+                <div class="flex space-x-2 p-4 pb-0">
+                    <x-button
+                        id="postsBtn"
+                        size="sm"
+                        hx-get="{{ route('users.profile.posts', $user) }}"
+                        hx-target="#content"
+                    >Posts</x-button>
+                    <x-button
+                        id="workHistoryBtn"
+                        size="sm"
+                        hx-get="{{ route('users.profile.workHistories', $user) }}"
+                        hx-target="#content"
+                    >Work History</x-button>
                 </div>
-
-                <div class="space-y-4" id="posts">
-                    @fragment('posts')
-                        @if (count($user->posts))
-                            @foreach ($user->posts as $post)
-                                <x-post-card :post="$post" />
-                            @endforeach
-                        @else
-                            <p>No posts found!</p>
-                        @endif
-                    @endfragment
+                <div class="p-4" id="content">
+                    @include('resources.post.show', [
+                        'user' => $user,
+                        'posts' => $user->posts,
+                    ])
                 </div>
             </div>
         </div>

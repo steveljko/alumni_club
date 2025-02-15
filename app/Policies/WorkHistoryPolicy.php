@@ -15,7 +15,13 @@ class WorkHistoryPolicy
      */
     public function update(User $user, WorkHistory $workHistory): bool
     {
-        return false;
+        if ($user->can('edit any work history')) {
+            return true;
+        }
+
+        if ($user->can('edit own work history')) {
+            return $workHistory->user_id === $user->id;
+        }
     }
 
     /**
@@ -23,6 +29,12 @@ class WorkHistoryPolicy
      */
     public function delete(?User $user, ?WorkHistory $workHistory): bool
     {
-        return $workHistory->user_id === $user->id;
+        if ($user->can('delete any work history')) {
+            return true;
+        }
+
+        if ($user->can('delete own work history')) {
+            return $workHistory->user_id === $user->id;
+        }
     }
 }

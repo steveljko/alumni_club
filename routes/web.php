@@ -28,6 +28,7 @@ use App\Http\Controllers\Post\GetPostFormController;
 use App\Http\Controllers\Post\Like\DislikePostController;
 use App\Http\Controllers\Post\Like\LikePostController;
 use App\Http\Controllers\Post\ShowPostController;
+use App\Http\Controllers\Post\ShowUserPostsController;
 use App\Http\Controllers\Post\UpdatePostController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\User\Settings\Avatar\CropAvatarController;
@@ -48,12 +49,12 @@ use App\Http\Controllers\User\WorkHistory\DestroyWorkHistoryController;
 use App\Http\Controllers\User\WorkHistory\EditWorkHistoryController;
 use App\Http\Controllers\User\WorkHistory\PublishWorkHistoryController;
 use App\Http\Controllers\User\WorkHistory\ShowAddWorkHistoryStepController;
+use App\Http\Controllers\User\WorkHistory\ShowUsersWorkHistoryController;
 use App\Http\Controllers\User\WorkHistory\ShowWorkHistoryController;
 use App\Http\Controllers\User\WorkHistory\SkipAddingWorkHistoryController;
 use App\Http\Controllers\User\WorkHistory\UpdateWorkHistoryController;
 use App\Http\Middleware\AccountSetupCompleted;
 use App\Http\Middleware\CanAccessSetupStep;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -115,6 +116,8 @@ Route::group([
 ], function () {
     // User profile
     Route::get('/profile/{user}', ShowProfileController::class)->name('.profile');
+    Route::get('/profile/{user}/posts', ShowUserPostsController::class)->name('.profile.posts');
+    Route::get('/profile/{user}/workHistory', ShowUsersWorkHistoryController::class)->name('.profile.workHistories');
 
     // User settings
     Route::group(['prefix' => 'settings', 'as' => '.settings'], function () {
@@ -139,6 +142,7 @@ Route::group([
 
         // Read work history
         Route::get('/', ShowWorkHistoryController::class);
+        Route::get('/{user}', ShowUsersWorkHistoryController::class)->name('.show');
 
         // Update work history
         Route::get('/{workHistory}/edit', EditWorkHistoryController::class)->name('.edit');
