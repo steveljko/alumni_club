@@ -22,5 +22,7 @@ class MaintenanceMode
 
             return redirect()->route('maintenance');
         }
+
+        return $next($request);
     }
 }

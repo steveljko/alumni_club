@@ -23,10 +23,5 @@
                 Home
             </x-sidebar-nav-item>
         </div>
-        <div>
-            <li class="flex items-center justify-between p-2">
-                <span class="truncate">{{ auth()->user()->name }}</span>
-            </li>
-        </div>
     </ul>
 </div>
