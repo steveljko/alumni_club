@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use App\Models\Comment;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redis;
 
 class CommentObserver
 {
@@ -13,7 +12,7 @@ class CommentObserver
      */
     public function created(Comment $comment): void
     {
-        Redis::hincrby("user_stats:$comment->user_id", 'comments', 1);
+        Cache::forget("user_stats:{$comment->user->id}");
         Cache::forget('dashboard_stats');
     }
 
@@ -22,6 +21,7 @@ class CommentObserver
      */
     public function deleted(Comment $comment): void
     {
+        Cache::forget("user_stats:{$comment->user->id}");
         Cache::forget('dashboard_stats');
     }
 }

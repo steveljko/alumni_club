@@ -10,10 +10,10 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Traits\HasRoles;
 
 #[ObservedBy([UserObserver::class])]
@@ -101,18 +101,18 @@ class User extends Authenticatable
             ->orderBy('created_at', 'desc');
     }
 
+    // Get users current work
+    public function currentWork(): HasOne
+    {
+        return $this
+            ->hasOne(WorkHistory::class)
+            ->where('end_date', null);
+    }
+
     // Check if user has unpublished works
     public function hasUnpublishedWorkHistories(): bool
     {
         return $this->workHistory()->where('is_draft', true)->count() >= 1;
-    }
-
-    // Get user current work
-    public function currentWork(): ?WorkHistory
-    {
-        return Cache::rememberForever('current_work:'.$this->id, function () {
-            return $this->workHistory()->where('end_date', null)->first() ?: null;
-        });
     }
 
     /*
@@ -123,6 +123,16 @@ class User extends Authenticatable
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
+    }
+
+    /*
+     * ##########################
+     * #     Comments Posts     #
+     * ##########################
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 
     /*

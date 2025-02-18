@@ -17,7 +17,7 @@
                             <p class="text-sm text-gray-700">{{ $user->bio }}</p>
                         </div>
                     @endif
-                    @if ($user->currentWork())
+                    @if ($user->currentWork)
                         <div class="p-2">
                             <div class="flex items-center justify-between">
                                 <span class="mb-2 block text-xs font-semibold uppercase text-gray-700">Current Job</span>
@@ -28,8 +28,8 @@
                                 >See History</a>
                             </div>
                             <div>
-                                <p class="text-sm font-medium">{{ $user->currentWork()->position }}</p>
-                                <a class="cursor-pointer text-xs text-gray-500">{{ $user->currentWork()->company_name }}</a>
+                                <p class="text-sm font-medium">{{ $user->currentWork?->position }}</p>
+                                <a class="cursor-pointer text-sm text-gray-500">{{ $user->currentWork?->company_name }}</a>
                             </div>
                         </div>
                     @endif
@@ -37,12 +37,12 @@
                         <span class="mb-2 block text-xs font-semibold uppercase text-gray-700">Statistics</span>
                         <div class="inline-flex w-full">
                             <div class="w-full">
-                                <h3>Posts</h3>
-                                <span>{{ $postCount }}</span>
+                                <h3 class="text-sm font-medium">Posts</h3>
+                                <span class="text-sm text-gray-600">{{ $stats['posts_count'] }}</span>
                             </div>
                             <div class="w-full">
-                                <h3>Comments</h3>
-                                <span>{{ $commentCount }}</span>
+                                <h3 class="text-sm font-medium">Comments</h3>
+                                <span class="text-sm text-gray-600">{{ $stats['comments_count'] }}</span>
                             </div>
                         </div>
                     </div>
