@@ -90,7 +90,7 @@
                               </button>
                           @else
                               <button hx-patch="{{ route('posts.like', $post) }}">
-                                  <x-icons.heart />
+                                  <x-icons.heart class="text-gray-500" />
                               </button>
                           @endif
                           <span class="text-sm">{{ $post->likes_count }}</span>

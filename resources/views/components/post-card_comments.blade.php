@@ -1,32 +1,52 @@
 <div hx-target="this">
-    <div id="postbox_footer" class="flex items-center border-y border-gray-100 py-4">
-        <div
-            class="mr-4 flex items-center"
-            hx-target="this"
-            hx-swap="innerHTML"
-        >
-            @fragment('like')
-                @if (auth()->user()->isLiked($post))
-                    <button hx-patch="{{ route('posts.dislike', $post) }}">
-                        <x-icons.heart class="text-red-500" />
-                    </button>
-                @else
-                    <button hx-patch="{{ route('posts.like', $post) }}">
-                        <x-icons.heart />
-                    </button>
-                @endif
-                <span class="text-sm">{{ $post->likes_count }}</span>
-            @endfragment
+    <div id="postbox_footer" class="flex items-center justify-between border-y border-gray-100 py-4">
+        <div class="inline-flex">
+            <div
+                class="mr-4 flex items-center"
+                hx-target="this"
+                hx-swap="innerHTML"
+            >
+                @fragment('like')
+                    @if (auth()->user()->isLiked($post))
+                        <button hx-patch="{{ route('posts.dislike', $post) }}">
+                            <x-icons.heart class="text-red-500" />
+                        </button>
+                    @else
+                        <button hx-patch="{{ route('posts.like', $post) }}">
+                            <x-icons.heart class="text-gray-500" />
+                        </button>
+                    @endif
+                    <span class="text-sm">{{ $post->likes_count }}</span>
+                @endfragment
+            </div>
+            <a
+                hx-get="{{ route('posts.comments', $post) }}"
+                hx-trigger="click, reloadComments.{{ $post->id }} from:body"
+                hx-swap="outerHTML"
+                class="flex cursor-pointer items-center"
+            >
+                <x-icons.chat-bubble />
+                <span class="text-sm text-gray-800">{{ $post->comments_count }}</span>
+            </a>
         </div>
-        <a
-            hx-get="{{ route('posts.comments', $post) }}"
-            hx-trigger="click, reloadComments.{{ $post->id }} from:body"
-            hx-swap="outerHTML"
-            class="flex cursor-pointer items-center"
-        >
-            <x-icons.chat-bubble />
-            <span class="text-sm text-gray-800">{{ $post->comments_count }}</span>
-        </a>
+        <div class="space-x-2">
+            @if (auth()->user()->can('edit', $post))
+                <a
+                    hx-get="{{ route('posts.edit', $post) }}"
+                    hx-target="#dialog"
+                    hx-swap="innerHTML"
+                    class="cursor-pointer font-medium uppercase tracking-[0.02rem] text-navyblue-500"
+                >Edit</a>
+            @endif
+            @if (auth()->user()->can('delete', $post))
+                <a
+                    hx-get="{{ route('posts.delete', $post) }}"
+                    hx-target="#dialog"
+                    hx-swap="innerHTML"
+                    class="cursor-pointer font-medium uppercase tracking-[0.02rem] text-red-500"
+                >Delete</a>
+            @endif
+        </div>
     </div>
     <div class="mt-4" id="comments">
         <h3>Comments ({{ $post->comments_count }})</h3>
@@ -46,6 +66,7 @@
                 </div>
             </form>
         </div>
+        <div class="my-4 w-full border-b border-gray-100"></div>
         <div class="space-y-4">
             @foreach ($post->comments as $comment)
                 <div>
