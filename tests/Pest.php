@@ -10,7 +10,6 @@
 | need to change it using the "pest()" function to bind a different classes or traits.
 |
 */
-uses(Tests\DuskTestCase::class)->in('Browser');
 
 /*
 |--------------------------------------------------------------------------

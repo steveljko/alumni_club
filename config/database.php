@@ -42,12 +42,6 @@ return [
             'synchronous' => null,
         ],
 
-        'dusk' => [
-            'driver' => 'sqlite',
-            'database' => database_path('dusk.sqlite'),
-            'prefix' => '',
-        ],
-
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
