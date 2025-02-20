@@ -1,6 +1,6 @@
 <div class="mb-3 w-full">
     <div class="flex justify-between">
-        <label for="{{ $name }}" class="mb-2 block text-gray-600">{{ $label }}</label>
+        <label for="{{ $name }}" class="mb-3 block text-sm font-medium text-gray-500">{{ $label }}</label>
         @if ($limit)
             <span class="block text-sm text-gray-500"><span id="current-letter-count">0</span> / {{ $limit }}</span>
         @endif

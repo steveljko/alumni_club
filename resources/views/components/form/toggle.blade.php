@@ -1,5 +1,5 @@
 <label class="mb-3 block cursor-pointer">
-    <label for="{{ $name }}" class="mb-2 block text-gray-600">{{ $label }}</label>
+    <label for="{{ $name }}" class="mb-3 block text-sm font-medium text-gray-500">{{ $label }}</label>
     <div class="inline-flex items-center">
         <input
             type="checkbox"
