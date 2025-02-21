@@ -20,7 +20,6 @@ class Post extends Model
     public $fillable = [
         'status',
         'type',
-        'likes_count',
         'published_at',
         'user_id',
     ];
