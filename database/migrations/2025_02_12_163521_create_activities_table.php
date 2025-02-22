@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('event');
             $table->string('model_name');
             $table->string('table_name');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->ipAddress('ip_address');
             $table->text('user_agent');
             $table->json('data')->nullable();

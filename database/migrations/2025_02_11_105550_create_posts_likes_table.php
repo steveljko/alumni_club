@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('posts_likes', function (Blueprint $table) {
-            $table->foreignId('post_id');
-            $table->foreignId('user_id');
+            $table->foreignId('post_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
 
             $table->index(['post_id', 'user_id']);
