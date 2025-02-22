@@ -14,7 +14,7 @@ The system defines three distinct account types, each tailored to specific roles
 #### 3. Share Previous Work History
 This feature allows users to showcase their professional backgrounds and experiences within the platform. Users can create detailed profiles that include previous job titles, companies worked for, duration of employment, and key responsibilities or achievements in each role.
 
-#### 4. Post and share upcoming events and recently looking jobs
+#### 4. Post and share upcoming events and recently available jobs
 There are three types of posts, each serving a unique purpose within the platform:
 1. **Default**: General posts that users can create to share updates, thoughts, or information with the community.
 2. **Event**: Specifically designed to promote and organize events within the community. Users can create event posts that include details such as the event title, date, time, location, and a description.
